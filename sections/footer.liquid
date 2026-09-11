@@ -16,9 +16,9 @@
         <h4>Platform</h4>
         <a href="{{ routes.root_url }}">Home</a>
         <a href="{{ routes.root_url }}#why-teknotize">About Us</a>
-        <a href="{{ routes.root_url }}#partnerships">Partnerships</a>
+        <a href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Partnerships</a>
         <a href="{{ store_url }}">Athlete Store</a>
-        <a href="{{ routes.root_url }}#contact">Contact Us</a>
+        <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact Us</a>
         <a href="{{ signup_url }}" target="_blank" rel="noopener">Athlete Dashboard</a>
         <a href="{{ agency_url }}" target="_blank" rel="noopener">NIL Agency</a>
       </div>
@@ -32,7 +32,7 @@
         <h4 style="margin-top:28px;">Shop</h4>
         <a href="{{ routes.all_products_collection_url }}">All Products</a>
         <a href="{{ routes.collections_url }}">Collections</a>
-        <a href="{{ routes.root_url }}#how-it-works">How It Works</a>
+        <a href="{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}">How It Works</a>
       </div>
     </div>
 

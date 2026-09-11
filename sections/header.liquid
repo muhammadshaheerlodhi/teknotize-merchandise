@@ -17,13 +17,39 @@
 
 
     <nav class="header-nav" aria-label="Primary" data-scroll-nav>
-      <a href="{{ routes.root_url }}#home"{% if template.name == 'index' %} class="is-active"{% endif %}>Home</a>
-      <a href="{{ store_url }}">Athlete Store</a>
-      <a href="{{ routes.root_url }}#why-teknotize">About</a>
-      <a href="{{ routes.root_url }}#how-it-works">How It Works</a>
-      <a href="{{ routes.root_url }}#reviews">Reviews</a>
-      <a href="{{ routes.root_url }}#contact">Contact</a>
-      <a href="{{ routes.root_url }}#partnerships">Partnerships</a>
+
+      {% if template.name == 'index' %}
+
+        <a href="#home" class="is-active">Home</a>
+
+        <a href="{{ store_url }}">Athlete Store</a>
+
+        <a href="#why-teknotize">About</a>
+
+        <a href="#how-it-works">How It Works</a>
+
+        <a href="#reviews">Reviews</a>
+
+        <a href="#contact">Contact</a>
+
+        <a href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Partnerships</a>
+
+      {% else %}
+
+        <a href="{{ routes.root_url }}">Home</a>
+
+        <a href="{{ store_url }}">Athlete Store</a>
+
+        <a href="{{ routes.root_url }}#why-teknotize">About</a>
+
+        <a href="{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}">How It Works</a>
+
+        <a href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Partnerships</a>
+
+        <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact</a>
+
+      {% endif %}
+
     </nav>
 
 
@@ -62,13 +88,19 @@
 
   <nav class="mobile-drawer" data-mobile-drawer aria-label="Mobile">
 
-    <a href="{{ routes.root_url }}#home">Home</a>
+    <a href="{% if template.name == 'index' %}#home{% else %}{{ routes.root_url }}{% endif %}">Home</a>
+
     <a href="{{ store_url }}">Athlete Store</a>
-    <a href="{{ routes.root_url }}#why-teknotize">About</a>
-    <a href="{{ routes.root_url }}#how-it-works">How It Works</a>
-    <a href="{{ routes.root_url }}#reviews">Reviews</a>
-    <a href="{{ routes.root_url }}#contact">Contact</a>
-    <a href="{{ routes.root_url }}#partnerships">Partnerships</a>
+
+    <a href="{% if template.name == 'index' %}#why-teknotize{% else %}{{ routes.root_url }}#why-teknotize{% endif %}">About</a>
+
+    <a href="{% if template.name == 'index' %}#how-it-works{% else %}{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}{% endif %}">How It Works</a>
+
+    <a href="{% if template.name == 'index' %}#reviews{% else %}{{ routes.root_url }}#reviews{% endif %}">Reviews</a>
+
+    <a href="{% if template.name == 'index' %}#contact{% else %}{{ pages.contact.url | default: '/pages/contact' }}{% endif %}">Contact</a>
+
+    <a href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Partnerships</a>
 
     <a href="{{ signup_url }}" target="_blank" rel="noopener">Athlete Sign Up</a>
 

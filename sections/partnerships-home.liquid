@@ -19,7 +19,7 @@
           {% elsif block.settings.link != blank %}
             <a class="btn btn-ghost" href="{{ block.settings.link }}">{{ block.settings.button }}</a>
           {% else %}
-            <a class="btn btn-ghost" href="{{ routes.root_url }}#partnerships">{{ block.settings.button }}</a>
+            <a class="btn btn-ghost" href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">{{ block.settings.button }}</a>
           {% endif %}
         </article>
       {% endfor %}
@@ -34,7 +34,7 @@
           <span class="card-icon" aria-hidden="true">🏟️</span>
           <h3>Teams & Programs</h3>
           <p>Custom team stores, fundraising drops, and fan gear for schools, clubs, and orgs. Turn your community into a revenue stream.</p>
-          <a class="btn btn-ghost" href="{{ routes.root_url }}#partnerships">Explore Team Stores</a>
+          <a class="btn btn-ghost" href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Explore Team Stores</a>
         </article>
       {% endif %}
       </div>
