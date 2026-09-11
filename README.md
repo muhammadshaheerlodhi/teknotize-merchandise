@@ -21,26 +21,35 @@ You already have collections for each athlete. They appear automatically on **At
 
 ## Local preview (before Shopify)
 
-A static demo lives in `preview/` so you can review the design locally:
+Install once, then run the local Liquid server. It renders the real theme files —
+`templates/*.json`, section groups, `{% schema %}` defaults and `{{ content_for_layout }}` —
+the same way Shopify does, so template and section errors show up before you push.
 
 ```bash
-npm run preview
+npm install
+npm run dev
 ```
 
-Then open **http://localhost:3000** in your browser.
+Then open **http://127.0.0.1:9292**.
 
-Preview pages:
+Routes: `/`, `/pages/<handle>`, `/collections`, `/collections/all`, `/products/<handle>`,
+`/cart`, `/search`, `/blogs`, `/account/*`, plus any unknown URL to exercise the 404 template.
 
-- http://localhost:3000 — Homepage
-- http://localhost:3000/collections.html — Athlete Stores
-- http://localhost:3000/signup.html — Athlete sign-up
-- http://localhost:3000/contact.html — Contact
-- http://localhost:3000/how-it-works.html — How It Works
-- http://localhost:3000/about.html — About
-- http://localhost:3000/partnerships.html — Partnerships
-- http://localhost:3000/agency.html — NIL Agency
+### Validate every template
 
-Note: Cart/checkout and forms are visual-only in preview. Full functionality works after importing the theme to Shopify.
+```bash
+npm run check
+```
+
+This renders all templates and fails on invalid JSON, missing section files, undefined block
+types, broken translation keys and any page whose `<main>` comes out empty. Run it before
+every push.
+
+Note: cart/checkout and forms are visual-only locally, and product/collection data is stubbed.
+Full functionality works after the theme is on Shopify.
+
+A separate static mock also lives in `preview/` (`npm run preview`, port 3000). It is a design
+reference only and is excluded from the theme upload.
 
 ## Import from GitHub
 

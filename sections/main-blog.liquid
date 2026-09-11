@@ -1,6 +1,6 @@
 <section class="main-page">
   <div class="page-width">
-    <p class="eyebrow">{{ blog.title }}</p>
+    <p class="eyebrow">Journal</p>
     <h1 class="section-title">{{ blog.title }}</h1>
     <div class="partners-grid">
       {%- for article in blog.articles -%}
@@ -11,6 +11,10 @@
           <h3>{{ article.title }}</h3>
           <p>{{ article.excerpt_or_content | strip_html | truncate: 140 }}</p>
         </a>
+      {%- else -%}
+        <div class="empty-state">
+          <p>No posts published yet. Check back soon.</p>
+        </div>
       {%- endfor -%}
     </div>
   </div>

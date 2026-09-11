@@ -2,9 +2,15 @@
   "name": "teknotize-merchandise-theme",
   "private": true,
   "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "check": "node scripts/check-theme.mjs",
     "preview": "npx serve preview -l 3000",
     "preview:8080": "npx serve preview -l 8080",
     "sync-preview-css": "node scripts/sync-preview-css.mjs",
     "build:theme": "node scripts/build-theme-zip.mjs"
+  },
+  "devDependencies": {
+    "express": "^5.2.1",
+    "liquidjs": "^10.29.0"
   }
 }
