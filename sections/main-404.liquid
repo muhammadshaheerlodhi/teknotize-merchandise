@@ -1,3 +1,10 @@
+{%- liquid
+  assign show_404 = true
+  if request.path == '/' or request.path == blank
+    assign show_404 = false
+  endif
+-%}
+{%- if show_404 -%}
 <section class="main-404">
   <div class="page-width empty-state">
     <p class="eyebrow">404</p>
@@ -9,6 +16,7 @@
     </div>
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {
