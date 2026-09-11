@@ -7,7 +7,7 @@
     "search": {
       "placeholder": "Search athletes, hoodies, tees...",
       "submit": "Search",
-      "no_results": "No results found for “{{ terms }}”.",
+      "no_results": "No results found for \"{{ terms }}\".",
       "results_count": "{{ count }} results"
     },
     "accessibility": {

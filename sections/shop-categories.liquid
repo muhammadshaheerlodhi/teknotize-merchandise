@@ -7,13 +7,15 @@
       {% if section.settings.intro != blank %}<p class="lede">{{ section.settings.intro }}</p>{% endif %}
     </div>
     <div class="category-grid reveal-stagger">
+      {% assign cat_images = 'category-hoodie.jpg,category-tee.jpg,category-fleece.jpg' | split: ',' %}
       {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
+          {% assign idx = forloop.index0 %}
           <a class="category-card crystal" href="{{ block.settings.link | default: store_url }}" {{ block.shopify_attributes }}>
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.title }}
             {%- else -%}
-              <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="640" height="480">
+              <img src="{{ cat_images[idx] | default: 'stores-athlete.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="640" height="480">
             {%- endif -%}
             <div class="card-overlay">
               <div class="card-kicker">Shop</div>
@@ -24,15 +26,15 @@
         {% endfor %}
       {% else %}
         <a class="category-card crystal" href="{{ store_url }}">
-          <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="Oversized Hoodies" loading="lazy" width="640" height="480">
+          <img src="{{ 'category-hoodie.jpg' | asset_url }}" alt="Oversized Hoodies" loading="lazy" width="640" height="480">
           <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Oversized Hoodies</h3><p>Heavyweight fleece. Boxy fit. Built for cold games and colder timelines.</p></div>
         </a>
         <a class="category-card crystal" href="{{ store_url }}">
-          <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="Boxy Tees" loading="lazy" width="640" height="480">
+          <img src="{{ 'category-tee.jpg' | asset_url }}" alt="Boxy Tees" loading="lazy" width="640" height="480">
           <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Boxy Tees</h3><p>Structured shoulders. Premium cotton. The tee that looks expensive on camera.</p></div>
         </a>
         <a class="category-card crystal" href="{{ store_url }}">
-          <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="Fleece Layers" loading="lazy" width="640" height="480">
+          <img src="{{ 'category-fleece.jpg' | asset_url }}" alt="Fleece Layers" loading="lazy" width="640" height="480">
           <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Fleece Layers</h3><p>Game-day warmups and post-win fits. Soft inside, sharp on the outside.</p></div>
         </a>
       {% endif %}

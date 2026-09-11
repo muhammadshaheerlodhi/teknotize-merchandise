@@ -44,11 +44,16 @@ Note: Cart/checkout and forms are visual-only in preview. Full functionality wor
 
 ## Import from GitHub
 
-1. Push this folder to a GitHub repo (theme files must stay at the repo root).
-2. In Shopify Admin: **Online Store → Themes → Add theme → Connect from GitHub**.
-3. Select the repo and branch, then publish.
+Theme folders stay at the repo root: `assets`, `config`, `layout`, `locales`, `sections`, `snippets`, `templates`.
 
-Or zip the theme (include `assets`, `config`, `layout`, `locales`, `sections`, `snippets`, `templates`) and upload via **Add theme → Upload zip file**.
+The homepage file is **`templates/index.json`**. Do not add `templates/index.liquid`.
+
+1. Connect **Online Store → Themes → Add theme → Connect from GitHub** to branch `main`.
+2. In Shopify: **Settings → Online store → Preferences → Homepage = Home page**.
+3. Open **Customize**. The Home page sidebar should list 11 sections.
+4. Publish the connected theme.
+
+Or run `npm run build:theme` and upload `teknotize-theme-upload.zip` via **Add theme → Upload zip file**.
 
 ## Theme editor
 
