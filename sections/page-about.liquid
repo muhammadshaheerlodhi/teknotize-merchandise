@@ -8,6 +8,7 @@
 
     <div class="orbit-cards reveal-stagger">
       {% assign orbit_fallbacks = 'hero-athlete.jpg,orbit-merch-camera.png,orbit-team-roster.png' | split: ',' %}
+      {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
         {% assign idx = forloop.index0 %}
         <article class="orbit-card crystal" tabindex="0" {{ block.shopify_attributes }}>
@@ -24,6 +25,11 @@
           </div>
         </article>
       {% endfor %}
+      {% else %}
+        <article class="orbit-card crystal" tabindex="0"><div class="orbit-card-media"><img src="{{ 'hero-athlete.jpg' | asset_url }}" alt="Launch Without the Overhead" loading="lazy" width="400" height="400"></div><div class="orbit-card-body"><h3>Launch Without the Overhead</h3><p class="orbit-desc">No upfront costs. No boxes in your garage. Get a pro storefront, custom designs, and a team that ships every order while you train.</p></div></article>
+        <article class="orbit-card crystal" tabindex="0"><div class="orbit-card-media"><img src="{{ 'orbit-merch-camera.png' | asset_url }}" alt="Official Merch, Not Bootleg" loading="lazy" width="400" height="400"></div><div class="orbit-card-body"><h3>Official Merch, Not Bootleg</h3><p class="orbit-desc">Every store is verified. Every product is premium. Buy with confidence knowing your money goes directly to the athlete you support.</p></div></article>
+        <article class="orbit-card crystal" tabindex="0"><div class="orbit-card-media"><img src="{{ 'orbit-team-roster.png' | asset_url }}" alt="Scale Your Whole Roster" loading="lazy" width="400" height="400"></div><div class="orbit-card-body"><h3>Scale Your Whole Roster</h3><p class="orbit-desc">NIL agencies, teams, and schools onboard athletes in bulk with white-label stores and revenue share built in.</p></div></article>
+      {% endif %}
     </div>
 
     {% if template.name != 'index' %}

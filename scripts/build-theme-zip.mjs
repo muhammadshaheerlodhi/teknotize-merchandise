@@ -19,8 +19,8 @@ const required = [
   'templates/404.json',
   'sections/header-group.json',
   'sections/footer-group.json',
-  'sections/homepage-group.json',
-  'sections/home-placeholder.liquid',
+  'sections/hero.liquid',
+  'sections/main-404.liquid',
   'locales/en.default.json',
   'assets/theme.css.liquid',
   'assets/theme.js',
@@ -35,12 +35,51 @@ for (const file of required) {
   if (!ok) failed = true;
 }
 
-for (const file of ['templates/index.json', 'sections/homepage-group.json', 'config/settings_schema.json']) {
+for (const file of ['templates/index.json', 'templates/404.json', 'config/settings_schema.json', 'sections/header-group.json', 'sections/footer-group.json']) {
   try {
     JSON.parse(readFileSync(join(root, file), 'utf8'));
     console.log(`✓ ${file} (valid JSON)`);
   } catch (e) {
     console.log(`✗ ${file} INVALID: ${e.message}`);
+    failed = true;
+  }
+}
+
+try {
+  const homepage = JSON.parse(readFileSync(join(root, 'templates/index.json'), 'utf8'));
+  const needed = ['hero', 'featured-athletes', 'roster-stats', 'shop-categories', 'how-it-works', 'page-about', 'mission', 'partnerships-home', 'testimonials', 'page-contact', 'cta-banner'];
+  const types = Object.values(homepage.sections || {}).map((s) => s.type);
+  for (const type of needed) {
+    const ok = types.includes(type) && existsSync(join(root, 'sections', `${type}.liquid`));
+    console.log(`${ok ? '✓' : '✗'} homepage section ${type}`);
+    if (!ok) failed = true;
+  }
+  if (!homepage.order || homepage.order.length < 11) {
+    console.log('✗ templates/index.json is missing homepage section order');
+    failed = true;
+  } else {
+    console.log(`✓ templates/index.json has ${homepage.order.length} sections`);
+  }
+} catch (e) {
+  console.log(`✗ homepage check failed: ${e.message}`);
+  failed = true;
+}
+
+const sectionsDir = join(root, 'sections');
+for (const entry of readdirSync(sectionsDir)) {
+  if (!entry.endsWith('.liquid')) continue;
+  const src = readFileSync(join(sectionsDir, entry), 'utf8');
+  const match = src.match(/\{%\s*schema\s*%\}([\s\S]*?)\{%\s*endschema\s*%\}/);
+  if (!match) {
+    console.log(`✗ sections/${entry} missing schema`);
+    failed = true;
+    continue;
+  }
+  try {
+    JSON.parse(match[1]);
+    console.log(`✓ sections/${entry} schema`);
+  } catch (e) {
+    console.log(`✗ sections/${entry} schema INVALID: ${e.message}`);
     failed = true;
   }
 }

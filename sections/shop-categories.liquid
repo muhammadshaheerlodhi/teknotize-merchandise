@@ -7,20 +7,35 @@
       {% if section.settings.intro != blank %}<p class="lede">{{ section.settings.intro }}</p>{% endif %}
     </div>
     <div class="category-grid reveal-stagger">
-      {% for block in section.blocks %}
-        <a class="category-card crystal" href="{{ block.settings.link | default: store_url }}" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.title }}
-          {%- else -%}
-            <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="640" height="480">
-          {%- endif -%}
-          <div class="card-overlay">
-            <div class="card-kicker">Shop</div>
-            <h3>{{ block.settings.title }}</h3>
-            {% if block.settings.subtitle != blank %}<p>{{ block.settings.subtitle }}</p>{% endif %}
-          </div>
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <a class="category-card crystal" href="{{ block.settings.link | default: store_url }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.title }}
+            {%- else -%}
+              <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="640" height="480">
+            {%- endif -%}
+            <div class="card-overlay">
+              <div class="card-kicker">Shop</div>
+              <h3>{{ block.settings.title }}</h3>
+              {% if block.settings.subtitle != blank %}<p>{{ block.settings.subtitle }}</p>{% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <a class="category-card crystal" href="{{ store_url }}">
+          <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="Oversized Hoodies" loading="lazy" width="640" height="480">
+          <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Oversized Hoodies</h3><p>Heavyweight fleece. Boxy fit. Built for cold games and colder timelines.</p></div>
         </a>
-      {% endfor %}
+        <a class="category-card crystal" href="{{ store_url }}">
+          <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="Boxy Tees" loading="lazy" width="640" height="480">
+          <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Boxy Tees</h3><p>Structured shoulders. Premium cotton. The tee that looks expensive on camera.</p></div>
+        </a>
+        <a class="category-card crystal" href="{{ store_url }}">
+          <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="Fleece Layers" loading="lazy" width="640" height="480">
+          <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Fleece Layers</h3><p>Game-day warmups and post-win fits. Soft inside, sharp on the outside.</p></div>
+        </a>
+      {% endif %}
     </div>
   </div>
 </section>

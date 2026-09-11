@@ -7,6 +7,7 @@
     </div>
     <div class="reviews-marquee" data-reviews-marquee aria-label="Customer testimonials">
       <div class="reviews-track">
+        {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
           <article class="review-card crystal" {{ block.shopify_attributes }}>
             <div class="review-head">
@@ -33,6 +34,12 @@
             <p>{{ block.settings.quote }}</p>
           </article>
         {% endfor %}
+        {% else %}
+          <article class="review-card crystal"><div class="review-head"><span class="review-avatar">JM</span><div class="review-meta"><strong>Jordan M.</strong><span class="review-role">D1 Basketball · Athlete</span></div></div><div class="stars" aria-hidden="true">★★★★★</div><p>My store went live in a week. First drop sold out in 3 days. The hoodie quality is insane and fans keep asking when the next one drops.</p></article>
+          <article class="review-card crystal"><div class="review-head"><span class="review-avatar">SR</span><div class="review-meta"><strong>Sarah R.</strong><span class="review-role">Fan · Verified Buyer</span></div></div><div class="stars" aria-hidden="true">★★★★★</div><p>Ordered a boxy tee from my favorite athlete's store. Fit is perfect, fabric feels premium, and it shipped faster than I expected.</p></article>
+          <article class="review-card crystal"><div class="review-head"><span class="review-avatar">DK</span><div class="review-meta"><strong>Darius K.</strong><span class="review-role">High School Football · Athlete</span></div></div><div class="stars" aria-hidden="true">★★★★★</div><p>I didn't think anyone would buy merch from a high school player. Teknotize proved me wrong. My whole team wants stores now.</p></article>
+          <article class="review-card crystal"><div class="review-head"><span class="review-avatar">AL</span><div class="review-meta"><strong>Amanda L.</strong><span class="review-role">NIL Agency Partner</span></div></div><div class="stars" aria-hidden="true">★★★★★</div><p>We onboarded 30 athletes in one month. The ops team handles everything. Our clients just share their link and collect.</p></article>
+        {% endif %}
       </div>
     </div>
   </div>

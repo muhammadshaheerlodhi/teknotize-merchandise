@@ -50,19 +50,7 @@
     {% sections 'header-group' %}
 
     <main id="MainContent" class="main-content" role="main" tabindex="-1">
-      {%- liquid
-        assign show_homepage_group = false
-        if template.name == 'index'
-          assign show_homepage_group = true
-        elsif template.name == '404' and request.path == '/'
-          assign show_homepage_group = true
-        endif
-      -%}
-      {%- if show_homepage_group -%}
-        {% sections 'homepage-group' %}
-      {%- else -%}
-        {{ content_for_layout }}
-      {%- endif -%}
+      {{ content_for_layout }}
     </main>
 
     {% sections 'footer-group' %}

@@ -6,13 +6,20 @@
       {% if section.settings.intro != blank %}<p class="lede">{{ section.settings.intro }}</p>{% endif %}
     </div>
     <div class="stages reveal-stagger">
-      {% for block in section.blocks %}
-        <article class="stage crystal" {{ block.shopify_attributes }}>
-          {% if block.settings.icon != blank %}<span class="card-icon" aria-hidden="true">{{ block.settings.icon }}</span>{% endif %}
-          <h3>{{ block.settings.title }}</h3>
-          <p>{{ block.settings.copy }}</p>
-        </article>
-      {% endfor %}
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <article class="stage crystal" {{ block.shopify_attributes }}>
+            {% if block.settings.icon != blank %}<span class="card-icon" aria-hidden="true">{{ block.settings.icon }}</span>{% endif %}
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.copy }}</p>
+          </article>
+        {% endfor %}
+      {% else %}
+        <article class="stage crystal"><span class="card-icon" aria-hidden="true">📝</span><h3>Apply & Get Approved</h3><p>Fill out a quick sign-up. We review your brand, sport, and audience, then green-light your store within days.</p></article>
+        <article class="stage crystal"><span class="card-icon" aria-hidden="true">🎨</span><h3>We Design Your Drop</h3><p>Our team builds custom graphics and product layouts that match your vibe: hoodies, tees, fleece, and more.</p></article>
+        <article class="stage crystal"><span class="card-icon" aria-hidden="true">🔗</span><h3>Share Your Store Link</h3><p>Drop the link in your bio, post it after big games, send it to family. Every sale tracks back to you.</p></article>
+        <article class="stage crystal"><span class="card-icon" aria-hidden="true">💰</span><h3>Get Paid. We Handle the Rest</h3><p>Production, packing, shipping, and customer support all on us. You focus on your sport and your fans.</p></article>
+      {% endif %}
     </div>
   </div>
 </section>

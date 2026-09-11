@@ -8,6 +8,7 @@
         <p class="lede">{{ section.settings.copy }}</p>
       </div>
       <div class="partners-grid stack-cards reveal-stagger">
+      {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
         <article class="partner-card crystal" {{ block.shopify_attributes }}>
           {% if block.settings.icon != blank %}<span class="card-icon" aria-hidden="true">{{ block.settings.icon }}</span>{% endif %}
@@ -18,10 +19,24 @@
           {% elsif block.settings.link != blank %}
             <a class="btn btn-ghost" href="{{ block.settings.link }}">{{ block.settings.button }}</a>
           {% else %}
-            <a class="btn btn-ghost" href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">{{ block.settings.button }}</a>
+            <a class="btn btn-ghost" href="{{ routes.root_url }}#partnerships">{{ block.settings.button }}</a>
           {% endif %}
         </article>
       {% endfor %}
+      {% else %}
+        <article class="partner-card crystal">
+          <span class="card-icon" aria-hidden="true">🤝</span>
+          <h3>NIL Agencies</h3>
+          <p>Bulk athlete onboarding, white-label storefronts, and revenue share models. Give every client a merch engine without hiring a fulfillment team.</p>
+          <a class="btn btn-ghost" href="{{ agency_url }}" target="_blank" rel="noopener">Partner With Us</a>
+        </article>
+        <article class="partner-card crystal">
+          <span class="card-icon" aria-hidden="true">🏟️</span>
+          <h3>Teams & Programs</h3>
+          <p>Custom team stores, fundraising drops, and fan gear for schools, clubs, and orgs. Turn your community into a revenue stream.</p>
+          <a class="btn btn-ghost" href="{{ routes.root_url }}#partnerships">Explore Team Stores</a>
+        </article>
+      {% endif %}
       </div>
     </div>
   </div>
