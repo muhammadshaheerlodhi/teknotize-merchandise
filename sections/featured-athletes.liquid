@@ -1,0 +1,95 @@
+{% render 'site-urls' %}
+<section class="athlete-stores featured-athletes" id="athlete-stores">
+
+  <div class="page-width">
+
+    <div class="stores-cta-panel crystal reveal">
+
+      <div class="stores-cta-content">
+
+        <p class="eyebrow"><span class="live-dot"></span> {{ section.settings.label }}</p>
+
+        <h2 class="section-title">{{ section.settings.heading }}</h2>
+
+        <p class="lede">{{ section.settings.copy }}</p>
+
+        <div class="tag-row">
+          <span class="tag-pill">New Drops Weekly</span>
+          <span class="tag-pill">Free Shipping $150+</span>
+          <span class="tag-pill">Ships Worldwide</span>
+        </div>
+
+        <a class="btn btn-primary btn-xl" href="{{ section.settings.store_url | default: store_url }}">
+
+          {{ section.settings.button }}
+
+        </a>
+
+      </div>
+
+      <div class="stores-cta-visual">
+
+        {% if section.settings.image != blank %}
+
+          {{ section.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: section.settings.heading }}
+
+        {% else %}
+
+          <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="{{ section.settings.heading }}" loading="lazy" width="640" height="480">
+
+        {% endif %}
+
+        <span class="stores-cta-badge">{{ section.settings.badge_text }}</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+{% schema %}
+
+{
+
+  "name": "Athlete stores CTA",
+
+  "settings": [
+
+    { "type": "text", "id": "label", "label": "Label", "default": "Fan Marketplace" },
+
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Athlete Stores" },
+
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Browse official athlete storefronts. Every purchase puts money directly in their pockets. Free shipping on orders over $150." },
+
+    { "type": "url", "id": "store_url", "label": "Athlete stores redirect URL" },
+
+    { "type": "text", "id": "button", "label": "Button text", "default": "Browse All Athlete Stores" },
+
+    { "type": "text", "id": "badge_text", "label": "Image badge", "default": "Official Merch" },
+
+    { "type": "image_picker", "id": "image", "label": "Spotlight image" },
+
+    { "type": "text", "id": "stat_1_value", "label": "Stat 1 value", "default": "500+" },
+
+    { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Athletes" },
+
+    { "type": "text", "id": "stat_2_value", "label": "Stat 2 value", "default": "50K+" },
+
+    { "type": "text", "id": "stat_2_label", "label": "Stat 2 label", "default": "Orders" },
+
+    { "type": "text", "id": "stat_3_value", "label": "Stat 3 value", "default": "100%" },
+
+    { "type": "text", "id": "stat_3_label", "label": "Stat 3 label", "default": "Premium" }
+
+  ],
+
+  "presets": [{ "name": "Athlete stores CTA" }]
+
+}
+
+{% endschema %}
+

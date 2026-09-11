@@ -1,0 +1,17 @@
+<section class="main-page">
+  <div class="page-width">
+    <p class="eyebrow">{{ article.created_at | date: '%B %d, %Y' }}</p>
+    <h1 class="section-title">{{ article.title }}</h1>
+    {%- if article.image -%}
+      <img src="{{ article.image | image_url: width: 1400 }}" alt="{{ article.title | escape }}" style="border-radius:18px;margin:24px 0;">
+    {%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

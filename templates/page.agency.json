@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-agency",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

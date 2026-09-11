@@ -1,0 +1,65 @@
+<section class="contact-block{% if template.name != 'index' %} main-page{% endif %}" id="contact">
+  <div class="page-width reveal">
+    <div class="section-intro">
+      <p class="eyebrow">{{ section.settings.kicker | default: "Let's Talk" }}</p>
+      <h2 class="section-title">{{ section.settings.heading | default: "Ready to Launch? Hit Us Up." }}</h2>
+      {% if section.settings.intro != blank %}<p class="lede">{{ section.settings.intro }}</p>{% endif %}
+    </div>
+    <div class="contact-layout">
+      <div class="contact-stack">
+        <article class="info-card crystal">
+          <span class="card-icon" aria-hidden="true">✉️</span>
+          <h3>Email Us</h3>
+          <p><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></p>
+        </article>
+        <article class="info-card crystal">
+          <span class="card-icon" aria-hidden="true">📍</span>
+          <h3>Visit HQ</h3>
+          <p>{{ settings.contact_address }}</p>
+        </article>
+      </div>
+
+      <div class="signup-panel crystal">
+        <h3 style="margin:0 0 8px;font-size:1.2rem;">Send a Message</h3>
+        <p style="color:var(--tm-muted);font-size:0.9rem;margin:0 0 20px;">Tell us about your sport, your audience, or your program. We'll get back within 24 hours.</p>
+        {% form 'contact', id: 'ContactForm' %}
+          {%- if form.posted_successfully? -%}
+            <p class="form-success">Message sent. We'll get back to you shortly.</p>
+          {%- endif -%}
+          {{ form.errors | default_errors }}
+          <div class="form-grid">
+            <div>
+              <label for="ContactName">Full Name</label>
+              <input class="field" type="text" id="ContactName" name="contact[name]" required>
+            </div>
+            <div>
+              <label for="ContactEmail">Email</label>
+              <input class="field" type="email" id="ContactEmail" name="contact[email]" required>
+            </div>
+            <div class="full">
+              <label for="ContactSubject">I'm a...</label>
+              <input class="field" type="text" id="ContactSubject" name="contact[subject]" placeholder="Athlete, Fan, Agency, Team...">
+            </div>
+            <div class="full">
+              <label for="ContactMessage">Message</label>
+              <textarea class="field" id="ContactMessage" name="contact[body]" rows="5" required placeholder="Tell us what you're looking to build..."></textarea>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit" style="margin-top:16px;">Send Message</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Let's Talk" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Ready to Launch? Hit Us Up." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Athletes, fans, agencies, or teams. Whatever you're building, our crew is here to help." }
+  ],
+  "presets": [{ "name": "Contact" }]
+}
+{% endschema %}

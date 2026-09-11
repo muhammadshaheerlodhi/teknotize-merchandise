@@ -1,0 +1,43 @@
+<section class="engine" id="how-it-works">
+  <div class="page-width reveal">
+    <div class="section-intro section-intro--center">
+      <p class="section-label">{{ section.settings.label }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {% if section.settings.intro != blank %}<p class="lede">{{ section.settings.intro }}</p>{% endif %}
+    </div>
+    <div class="stages reveal-stagger">
+      {% for block in section.blocks %}
+        <article class="stage crystal" {{ block.shopify_attributes }}>
+          {% if block.settings.icon != blank %}<span class="card-icon" aria-hidden="true">{{ block.settings.icon }}</span>{% endif %}
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.copy }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How it works",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "For Athletes" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From Sign-Up to Sold Out in 4 Moves" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "No inventory. No warehouse. No headaches." }
+  ],
+  "blocks": [
+    {
+      "type": "stage",
+      "name": "Stage",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "01" },
+        { "type": "text", "id": "icon", "label": "Icon emoji", "default": "📝" },
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Step 01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Apply & Get Approved" },
+        { "type": "textarea", "id": "copy", "label": "Copy" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "How it works" }]
+}
+{% endschema %}

@@ -1,0 +1,31 @@
+<div class="account-page">
+  <div class="page-width">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Account</p>
+        <h1 class="section-title">Hello, {{ customer.first_name }}</h1>
+      </div>
+      <a class="btn btn-ghost" href="{{ routes.account_logout_url }}">Log out</a>
+    </div>
+    <div class="contact-layout">
+      <div class="info-card">
+        <h3>Details</h3>
+        <p>{{ customer.name }}<br>{{ customer.email }}</p>
+        <a href="{{ routes.account_addresses_url }}">Manage addresses</a>
+      </div>
+      <div>
+        <h3>Orders</h3>
+        {%- if customer.orders.size == 0 -%}
+          <p class="price">You haven’t placed an order yet.</p>
+        {%- else -%}
+          {%- for order in customer.orders -%}
+            <article class="info-card" style="margin-bottom:12px;">
+              <a href="{{ order.customer_url }}"><strong>{{ order.name }}</strong></a>
+              <p class="price">{{ order.created_at | date: '%b %d, %Y' }} · {{ order.financial_status_label }} · {{ order.total_price | money }}</p>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>

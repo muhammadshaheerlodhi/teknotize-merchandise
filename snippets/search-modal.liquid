@@ -1,0 +1,16 @@
+<div class="search-modal" data-search-modal>
+  <form action="{{ routes.search_url }}" method="get" role="search">
+    <input type="hidden" name="type" value="product,page,article">
+    <input
+      type="search"
+      name="q"
+      placeholder="{{ 'general.search.placeholder' | t }}"
+      aria-label="{{ 'general.accessibility.search' | t }}"
+      value="{{ search.terms | escape }}"
+    >
+    <p style="text-align:center;margin-top:14px;color:var(--tm-muted);">
+      Press Enter to search athletes, hoodies, tees, and more.
+      <button type="button" data-close-search class="btn btn-ghost" style="margin-left:8px;">Close</button>
+    </p>
+  </form>
+</div>

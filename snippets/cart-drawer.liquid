@@ -1,0 +1,21 @@
+<div class="cart-drawer" data-cart-drawer>
+  <div class="cart-drawer-overlay" data-cart-drawer-overlay data-close-cart></div>
+  <aside class="cart-drawer-panel" role="dialog" aria-label="Cart">
+    <div class="drawer-head">
+      <h2>Your cart</h2>
+      <button type="button" class="icon-btn" data-close-cart aria-label="Close">✕</button>
+    </div>
+    <div class="drawer-body" data-cart-drawer-body>
+      <div class="empty-state"><p>Your cart is empty</p></div>
+    </div>
+    <div class="drawer-foot">
+      <p class="price" data-shipping-note>Shipping & taxes calculated at checkout.</p>
+      <p style="display:flex;justify-content:space-between;margin:12px 0 16px;">
+        <span>Subtotal</span>
+        <strong data-cart-subtotal>{{ cart.total_price | money }}</strong>
+      </p>
+      <a class="btn btn-primary btn-full" href="{{ routes.cart_url }}">View cart</a>
+      <a class="btn btn-ghost btn-full" href="/checkout" style="margin-top:10px;">Checkout</a>
+    </div>
+  </aside>
+</div>

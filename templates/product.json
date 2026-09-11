@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "related": {
+      "type": "featured-products",
+      "settings": {
+        "label": "More from the roster",
+        "heading": "YOU MAY ALSO LIKE",
+        "limit": 4
+      }
+    }
+  },
+  "order": ["main", "related"]
+}

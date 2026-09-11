@@ -1,0 +1,17 @@
+{% comment %}
+  Homepage fallback — renders if index.json is missing from upload.
+  Shopify uses index.json when both exist; this file ensures the homepage
+  still works when templates/index.json did not upload correctly.
+{% endcomment %}
+
+{% section 'hero' %}
+{% section 'featured-athletes' %}
+{% section 'roster-stats' %}
+{% section 'shop-categories' %}
+{% section 'how-it-works' %}
+{% section 'page-about' %}
+{% section 'mission' %}
+{% section 'partnerships-home' %}
+{% section 'testimonials' %}
+{% section 'page-contact' %}
+{% section 'cta-banner' %}

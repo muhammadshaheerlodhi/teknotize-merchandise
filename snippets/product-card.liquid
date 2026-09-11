@@ -1,0 +1,27 @@
+{%- comment -%}Product card{%- endcomment -%}
+<a class="product-card crystal" href="{{ product.url }}">
+  <div class="media">
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 800 }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        width="800"
+        height="1000"
+        loading="lazy"
+      >
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+  <div class="card-body">
+    <h3>{{ product.title }}</h3>
+    <p class="price">
+      {%- if product.compare_at_price > product.price -%}
+        <span class="price-sale">{{ product.price | money }}</span>
+        <span class="compare">{{ product.compare_at_price | money }}</span>
+      {%- else -%}
+        {{ product.price | money }}
+      {%- endif -%}
+    </p>
+  </div>
+</a>

@@ -1,0 +1,58 @@
+{% render 'site-urls' %}
+<section class="partners-block" id="partnerships">
+  <div class="page-width reveal">
+    <div class="split-section">
+      <div class="section-intro">
+        <p class="eyebrow">{{ section.settings.kicker }}</p>
+        <h2 class="section-title">{{ section.settings.heading }}</h2>
+        <p class="lede">{{ section.settings.copy }}</p>
+      </div>
+      <div class="partners-grid stack-cards reveal-stagger">
+      {% for block in section.blocks %}
+        <article class="partner-card crystal" {{ block.shopify_attributes }}>
+          {% if block.settings.icon != blank %}<span class="card-icon" aria-hidden="true">{{ block.settings.icon }}</span>{% endif %}
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.copy }}</p>
+          {% if block.settings.link_type == 'agency' %}
+            <a class="btn btn-ghost" href="{{ agency_url }}" target="_blank" rel="noopener">{{ block.settings.button }}</a>
+          {% elsif block.settings.link != blank %}
+            <a class="btn btn-ghost" href="{{ block.settings.link }}">{{ block.settings.button }}</a>
+          {% else %}
+            <a class="btn btn-ghost" href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">{{ block.settings.button }}</a>
+          {% endif %}
+        </article>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Partnerships home",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Partnerships" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Power Your Entire Roster" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Managing talent at scale? We give agencies, teams, and programs the infrastructure to launch merch for every athlete." }
+  ],
+  "blocks": [
+    {
+      "type": "partner",
+      "name": "Partner card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon emoji", "default": "🤝" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "copy", "label": "Copy" },
+        { "type": "text", "id": "button", "label": "Button text", "default": "Learn More" },
+        { "type": "select", "id": "link_type", "label": "Link type", "options": [
+          { "value": "agency", "label": "NIL Agency form" },
+          { "value": "partnerships", "label": "Partnerships page" },
+          { "value": "custom", "label": "Custom URL" }
+        ], "default": "partnerships" },
+        { "type": "url", "id": "link", "label": "Custom link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Partnerships home" }]
+}
+{% endschema %}

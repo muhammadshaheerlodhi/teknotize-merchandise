@@ -1,0 +1,56 @@
+<section class="roster">
+  <div class="page-width reveal">
+    <div class="section-intro section-intro--center">
+      <p class="section-label">{{ section.settings.label }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {% if section.settings.intro != blank %}<p class="lede">{{ section.settings.intro }}</p>{% endif %}
+    </div>
+    <div class="stats-grid reveal-stagger">
+      <article class="stat-card crystal">
+        {% if section.settings.stat_1_icon != blank %}<span class="card-icon" aria-hidden="true">{{ section.settings.stat_1_icon }}</span>{% endif %}
+        <div class="stat-live"><span class="live-dot"></span> Active</div>
+        <p>{{ section.settings.stat_1_label }}</p>
+        <h3>{{ section.settings.stat_1_value }}</h3>
+        <p>{{ section.settings.stat_1_copy }}</p>
+      </article>
+      <article class="stat-card crystal">
+        {% if section.settings.stat_2_icon != blank %}<span class="card-icon" aria-hidden="true">{{ section.settings.stat_2_icon }}</span>{% endif %}
+        <div class="stat-live"><span class="live-dot"></span> Shipped</div>
+        <p>{{ section.settings.stat_2_label }}</p>
+        <h3>{{ section.settings.stat_2_value }}</h3>
+        <p>{{ section.settings.stat_2_copy }}</p>
+      </article>
+      <article class="stat-card crystal">
+        {% if section.settings.stat_3_icon != blank %}<span class="card-icon" aria-hidden="true">{{ section.settings.stat_3_icon }}</span>{% endif %}
+        <div class="stat-live"><span class="live-dot"></span> Global</div>
+        <p>{{ section.settings.stat_3_label }}</p>
+        <h3>{{ section.settings.stat_3_value }}</h3>
+        <p>{{ section.settings.stat_3_copy }}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Roster stats",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "The Proof" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built Different. Backed by Real Numbers." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Athletes trust us to run their store. Fans trust us to deliver the goods." },
+    { "type": "text", "id": "stat_1_icon", "label": "Stat 1 icon", "default": "🏆" },
+    { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Athletes On Platform" },
+    { "type": "text", "id": "stat_1_value", "label": "Stat 1 value", "default": "50+" },
+    { "type": "textarea", "id": "stat_1_copy", "label": "Stat 1 copy", "default": "From high school standouts to D1 stars. If you've got a name, we've got a store for it." },
+    { "type": "text", "id": "stat_2_icon", "label": "Stat 2 icon", "default": "📦" },
+    { "type": "text", "id": "stat_2_label", "label": "Stat 2 label", "default": "Orders Delivered" },
+    { "type": "text", "id": "stat_2_value", "label": "Stat 2 value", "default": "450+" },
+    { "type": "textarea", "id": "stat_2_copy", "label": "Stat 2 copy", "default": "Premium hoodies, boxy tees, and custom drops packed and shipped to fans across the globe." },
+    { "type": "text", "id": "stat_3_icon", "label": "Stat 3 icon", "default": "🌍" },
+    { "type": "text", "id": "stat_3_label", "label": "Stat 3 label", "default": "Countries Reached" },
+    { "type": "text", "id": "stat_3_value", "label": "Stat 3 value", "default": "5+" },
+    { "type": "textarea", "id": "stat_3_copy", "label": "Stat 3 copy", "default": "Your fans don't stop at the city limits. Neither does your merch. We ship worldwide." }
+  ],
+  "presets": [{ "name": "Roster stats" }]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-partnerships",
+      "blocks": {
+        "p1": {
+          "type": "partner",
+          "settings": {
+            "title": "Athlete agencies",
+            "copy": "Give every client an official storefront. We produce the merch, run fulfillment, and keep the brand looking elite."
+          }
+        },
+        "p2": {
+          "type": "partner",
+          "settings": {
+            "title": "Teams & programs",
+            "copy": "Launch team shops and player collections without standing up a warehouse. Perfect for prep, college, and club programs."
+          }
+        }
+      },
+      "block_order": ["p1", "p2"],
+      "settings": {
+        "intro": "We collaborate with the best agencies, teams, and organizations to empower athletes worldwide."
+      }
+    }
+  },
+  "order": ["main"]
+}

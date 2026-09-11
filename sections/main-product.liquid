@@ -1,0 +1,108 @@
+<section class="main-product">
+  <div class="page-width">
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    <div class="product-layout">
+      <div class="product-media">
+        {%- if product.featured_image -%}
+          <img
+            data-product-main
+            src="{{ product.featured_image | image_url: width: 1400 }}"
+            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          >
+        {%- endif -%}
+        {%- if product.images.size > 1 -%}
+          <div class="thumbs">
+            {%- for image in product.images -%}
+              <img
+                src="{{ image | image_url: width: 200 }}"
+                alt="{{ image.alt | escape }}"
+                data-product-thumb="{{ image | image_url: width: 1400 }}"
+              >
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div>
+        <p class="eyebrow">{{ product.vendor | default: 'Teknotize Merchandise' }}</p>
+        <h1 class="section-title" style="font-size:clamp(2rem,4vw,3.4rem);">{{ product.title }}</h1>
+        <p class="price" data-product-price style="font-size:1.25rem;margin:12px 0 20px;">
+          {{ current_variant.price | money }}
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="compare">{{ current_variant.compare_at_price | money }}</span>
+          {%- endif -%}
+        </p>
+
+        {% form 'product', product, data-product-form: '' %}
+          <select name="id" data-variant-select {% if product.has_only_default_variant %}class="visually-hidden" style="position:absolute;left:-9999px;"{% endif %}>
+            {%- for variant in product.variants -%}
+              <option
+                value="{{ variant.id }}"
+                {% if variant == current_variant %}selected{% endif %}
+                data-available="{{ variant.available }}"
+                data-price="{{ variant.price | money }}"
+                data-option1="{{ variant.option1 | escape }}"
+                data-option2="{{ variant.option2 | escape }}"
+                data-option3="{{ variant.option3 | escape }}"
+                {% unless variant.available %}disabled{% endunless %}
+              >
+                {{ variant.title }} — {{ variant.price | money }}
+              </option>
+            {%- endfor -%}
+          </select>
+
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <fieldset class="option-row">
+                <legend>{{ option.name }}</legend>
+                <div class="swatches">
+                  {%- for value in option.values -%}
+                    <label>
+                      <input
+                        type="radio"
+                        name="option-{{ option.position }}"
+                        value="{{ value | escape }}"
+                        data-swatch
+                        data-option-position
+                        {% if option.selected_value == value %}checked{% endif %}
+                      >
+                      <span>{{ value }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="qty">
+            <label for="Quantity">Qty</label>
+            <button type="button" onclick="const i=this.parentNode.querySelector('input'); i.value=Math.max(1, Number(i.value)-1)">−</button>
+            <input id="Quantity" type="number" name="quantity" value="1" min="1">
+            <button type="button" onclick="const i=this.parentNode.querySelector('input'); i.value=Number(i.value)+1">+</button>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-full"
+            data-add-btn
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+            {%- if current_variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+          </button>
+        {% endform %}
+
+        <div class="product-meta rte">
+          {{ product.description }}
+          <p><strong>Free shipping on orders $150+.</strong> Premium athletic apparel. Worldwide fulfillment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": []
+}
+{% endschema %}

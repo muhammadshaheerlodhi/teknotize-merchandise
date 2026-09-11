@@ -1,0 +1,40 @@
+{% render 'site-urls' %}
+<section class="signup-block cta-banner" id="signup">
+  <div class="page-width reveal">
+    <div class="cta-box crystal">
+      <p class="eyebrow">{{ section.settings.label }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      <p class="lede" style="margin-inline:auto;">{{ section.settings.copy }}</p>
+      <div class="cta-split">
+        <div class="cta-split-card">
+          <h3>🏅 I'm an Athlete</h3>
+          <p>Get your free storefront, custom designs, and a fulfillment team behind you. Sign up takes 2 minutes.</p>
+          <a class="btn btn-primary" href="{{ signup_url }}" target="_blank" rel="noopener">{{ section.settings.cta_primary }}</a>
+        </div>
+        <div class="cta-split-card">
+          <h3>🛒 I'm a Fan</h3>
+          <p>Browse official athlete stores. Every purchase puts money directly in their pocket.</p>
+          <a class="btn btn-ghost" href="{{ store_url }}">{{ section.settings.cta_secondary }}</a>
+        </div>
+      </div>
+      <div class="hero-actions" style="justify-content:center;margin-top:24px;">
+        <a class="btn btn-ghost" href="#contact">Questions? Contact Us</a>
+        <a class="btn btn-ghost" href="{{ agency_url }}" target="_blank" rel="noopener">NIL Agency Partnership</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA banner",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Start Today. It's Free" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Store. Your Brand. Your Money." },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Join athletes already earning from their name. We handle the hard part. You bring the fans." },
+    { "type": "text", "id": "cta_primary", "label": "Athlete CTA", "default": "Apply for Your Store" },
+    { "type": "text", "id": "cta_secondary", "label": "Fan CTA", "default": "Shop Athlete Stores" }
+  ],
+  "presets": [{ "name": "CTA banner" }]
+}
+{% endschema %}

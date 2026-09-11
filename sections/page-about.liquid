@@ -1,0 +1,68 @@
+<section class="about-block{% if template.name != 'index' %} main-page{% endif %}" id="about">
+  <div class="page-width reveal">
+    <div class="section-intro{% if template.name == 'index' %}{% else %} section-intro--center{% endif %}">
+      <p class="eyebrow">{{ section.settings.kicker }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      <p class="lede">{{ section.settings.intro }}</p>
+    </div>
+
+    <div class="orbit-cards reveal-stagger">
+      {% assign orbit_fallbacks = 'hero-athlete.jpg,orbit-merch-camera.png,orbit-team-roster.png' | split: ',' %}
+      {% for block in section.blocks %}
+        {% assign idx = forloop.index0 %}
+        <article class="orbit-card crystal" tabindex="0" {{ block.shopify_attributes }}>
+          <div class="orbit-card-media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.title }}
+            {%- else -%}
+              <img src="{{ orbit_fallbacks[idx] | default: 'stores-athlete.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="400" height="400">
+            {%- endif -%}
+          </div>
+          <div class="orbit-card-body">
+            <h3>{{ block.settings.title }}</h3>
+            <p class="orbit-desc">{{ block.settings.copy }}</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if template.name != 'index' %}
+      <div class="stats-grid" style="margin-top:28px;">
+        <article class="stat-card crystal"><p>Year 1</p><h3>{{ section.settings.y1 }}</h3><p>Athletes</p></article>
+        <article class="stat-card crystal"><p>Today</p><h3>{{ section.settings.today }}</h3><p>Athletes</p></article>
+        <article class="stat-card crystal"><p>Quality</p><h3>100%</h3><p>Premium apparel</p></article>
+      </div>
+      <div class="cta-box crystal" style="margin-top:40px;">
+        <h2>Ready to build your legacy?</h2>
+        <a class="btn btn-primary" href="{{ pages.signup.url | default: '/pages/signup' }}">Sign Up</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Why Teknotize" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Your Name Is Worth More Than a Highlight Reel" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Fans don't just watch you play. They want to rep you." },
+    { "type": "text", "id": "y1", "label": "Year 1 number", "default": "100+" },
+    { "type": "text", "id": "today", "label": "Today number", "default": "500+" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon emoji" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "copy", "label": "Copy" },
+        { "type": "image_picker", "id": "image", "label": "Card image" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "About" }]
+}
+{% endschema %}

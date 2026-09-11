@@ -1,0 +1,51 @@
+<section class="main-collection">
+  <div class="page-width">
+    <div class="collection-hero">
+      {%- if collection.image -%}
+        <img src="{{ collection.image | image_url: width: 900 }}" alt="{{ collection.title | escape }}">
+      {%- endif -%}
+      <div>
+        <p class="eyebrow">OFFICIAL STOREFRONT</p>
+        <h1 class="section-title">{{ collection.title }}</h1>
+        {%- if collection.description != blank -%}
+          <div class="rte">{{ collection.description }}</div>
+        {%- else -%}
+          <p class="lede">Shop official merch and show your support. Every purchase helps fund this athlete’s journey.</p>
+        {%- endif -%}
+        <p class="price">🚚 FREE SHIPPING OVER $150</p>
+      </div>
+    </div>
+
+    {%- paginate collection.products by 24 -%}
+      <div class="toolbar">
+        <span>{{ collection.products_count }} products</span>
+        <div>
+          <label class="visually-hidden" for="SortBy">Sort</label>
+          <select id="SortBy" name="sort_by" onchange="window.location.href=this.value">
+            {%- for option in collection.sort_options -%}
+              <option value="{{ collection.url }}?sort_by={{ option.value }}" {% if collection.sort_by == option.value %}selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+      </div>
+
+      <div class="product-grid">
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product %}
+        {%- else -%}
+          <div class="empty-state">
+            <p>No products in this storefront yet.</p>
+          </div>
+        {%- endfor -%}
+      </div>
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": []
+}
+{% endschema %}

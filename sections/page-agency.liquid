@@ -1,0 +1,66 @@
+<section class="main-page">
+  <div class="page-width">
+    <p class="eyebrow">AGENCIES & TEAMS</p>
+    <h1 class="section-title">Become An NIL Agency Partner</h1>
+    <p class="lede">Launch athlete merchandise programs for your entire roster. Teknotize handles design, production, storefronts, fulfillment, and worldwide shipping. Your athletes keep the spotlight.</p>
+
+    <div class="mission-grid">
+      <article class="mission-card">
+        <h3>Roster stores</h3>
+        <p>Spin up branded storefronts for every athlete you represent.</p>
+      </article>
+      <article class="mission-card">
+        <h3>One ops team</h3>
+        <p>We produce hoodies, boxy tees, fleece, and custom drops at scale.</p>
+      </article>
+      <article class="mission-card">
+        <h3>Revenue share</h3>
+        <p>Athletes earn from every sale. You grow the brand. We run the store.</p>
+      </article>
+    </div>
+
+    <div class="signup-panel" style="margin-top:32px;">
+      {% form 'contact', id: 'AgencyForm' %}
+        {%- if form.posted_successfully? -%}
+          <p class="form-success">Thanks. Our partnerships team will contact you.</p>
+        {%- endif -%}
+        {{ form.errors | default_errors }}
+        <input type="hidden" name="contact[subject]" value="NIL Agency partnership">
+        <div class="form-grid">
+          <div>
+            <label>Agency / team name*</label>
+            <input class="field" type="text" name="contact[agency]" required>
+          </div>
+          <div>
+            <label>Your name*</label>
+            <input class="field" type="text" name="contact[name]" required>
+          </div>
+          <div>
+            <label>Email*</label>
+            <input class="field" type="email" name="contact[email]" required>
+          </div>
+          <div>
+            <label>Phone</label>
+            <input class="field" type="tel" name="contact[phone]">
+          </div>
+          <div class="full">
+            <label>How many athletes?</label>
+            <input class="field" type="text" name="contact[roster_size]" placeholder="e.g. 25">
+          </div>
+          <div class="full">
+            <label>Tell us about the partnership</label>
+            <textarea class="field" name="contact[body]" rows="5" required></textarea>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit" style="margin-top:16px;">Request partnership</button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Agency",
+  "settings": []
+}
+{% endschema %}

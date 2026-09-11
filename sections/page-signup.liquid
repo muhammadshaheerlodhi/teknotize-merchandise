@@ -1,0 +1,102 @@
+<section class="main-page">
+  <div class="page-width">
+    <p class="eyebrow">Unleash the potential of your NIL</p>
+    <h1 class="section-title">JOIN THE TEAM</h1>
+    <p class="lede">Start earning from your personal brand today. We handle production, fulfillment, and worldwide shipping.</p>
+
+    <div class="steps">
+      <span class="step-pill is-active">1 Info</span>
+      <span class="step-pill">2 Graphic Preferences</span>
+      <span class="step-pill">3 Products</span>
+      <span class="step-pill">4 Payment</span>
+      <span class="step-pill">5 Finish</span>
+    </div>
+
+    <div class="signup-panel">
+      {% form 'contact', id: 'AthleteSignup' %}
+        {%- if form.posted_successfully? -%}
+          <p class="form-success">Application received. Our team will reach out to build your storefront.</p>
+        {%- endif -%}
+        {{ form.errors | default_errors }}
+        <input type="hidden" name="contact[subject]" value="Athlete merch sign-up">
+        <div class="form-grid">
+          <div>
+            <label>First Name*</label>
+            <input class="field" type="text" name="contact[first_name]" required>
+          </div>
+          <div>
+            <label>Last Name*</label>
+            <input class="field" type="text" name="contact[last_name]" required>
+          </div>
+          <div>
+            <label>Hometown*</label>
+            <input class="field" type="text" name="contact[hometown]" required>
+          </div>
+          <div>
+            <label>Full Team Name*</label>
+            <input class="field" type="text" name="contact[team]" required>
+          </div>
+          <div>
+            <label>Sport*</label>
+            <select class="field" name="contact[sport]" required>
+              <option value="">Select sport...</option>
+              <option>Football</option>
+              <option>Basketball</option>
+              <option>Soccer</option>
+              <option>Track</option>
+              <option>Lacrosse</option>
+              <option>Volleyball</option>
+              <option>Baseball</option>
+              <option>Hockey</option>
+              <option>Wrestling</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label>Jersey Number*</label>
+            <input class="field" type="text" name="contact[jersey]" required>
+          </div>
+          <div>
+            <label>Playing Level*</label>
+            <select class="field" name="contact[level]" required>
+              <option>Youth</option>
+              <option>High School</option>
+              <option selected>College</option>
+              <option>Professional</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label>Instagram Username*</label>
+            <input class="field" type="text" name="contact[instagram]" required>
+          </div>
+          <div>
+            <label>Email Address*</label>
+            <input class="field" type="email" name="contact[email]" required>
+          </div>
+          <div>
+            <label>Phone Number*</label>
+            <input class="field" type="tel" name="contact[phone]" required>
+          </div>
+          <div class="full">
+            <label>Products you want to drop</label>
+            <input class="field" type="text" name="contact[products]" placeholder="Oversized hoodie, boxy T-shirt, fleece sweatshirt...">
+          </div>
+          <div class="full">
+            <label>Graphic preferences / notes</label>
+            <textarea class="field" name="contact[body]" rows="5" placeholder="Tell us about your brand, colors, and the merch you want to launch."></textarea>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit" style="margin-top:18px;">Continue</button>
+        <p class="price" style="margin-top:14px;">Already have an account? <a href="{{ routes.account_login_url }}">Sign In</a></p>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Athlete signup",
+  "settings": []
+}
+{% endschema %}

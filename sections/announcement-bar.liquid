@@ -1,0 +1,19 @@
+{%- if settings.show_announcement -%}
+  <div class="announcement" role="region" aria-label="Announcement">
+    <div class="announcement-track">
+      {%- for i in (1..12) -%}
+        <span>{{ settings.announcement_text }}</span>
+      {%- endfor -%}
+      {%- for i in (1..12) -%}
+        <span>{{ settings.announcement_text }}</span>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": []
+}
+{% endschema %}

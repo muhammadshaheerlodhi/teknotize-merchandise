@@ -1,0 +1,20 @@
+<div class="account-page">
+  <div class="page-width">
+    <p class="eyebrow">Order {{ order.name }}</p>
+    <h1 class="section-title">{{ order.name }}</h1>
+    <p class="price">{{ order.created_at | date: '%B %d, %Y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+    {%- for line_item in order.line_items -%}
+      <div class="cart-item">
+        <img src="{{ line_item.image | image_url: width: 200 }}" alt="{{ line_item.title | escape }}">
+        <div>
+          <strong>{{ line_item.title }}</strong>
+          <p class="price">Qty {{ line_item.quantity }}</p>
+        </div>
+        <strong>{{ line_item.final_line_price | money }}</strong>
+      </div>
+    {%- endfor -%}
+    <div class="cart-summary" style="margin-top:24px;">
+      <p style="display:flex;justify-content:space-between;"><span>Total</span><strong>{{ order.total_price | money }}</strong></p>
+    </div>
+  </div>
+</div>

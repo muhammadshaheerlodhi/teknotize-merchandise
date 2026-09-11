@@ -1,0 +1,53 @@
+<section class="main-search">
+  <div class="page-width">
+    <p class="eyebrow">THE ATHLETES</p>
+    <h1 class="section-title">Search</h1>
+    <p class="lede">Shop signed athlete stores. Every purchase puts money directly in their pockets.</p>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" style="max-width:640px;margin:28px 0;">
+      <input type="hidden" name="type" value="product">
+      <input class="field" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search hoodies, athletes, boxy tees...">
+    </form>
+
+    {%- if search.performed -%}
+      {%- paginate search.results by 24 -%}
+        <p class="price">{{ search.results_count }} results</p>
+        <div class="product-grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item %}
+            {%- else -%}
+              <a class="product-card" href="{{ item.url }}">
+                <div class="card-body">
+                  <h3>{{ item.title }}</h3>
+                  <p class="price">{{ item.object_type }}</p>
+                </div>
+              </a>
+            {%- endif -%}
+          {%- else -%}
+            <div class="empty-state"><p>No results for “{{ search.terms }}”.</p></div>
+          {%- endfor -%}
+        </div>
+        {% render 'pagination', paginate: paginate %}
+      {%- endpaginate -%}
+    {%- else -%}
+      <h2 class="section-title" style="font-size:2rem;">Featured collections</h2>
+      <div class="athlete-grid">
+        {%- assign shown = 0 -%}
+        {%- for collection in collections -%}
+          {%- if collection.handle == 'all' -%}{%- continue -%}{%- endif -%}
+          {%- if shown >= 8 -%}{%- break -%}{%- endif -%}
+          {% render 'collection-card', collection: collection %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

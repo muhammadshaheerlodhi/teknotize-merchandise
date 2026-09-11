@@ -1,0 +1,25 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Gift card — {{ shop.name }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+  </head>
+  <body>
+    <div class="gift-card">
+      {% render 'logo' %}
+      <p class="eyebrow">Gift card</p>
+      <h1>{{ gift_card.balance | money }}</h1>
+      {%- if gift_card.enabled and gift_card.expired == false -%}
+        <p class="lede">Code</p>
+        <p style="font-size:1.4rem;letter-spacing:0.2em;">{{ gift_card.code | format_code }}</p>
+        <a class="btn btn-primary" href="{{ shop.url }}">Shop Teknotize</a>
+      {%- else -%}
+        <p>This gift card is no longer available.</p>
+      {%- endif -%}
+    </div>
+  </body>
+</html>

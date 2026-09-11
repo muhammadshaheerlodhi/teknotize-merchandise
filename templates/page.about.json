@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-about",
+      "blocks": {
+        "a1": {
+          "type": "card",
+          "settings": {
+            "label": "Who we are",
+            "title": "Created for athletes",
+            "copy": "Teknotize Merchandise was built so athletes can launch official merch without becoming a factory, warehouse, or customer-support team. We noticed how communities rally behind players: packed gyms, hometown pride, real demand for gear. That demand deserved a real store."
+          }
+        },
+        "a2": {
+          "type": "card",
+          "settings": {
+            "label": "What we sell",
+            "title": "Premium drops",
+            "copy": "Oversized hoodies, heavyweight boxy T-shirts, fleece sweatshirts, washed tees, and long sleeves. Every collection is custom to the athlete. Fans get quality. Athletes get a brand."
+          }
+        },
+        "a3": {
+          "type": "card",
+          "settings": {
+            "label": "How we work",
+            "title": "We handle everything",
+            "copy": "Design, manufacturing, storefronts, fulfillment, shipping, and support. You pick products and graphics, share your link, and earn. We keep the operation moving worldwide."
+          }
+        },
+        "a4": {
+          "type": "card",
+          "settings": {
+            "label": "The standard",
+            "title": "Built by the game",
+            "copy": "We work with high school, college, and pro athletes. If you have a name fans want to wear, you belong here. This is just the beginning."
+          }
+        }
+      },
+      "block_order": ["a1", "a2", "a3", "a4"],
+      "settings": {
+        "kicker": "Founder Story",
+        "heading": "Teknotize Merchandise. Built for Athletes.",
+        "intro": "We’re Teknotize Merchandise. Our job is simple: help athletes monetize their name with premium custom apparel, then handle every unglamorous step so they can stay in the gym.",
+        "y1": "100+",
+        "today": "500+"
+      }
+    }
+  },
+  "order": ["main"]
+}

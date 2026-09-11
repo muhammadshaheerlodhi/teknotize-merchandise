@@ -1,0 +1,181 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Teknotize Merchandise",
+    "theme_version": "1.0.0",
+    "theme_author": "Teknotize Merchandise",
+    "theme_documentation_url": "https://teknotizemerchandise.com",
+    "theme_support_url": "https://teknotizemerchandise.com/pages/contact"
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Header & footer logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 80,
+        "max": 220,
+        "step": 2,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 128
+      }
+    ]
+  },
+  {
+    "name": "Brand colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#f6f4ff"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Surface",
+        "default": "rgba(255,255,255,0.72)"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#1a1528"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text",
+        "default": "#6b6280"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent",
+        "default": "#FC000A"
+      },
+      {
+        "type": "color",
+        "id": "color_live",
+        "label": "Live indicator",
+        "default": "#22c55e"
+      }
+    ]
+  },
+  {
+    "name": "Announcement",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show announcement bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement text",
+        "default": "FREE SHIPPING ON ORDERS $150+"
+      }
+    ]
+  },
+  {
+    "name": "Links",
+    "settings": [
+      {
+        "type": "url",
+        "id": "athlete_store_url",
+        "label": "Athlete store URL",
+        "info": "Main shop / collections page"
+      },
+      {
+        "type": "url",
+        "id": "signup_url",
+        "label": "Athlete sign-up URL",
+        "info": "Google Form or signup page"
+      },
+      {
+        "type": "url",
+        "id": "agency_url",
+        "label": "NIL agency URL",
+        "info": "Agency application form or page"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "X / Twitter URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      }
+    ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Email",
+        "default": "info@teknotizemerchandise.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Phone",
+        "default": "+1 631-308-9457"
+      },
+      {
+        "type": "textarea",
+        "id": "contact_address",
+        "label": "Address",
+        "default": "43 McKinley Ave, Farmingdale NY 11735, United States"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_drawer_enabled",
+        "label": "Use cart drawer",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold (store currency)",
+        "default": "150"
+      }
+    ]
+  }
+]

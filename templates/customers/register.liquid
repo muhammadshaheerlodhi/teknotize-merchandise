@@ -1,0 +1,21 @@
+<div class="account-page">
+  <div class="page-width">
+    <div class="account-card">
+      <p class="eyebrow">Account</p>
+      <h1 class="section-title" style="font-size:2.4rem;">Create account</h1>
+      {% form 'create_customer' %}
+        {{ form.errors | default_errors }}
+        <label>First name</label>
+        <input class="field" type="text" name="customer[first_name]">
+        <label style="margin-top:12px;">Last name</label>
+        <input class="field" type="text" name="customer[last_name]">
+        <label style="margin-top:12px;">Email</label>
+        <input class="field" type="email" name="customer[email]" required>
+        <label style="margin-top:12px;">Password</label>
+        <input class="field" type="password" name="customer[password]" required>
+        <button class="btn btn-primary btn-full" type="submit" style="margin-top:16px;">Register</button>
+      {% endform %}
+      <p style="margin-top:16px;"><a href="{{ routes.account_login_url }}">Already have an account? Login</a></p>
+    </div>
+  </div>
+</div>

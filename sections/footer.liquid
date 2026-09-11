@@ -1,0 +1,70 @@
+<footer class="site-footer">
+  {% render 'site-urls' %}
+  <div class="page-width">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        {% render 'logo', class: 'footer-logo' %}
+        <p>{{ section.settings.blurb }}</p>
+        {% render 'social-icons' %}
+        <p>
+          <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a><br>
+          {{ settings.contact_address }}
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Platform</h4>
+        <a href="{{ routes.root_url }}">Home</a>
+        <a href="{{ routes.root_url }}#why-teknotize">About Us</a>
+        <a href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Partnerships</a>
+        <a href="{{ store_url }}">Athlete Store</a>
+        <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact Us</a>
+        <a href="{{ signup_url }}" target="_blank" rel="noopener">Athlete Dashboard</a>
+        <a href="{{ agency_url }}" target="_blank" rel="noopener">NIL Agency</a>
+      </div>
+
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy Policy</a>
+        <a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms of Service</a>
+        <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Refund Policy</a>
+        <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a>
+        <h4 style="margin-top:28px;">Shop</h4>
+        <a href="{{ routes.all_products_collection_url }}">All Products</a>
+        <a href="{{ routes.collections_url }}">Collections</a>
+        <a href="{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}">How It Works</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name | upcase }}. {{ section.settings.rights }}</span>
+      <span>{{ section.settings.built }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "blurb",
+      "label": "Brand blurb",
+      "default": "We empower athletes to monetize their brand through custom apparel, NIL deals, and seamless global fulfillment. We are the ecommerce engine for athletes, handling everything behind the scenes so you can focus on performing in your sport, growing your fanbase, and getting paid."
+    },
+    {
+      "type": "text",
+      "id": "rights",
+      "label": "Rights line",
+      "default": "ALL RIGHTS RESERVED."
+    },
+    {
+      "type": "text",
+      "id": "built",
+      "label": "Tagline",
+      "default": "BUILT BY ATHLETES. FOR ATHLETES."
+    }
+  ]
+}
+{% endschema %}

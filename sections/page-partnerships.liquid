@@ -1,0 +1,43 @@
+<section class="main-page">
+  <div class="page-width">
+    <p class="eyebrow">● Official Partners</p>
+    <h1 class="section-title">OUR PARTNERS.</h1>
+    <p class="lede">{{ section.settings.intro }}</p>
+    <div class="partners-grid" style="margin-top:32px;">
+      {% for block in section.blocks %}
+        <article class="partner-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.logo != blank -%}
+            <img src="{{ block.settings.logo | image_url: width: 240 }}" alt="{{ block.settings.title | escape }}" style="height:48px;width:auto;margin-bottom:16px;">
+          {%- endif -%}
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.copy }}</p>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="cta-box" style="margin-top:40px;">
+      <h2>Become a partner</h2>
+      <p class="lede" style="margin-inline:auto;">Agencies, teams, and brands can launch athlete merch programs with Teknotize.</p>
+      <a class="btn btn-primary" href="{{ pages.agency.url | default: '/pages/agency' }}">Become An NIL Agency</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Partnerships",
+  "settings": [
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "We collaborate with the best agencies, teams, and organizations to empower athletes worldwide." }
+  ],
+  "blocks": [
+    {
+      "type": "partner",
+      "name": "Partner",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Partner" },
+        { "type": "textarea", "id": "copy", "label": "Copy" },
+        { "type": "image_picker", "id": "logo", "label": "Logo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

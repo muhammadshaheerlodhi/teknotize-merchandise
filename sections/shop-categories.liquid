@@ -1,0 +1,59 @@
+{% render 'site-urls' %}
+<section class="shop-categories" id="shop">
+  <div class="page-width reveal">
+    <div class="section-intro">
+      <p class="section-label">{{ section.settings.label }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {% if section.settings.intro != blank %}<p class="lede">{{ section.settings.intro }}</p>{% endif %}
+    </div>
+    <div class="category-grid reveal-stagger">
+      {% for block in section.blocks %}
+        <a class="category-card crystal" href="{{ block.settings.link | default: store_url }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.title }}
+          {%- else -%}
+            <img src="{{ 'stores-athlete.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="640" height="480">
+          {%- endif -%}
+          <div class="card-overlay">
+            <div class="card-kicker">Shop</div>
+            <h3>{{ block.settings.title }}</h3>
+            {% if block.settings.subtitle != blank %}<p>{{ block.settings.subtitle }}</p>{% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop categories",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "The Drop" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Cop the Heat. Support Your Athlete." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Premium blanks. Custom graphics. Zero cheap screen-print vibes." }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Oversized Hoodies" },
+        { "type": "textarea", "id": "subtitle", "label": "Subtitle" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop categories",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Oversized Hoodies", "subtitle": "Heavyweight fleece. Boxy fit. Built for cold games." } },
+        { "type": "category", "settings": { "title": "Boxy Tees", "subtitle": "Structured shoulders. Premium cotton." } },
+        { "type": "category", "settings": { "title": "Fleece Layers", "subtitle": "Game-day warmups and post-win fits." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

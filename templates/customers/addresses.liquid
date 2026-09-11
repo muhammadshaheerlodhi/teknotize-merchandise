@@ -1,0 +1,31 @@
+<div class="account-page">
+  <div class="page-width">
+    <p class="eyebrow">Account</p>
+    <h1 class="section-title">Addresses</h1>
+    {% paginate customer.addresses by 8 %}
+      <div class="partners-grid">
+        {%- for address in customer.addresses -%}
+          <article class="info-card">
+            {{ address | format_address }}
+          </article>
+        {%- endfor -%}
+      </div>
+      {% render 'pagination', paginate: paginate %}
+    {% endpaginate %}
+
+    <div class="signup-panel" style="margin-top:32px;">
+      <h2>Add a new address</h2>
+      {% form 'customer_address', customer.new_address %}
+        <div class="form-grid">
+          <div><label>First name</label><input class="field" type="text" name="address[first_name]"></div>
+          <div><label>Last name</label><input class="field" type="text" name="address[last_name]"></div>
+          <div class="full"><label>Address</label><input class="field" type="text" name="address[address1]"></div>
+          <div><label>City</label><input class="field" type="text" name="address[city]"></div>
+          <div><label>ZIP</label><input class="field" type="text" name="address[zip]"></div>
+          <div class="full"><label>Phone</label><input class="field" type="tel" name="address[phone]"></div>
+        </div>
+        <button class="btn btn-primary" type="submit" style="margin-top:16px;">Save address</button>
+      {% endform %}
+    </div>
+  </div>
+</div>

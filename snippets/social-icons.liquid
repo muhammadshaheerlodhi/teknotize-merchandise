@@ -1,0 +1,20 @@
+<div class="footer-social-block">
+  <h4>Follow Us</h4>
+  <div class="socials">
+    {%- if settings.social_instagram != blank -%}
+      <a href="{{ settings.social_instagram }}" aria-label="Instagram" target="_blank" rel="noopener">IG</a>
+    {%- endif -%}
+    {%- if settings.social_facebook != blank -%}
+      <a href="{{ settings.social_facebook }}" aria-label="Facebook" target="_blank" rel="noopener">FB</a>
+    {%- endif -%}
+    {%- if settings.social_tiktok != blank -%}
+      <a href="{{ settings.social_tiktok }}" aria-label="TikTok" target="_blank" rel="noopener">TT</a>
+    {%- endif -%}
+    {%- if settings.social_twitter != blank -%}
+      <a href="{{ settings.social_twitter }}" aria-label="X" target="_blank" rel="noopener">X</a>
+    {%- endif -%}
+    {%- if settings.social_youtube != blank -%}
+      <a href="{{ settings.social_youtube }}" aria-label="YouTube" target="_blank" rel="noopener">YT</a>
+    {%- endif -%}
+  </div>
+</div>

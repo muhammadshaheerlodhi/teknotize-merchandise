@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "intro": {
+      "type": "page-how-it-works",
+      "settings": {}
+    },
+    "engine": {
+      "type": "how-it-works",
+      "blocks": {
+        "stage1": {
+          "type": "stage",
+          "settings": {
+            "number": "01",
+            "kicker": "STAGE // 01",
+            "title": "Free to join",
+            "copy": "Create your Teknotize storefront at no cost. Choose from oversized hoodies, boxy T-shirts, fleece sweatshirts, washed tees, and more."
+          }
+        },
+        "stage2": {
+          "type": "stage",
+          "settings": {
+            "number": "02",
+            "kicker": "STAGE // 02",
+            "title": "Design your drop",
+            "copy": "Send graphic preferences. Our team builds the merch and loads your products."
+          }
+        },
+        "stage3": {
+          "type": "stage",
+          "settings": {
+            "number": "03",
+            "kicker": "STAGE // 03",
+            "title": "Share and earn",
+            "copy": "Drop your store link in your bio. Fans buy. We print, pack, and ship worldwide."
+          }
+        },
+        "stage4": {
+          "type": "stage",
+          "settings": {
+            "number": "04",
+            "kicker": "STAGE // 04",
+            "title": "Scale the brand",
+            "copy": "Add more products, run new drops, and grow with agency or team support."
+          }
+        }
+      },
+      "block_order": ["stage1", "stage2", "stage3", "stage4"],
+      "settings": {
+        "label": "The Engine",
+        "heading": "UNLEASH THE POTENTIAL OF YOUR NAME_"
+      }
+    },
+    "cta": {
+      "type": "cta-banner",
+      "settings": {
+        "label": "JOIN TEKNOTIZE",
+        "heading": "Start earning today",
+        "copy": "Sign up. Build your brand. We handle the rest.",
+        "cta_primary": "Athlete Sign-up",
+        "cta_secondary": "Contact Us"
+      }
+    }
+  },
+  "order": ["intro", "engine", "cta"]
+}

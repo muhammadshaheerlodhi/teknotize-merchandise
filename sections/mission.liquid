@@ -1,0 +1,55 @@
+<section class="mission" id="why-teknotize">
+  <div class="page-width reveal">
+    <div class="section-intro section-intro--center">
+      <p class="section-label">{{ section.settings.label }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      <p class="lede">{{ section.settings.copy }}</p>
+      {% if section.settings.copy_2 != blank %}<p class="lede">{{ section.settings.copy_2 }}</p>{% endif %}
+    </div>
+    <div class="orbit-cards reveal-stagger">
+      {% assign orbit_fallbacks = 'orbit-merch-camera.png,hero-athlete.jpg,orbit-custom-graphics.png,orbit-print-pack.png,orbit-premium-blanks.png,orbit-scale-up.png' | split: ',' %}
+      {% for block in section.blocks %}
+        {% assign idx = forloop.index0 %}
+        <article class="orbit-card crystal" tabindex="0" {{ block.shopify_attributes }}>
+          <div class="orbit-card-media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.title }}
+            {%- else -%}
+              <img src="{{ orbit_fallbacks[idx] | default: 'stores-athlete.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="400" height="400">
+            {%- endif -%}
+          </div>
+          <div class="orbit-card-body">
+            <h3>{{ block.settings.title }}</h3>
+            <p class="orbit-desc">{{ block.settings.copy }}</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Mission",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "The Advantage" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Everything You Need to Win Off the Field" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "We built the full stack so athletes can monetize their brand without becoming a business major." },
+    { "type": "textarea", "id": "copy_2", "label": "Copy 2", "default": "" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon emoji" },
+        { "type": "text", "id": "kicker", "label": "Kicker" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "copy", "label": "Copy" },
+        { "type": "image_picker", "id": "image", "label": "Card image" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Mission" }]
+}
+{% endschema %}

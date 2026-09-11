@@ -1,0 +1,14 @@
+<a href="{{ routes.root_url }}" class="{{ class | default: 'header-logo' }}" aria-label="{{ shop.name }}">
+  {%- if settings.logo != blank -%}
+    {{ settings.logo | image_url: width: 280 | image_tag: class: 'logo-img', alt: shop.name, loading: 'eager' }}
+  {%- else -%}
+    <img
+      class="logo-img"
+      src="{{ 'logo.png' | asset_url }}"
+      alt="{{ shop.name }}"
+      width="112"
+      height="48"
+      loading="eager"
+    >
+  {%- endif -%}
+</a>
