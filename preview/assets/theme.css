@@ -217,8 +217,8 @@ p:last-child { margin-bottom: 0; }
 }
 
 .reveal-stagger > * {
-  opacity: 0;
-  transform: translate3d(0, 10px, 0);
+  opacity: 1;
+  transform: none;
   transition:
     opacity 0.14s var(--tm-ease-out),
     transform 0.14s var(--tm-ease-out);
@@ -233,8 +233,8 @@ p:last-child { margin-bottom: 0; }
 
 /* Scroll reveal — fast GPU transforms */
 .reveal {
-  opacity: 0;
-  transform: translate3d(0, 10px, 0);
+  opacity: 1;
+  transform: none;
   transition:
     opacity 0.14s var(--tm-ease-out),
     transform 0.14s var(--tm-ease-out);
@@ -243,6 +243,12 @@ p:last-child { margin-bottom: 0; }
   opacity: 1;
   transform: none;
   will-change: auto;
+}
+
+.no-js .reveal,
+.no-js .reveal-stagger > * {
+  opacity: 1;
+  transform: none;
 }
 
 .reveal-left {
@@ -2224,7 +2230,8 @@ label {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .reveal,
+  .reveal-stagger > * { opacity: 1; transform: none; }
   .reviews-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
   .reviews-marquee { mask-image: none; -webkit-mask-image: none; }
 }
