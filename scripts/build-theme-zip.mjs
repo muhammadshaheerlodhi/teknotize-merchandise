@@ -19,6 +19,8 @@ const required = [
   'templates/404.json',
   'sections/header-group.json',
   'sections/footer-group.json',
+  'sections/homepage-group.json',
+  'sections/home-placeholder.liquid',
   'locales/en.default.json',
   'assets/theme.css.liquid',
   'assets/theme.js',
@@ -33,7 +35,7 @@ for (const file of required) {
   if (!ok) failed = true;
 }
 
-for (const file of ['templates/index.json', 'config/settings_schema.json']) {
+for (const file of ['templates/index.json', 'sections/homepage-group.json', 'config/settings_schema.json']) {
   try {
     JSON.parse(readFileSync(join(root, file), 'utf8'));
     console.log(`✓ ${file} (valid JSON)`);
