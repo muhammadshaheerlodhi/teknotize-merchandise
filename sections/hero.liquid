@@ -22,7 +22,8 @@
 
         {% if section.settings.image != blank %}
 
-          {{ section.settings.image | image_url: width: 900 | image_tag: class: 'hero-art-img', loading: 'eager', alt: section.settings.image.alt | default: section.settings.heading }}
+          {%- assign hero_alt = section.settings.image.alt | default: section.settings.heading -%}
+          {{ section.settings.image | image_url: width: 900 | image_tag: class: 'hero-art-img', loading: 'eager', alt: hero_alt }}
 
         {% else %}
 

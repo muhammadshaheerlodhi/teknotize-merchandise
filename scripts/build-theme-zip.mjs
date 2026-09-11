@@ -16,7 +16,6 @@ const required = [
   'config/settings_schema.json',
   'config/settings_data.json',
   'templates/index.json',
-  'templates/index.liquid',
   'templates/404.json',
   'sections/header-group.json',
   'sections/footer-group.json',
