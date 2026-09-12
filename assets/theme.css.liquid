@@ -1490,6 +1490,20 @@ p:last-child { margin-bottom: 0; }
 }
 
 .product-card { min-height: 0; }
+.product-card .media {
+  background: #fff;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-card .media img {
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  padding: 18px;
+}
 .product-card .card-body { padding: 14px 16px 18px; }
 
 .product-card h3 {
@@ -2080,16 +2094,41 @@ label {
 
 .product-layout {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 36px;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.7fr);
+  gap: 48px;
+  align-items: start;
 }
 
-.product-media img { width: 100%; border-radius: var(--tm-radius-lg); }
+.product-media {
+  width: 100%;
+}
 
-.thumbs { display: flex; gap: 8px; margin-top: 10px; overflow: auto; }
+.product-media-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: clamp(460px, 56vw, 720px);
+  padding: clamp(16px, 3vw, 36px);
+  background: #fff;
+  border-radius: var(--tm-radius-lg);
+  border: 1px solid rgba(252, 0, 10, 0.08);
+}
+
+.product-media-frame img,
+.product-media > img {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  max-height: min(72vh, 680px);
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.thumbs { display: flex; gap: 8px; margin-top: 14px; overflow: auto; }
 
 .thumbs img {
-  width: 72px; height: 72px;
+  width: 88px; height: 88px;
   object-fit: cover;
   border-radius: 10px;
   border: 1px solid var(--tm-border);
@@ -2319,6 +2358,11 @@ label {
   .collection-hero, .contact-layout,
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .product-media-frame {
+    min-height: clamp(340px, 78vw, 520px);
+    padding: 20px;
   }
 
   .athlete-grid, .product-grid, .category-grid {

@@ -17,7 +17,9 @@
     <img src="{{ 'logo.png' | asset_url }}" alt="{{ collection.title | escape }}" style="object-fit:contain;background:#000;padding:40px;">
   {%- endif -%}
   <div class="card-overlay">
-    <div class="card-kicker">{{ kicker | default: 'ROSTER // View Store' }}</div>
+    {%- if kicker != blank -%}
+      <div class="card-kicker">{{ kicker }}</div>
+    {%- endif -%}
     <h3>{{ collection.title }}</h3>
     <span class="btn btn-ghost" style="min-height:36px;padding:0 14px;">Shop Storefront</span>
   </div>

@@ -12,7 +12,7 @@
     <div class="athlete-grid">
       {%- for collection in collections -%}
         {%- if collection.handle == 'all' -%}{%- continue -%}{%- endif -%}
-        {% render 'collection-card', collection: collection, kicker: 'ROSTER // View Store' %}
+        {% render 'collection-card', collection: collection %}
       {%- endfor -%}
     </div>
   </div>
