@@ -129,7 +129,8 @@ p:last-child { margin-bottom: 0; }
 }
 
 .main-content {
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 /* Crystal glass panel — premium athlete-store cards */
@@ -790,8 +791,11 @@ p:last-child { margin-bottom: 0; }
 }
 
 .icon-btn {
+  position: relative;
+  z-index: 2;
   width: 44px; height: 44px;
   display: grid; place-items: center;
+  touch-action: manipulation;
   border-radius: 999px;
   border: 1px solid rgba(252, 0, 10, 0.12);
   background: rgba(255, 255, 255, 0.92);
@@ -1303,6 +1307,11 @@ p:last-child { margin-bottom: 0; }
 .account-page {
   padding: var(--tm-section-py) 0;
   min-height: auto;
+}
+
+.featured-athletes, .main-collection,
+.main-search, .main-page, .list-collections,
+.account-page {
   content-visibility: auto;
   contain-intrinsic-size: auto 480px;
 }
@@ -2159,7 +2168,14 @@ label {
   transition: all 0.2s;
 }
 
-.swatches input { display: none; }
+.swatches label { position: relative; }
+.swatches input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
 
 .swatches label:has(input:checked) {
   border-color: var(--tm-accent);
@@ -2473,21 +2489,27 @@ label {
   .header-nav { display: none; }
   .menu-toggle { display: grid; }
   .desktop-only { display: none !important; }
-  .mobile-only.header-signup { display: inline-flex; }
+  .mobile-only.header-signup { display: none !important; }
+
+  .site-header { overflow: visible; }
 
   .mobile-drawer {
     display: none;
     position: fixed;
     inset: calc(var(--tm-announce) + var(--tm-header)) 0 0;
-    z-index: 60;
-    padding: 20px;
+    z-index: 120;
+    padding: 20px 20px 40px;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     border-top: 1px solid var(--tm-border);
   }
 
   .mobile-drawer.is-open { display: block; }
+
+  body.menu-open { overflow: hidden; }
+  body.search-open { overflow: hidden; }
 
   .mobile-drawer a {
     display: block;
@@ -2515,6 +2537,31 @@ label {
   .product-media-frame {
     min-height: clamp(220px, 52vw, 320px);
     padding: 12px;
+  }
+
+  .main-product,
+  .main-cart,
+  .product-layout,
+  .product-details {
+    overflow: visible;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .swatches {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  .swatches label,
+  .qty button,
+  .thumbs img {
+    touch-action: manipulation;
+  }
+
+  .thumbs {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 
   .product-details-grid {

@@ -91,6 +91,25 @@
     return cart;
   };
 
+  const mobileDrawer = qs('[data-mobile-drawer]');
+  const searchModal = qs('[data-search-modal]');
+  let uiOpenedAt = 0;
+
+  const setMenuOpen = (open) => {
+    mobileDrawer?.classList.toggle('is-open', open);
+    document.body.classList.toggle('menu-open', open);
+  };
+  const setSearchOpen = (open) => {
+    searchModal?.classList.toggle('is-open', open);
+    document.body.classList.toggle('search-open', open);
+    if (open) searchModal?.querySelector('input')?.focus();
+  };
+
+  const applyVariantImage = (image) => {
+    const main = qs('[data-product-main]');
+    if (main && image) main.src = image;
+  };
+
   document.addEventListener('click', (e) => {
     const openBtn = e.target.closest('[data-open-cart]');
     const closeBtn = e.target.closest('[data-close-cart]');
@@ -99,6 +118,7 @@
     const searchOpen = e.target.closest('[data-open-search]');
     const searchClose = e.target.closest('[data-close-search]');
     const thumb = e.target.closest('[data-product-thumb]');
+    const drawerLink = e.target.closest('[data-mobile-drawer] a');
 
     if (openBtn) {
       e.preventDefault();
@@ -106,21 +126,24 @@
     }
     if (closeBtn || e.target.matches('[data-cart-drawer-overlay]')) closeDrawer();
     if (qtyBtn) updateQty(qtyBtn.dataset.qtyChange, Number(qtyBtn.dataset.qty));
-    if (menuBtn) qs('[data-mobile-drawer]')?.classList.toggle('is-open');
+    if (menuBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      uiOpenedAt = Date.now();
+      setMenuOpen(!mobileDrawer?.classList.contains('is-open'));
+    }
+    if (drawerLink) setMenuOpen(false);
     if (searchOpen) {
       e.preventDefault();
-      qs('[data-search-modal]')?.classList.add('is-open');
-      qs('[data-search-modal] input')?.focus();
+      e.stopPropagation();
+      uiOpenedAt = Date.now();
+      setSearchOpen(true);
     }
-    if (searchClose || e.target.matches('[data-search-modal]')) {
-      if (e.target.matches('[data-search-modal]') || searchClose) {
-        qs('[data-search-modal]')?.classList.remove('is-open');
-      }
+    if (searchClose || e.target === searchModal) {
+      if (Date.now() - uiOpenedAt < 400) return;
+      if (e.target === searchModal || searchClose) setSearchOpen(false);
     }
-    if (thumb) {
-      const main = qs('[data-product-main]');
-      if (main) main.src = thumb.dataset.productThumb;
-    }
+    if (thumb) applyVariantImage(thumb.dataset.productThumb);
   });
 
   qsa('[data-product-form]').forEach((form) => {
@@ -145,28 +168,36 @@
         btn.disabled = !available;
         btn.textContent = available ? 'Add to cart' : 'Sold out';
       }
+      applyVariantImage(option.dataset.image);
     });
   });
 
-  qsa('[data-swatch]').forEach((input) => {
-    input.addEventListener('change', () => {
-      const form = input.closest('form');
-      const selects = qsa('[data-option-position]', form);
-      const values = selects.map((sel) => {
-        if (sel === input) return input.value;
-        const checked = qs(`input[name="${sel.name}"]:checked`, form);
-        return checked ? checked.value : sel.value;
-      });
-      const variantSelect = qs('[data-variant-select]', form);
-      if (!variantSelect) return;
-      [...variantSelect.options].forEach((opt) => {
-        const match = values.every((val, i) => (opt.dataset[`option${i + 1}`] || '') === val);
-        if (match) {
-          variantSelect.value = opt.value;
-          variantSelect.dispatchEvent(new Event('change'));
-        }
-      });
+  const selectVariantFromSwatches = (input) => {
+    const form = input.closest('form');
+    if (!form) return;
+    applyVariantImage(input.dataset.image);
+    const swatches = qsa('[data-option-position]', form);
+    const values = swatches.map((sel) => {
+      if (sel === input) return input.value;
+      const checked = qs(`input[name="${sel.name}"]:checked`, form);
+      return checked ? checked.value : sel.value;
     });
+    const variantSelect = qs('[data-variant-select]', form);
+    if (!variantSelect) return;
+    [...variantSelect.options].some((opt) => {
+      const match = values.every((val, i) => (opt.dataset[`option${i + 1}`] || '') === val);
+      if (match) {
+        variantSelect.value = opt.value;
+        variantSelect.dispatchEvent(new Event('change'));
+        return true;
+      }
+      return false;
+    });
+  };
+
+  qsa('[data-swatch]').forEach((input) => {
+    input.addEventListener('change', () => selectVariantFromSwatches(input));
+    input.addEventListener('click', () => selectVariantFromSwatches(input));
   });
 
   refreshCart().catch(() => {});

@@ -48,6 +48,7 @@
                 data-option1="{{ variant.option1 | escape }}"
                 data-option2="{{ variant.option2 | escape }}"
                 data-option3="{{ variant.option3 | escape }}"
+                {% if variant.featured_image %}data-image="{{ variant.featured_image | image_url: width: 1800 }}"{% endif %}
                 {% unless variant.available %}disabled{% endunless %}
               >
                 {{ variant.title }} — {{ variant.price | money }}
@@ -61,6 +62,23 @@
                 <legend>{{ option.name }}</legend>
                 <div class="swatches">
                   {%- for value in option.values -%}
+                    {%- liquid
+                      assign swatch_image = ''
+                      for variant in product.variants
+                        assign match = false
+                        if option.position == 1 and variant.option1 == value
+                          assign match = true
+                        elsif option.position == 2 and variant.option2 == value
+                          assign match = true
+                        elsif option.position == 3 and variant.option3 == value
+                          assign match = true
+                        endif
+                        if match and variant.featured_image != blank
+                          assign swatch_image = variant.featured_image | image_url: width: 1800
+                          break
+                        endif
+                      endfor
+                    -%}
                     <label>
                       <input
                         type="radio"
@@ -68,6 +86,7 @@
                         value="{{ value | escape }}"
                         data-swatch
                         data-option-position
+                        data-image="{{ swatch_image }}"
                         {% if option.selected_value == value %}checked{% endif %}
                       >
                       <span>{{ value }}</span>
