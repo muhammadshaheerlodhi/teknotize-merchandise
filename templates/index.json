@@ -408,7 +408,7 @@
         "q5": {
           "type": "item",
           "settings": {
-            "question": "6. HOW DO I GET PAID?",
+            "question": "5. HOW DO I GET PAID?",
             "answer": "<p>Your sales are <strong>tracked monthly</strong>, and your total sales for the month determine your commission tier. <strong>Your commission payout is issued at the end of each month</strong> based on your verified sales.<br/></p>"
           }
         }
