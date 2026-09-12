@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { renderTemplate, resolve, errors, pageHandles } from './dev-server.mjs';
+import { renderTemplate, resolve, errors, pageHandles, parseThemeJson } from './dev-server.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -64,7 +64,7 @@ for (const urlPath of paths) {
 }
 
 // Homepage must contain every section declared in templates/index.json.
-const index = JSON.parse(fs.readFileSync(path.join(ROOT, 'templates/index.json'), 'utf8'));
+const index = parseThemeJson(fs.readFileSync(path.join(ROOT, 'templates/index.json'), 'utf8'));
 const { html: home } = await renderTemplate('index', null, { path: '/' });
 for (const key of index.order) {
   if (!home.includes(`id="shopify-section-${key}"`)) {

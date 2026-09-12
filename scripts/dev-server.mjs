@@ -11,6 +11,10 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 const exists = (p) => fs.existsSync(path.join(ROOT, p));
 
+// Shopify writes a leading /* ... */ banner into the JSON files it manages, so
+// theme JSON is not strictly valid JSON and must be stripped before parsing.
+export const parseThemeJson = (text) => JSON.parse(text.replace(/^\s*\/\*[\s\S]*?\*\//, ''));
+
 export const errors = [];
 const fail = (where, message) => {
   errors.push(`${where}: ${message}`);
@@ -20,7 +24,7 @@ const fail = (where, message) => {
 
 let locale = {};
 try {
-  locale = JSON.parse(read('locales/en.default.json'));
+  locale = parseThemeJson(read('locales/en.default.json'));
 } catch (e) {
   fail('locales/en.default.json', `invalid JSON - ${e.message}`);
 }
@@ -40,7 +44,7 @@ const schemaDefaults = () => {
   const out = {};
   let groups;
   try {
-    groups = JSON.parse(read('config/settings_schema.json'));
+    groups = parseThemeJson(read('config/settings_schema.json'));
   } catch (e) {
     fail('config/settings_schema.json', `invalid JSON - ${e.message}`);
     return out;
@@ -57,7 +61,7 @@ const schemaDefaults = () => {
 
 let savedSettings = {};
 try {
-  savedSettings = JSON.parse(read('config/settings_data.json')).current || {};
+  savedSettings = parseThemeJson(read('config/settings_data.json')).current || {};
 } catch (e) {
   fail('config/settings_data.json', `invalid JSON - ${e.message}`);
 }
@@ -347,7 +351,7 @@ const renderSectionGroup = async (name, globals) => {
   }
   let group;
   try {
-    group = JSON.parse(read(file));
+    group = parseThemeJson(read(file));
   } catch (e) {
     fail(file, `invalid JSON - ${e.message}`);
     return '';
@@ -425,7 +429,7 @@ const renderTemplate = async (templateName, suffix, extra = {}) => {
   if (exists(jsonFile)) {
     let template;
     try {
-      template = JSON.parse(read(jsonFile));
+      template = parseThemeJson(read(jsonFile));
     } catch (e) {
       fail(jsonFile, `invalid JSON - ${e.message}`);
       return { html: '', file: jsonFile };
