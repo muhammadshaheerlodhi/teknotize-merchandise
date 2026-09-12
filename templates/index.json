@@ -21,7 +21,8 @@
         "cta_primary_link": "shopify://collections",
         "cta_secondary": "Athlete Merch Sign-up",
         "cta_secondary_link": "",
-        "float_text": "50+ Orders"
+        "float_text": "50+ Orders",
+        "image": "shopify://shop_images/video.gif"
       }
     },
     "athletes": {
