@@ -48,6 +48,7 @@
     <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip' | t }}</a>
 
     {% sections 'header-group' %}
+    {% render 'mobile-nav' %}
 
     <main id="MainContent" class="main-content" role="main" tabindex="-1">
       {{ content_for_layout }}

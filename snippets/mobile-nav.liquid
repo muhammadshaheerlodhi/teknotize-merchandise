@@ -1,0 +1,27 @@
+{%- liquid
+  assign store_url = settings.athlete_store_url | default: routes.collections_url
+  if store_url == blank or store_url == 'shopify://collections' or store_url contains '/collections/all'
+    assign store_url = routes.collections_url | default: '/collections'
+  endif
+  assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
+  assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
+  assign home_url = routes.root_url | default: '/'
+  if home_url == blank
+    assign home_url = '/'
+  endif
+  assign contact_url = pages.contact.url | default: '/pages/contact'
+  if contact_url == blank
+    assign contact_url = '/pages/contact'
+  endif
+-%}
+<div class="mobile-nav" data-mobile-drawer>
+  <nav class="mobile-nav-panel" aria-label="Mobile">
+    <a href="{{ home_url }}">Home</a>
+    <a href="{{ store_url }}">Athlete Store</a>
+    <a href="{{ home_url }}#why-teknotize">About Us</a>
+    <a href="{{ home_url }}#reviews">Reviews</a>
+    <a href="{{ contact_url }}">Contact</a>
+    <a href="{{ signup_url }}" target="_blank" rel="noopener">Athlete Merch Sign-up</a>
+    <a href="{{ agency_url }}" target="_blank" rel="noopener">Become An NIL Agency</a>
+  </nav>
+</div>

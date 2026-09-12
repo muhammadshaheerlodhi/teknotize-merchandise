@@ -132,7 +132,9 @@
       uiOpenedAt = Date.now();
       setMenuOpen(!mobileDrawer?.classList.contains('is-open'));
     }
-    if (drawerLink) setMenuOpen(false);
+    if (drawerLink) {
+      setMenuOpen(false);
+    }
     if (searchOpen) {
       e.preventDefault();
       e.stopPropagation();
@@ -291,10 +293,10 @@
     const id = href.split('#')[1];
     if (!id) return;
     const target = document.getElementById(id);
+    setMenuOpen(false);
     if (!target) return;
     e.preventDefault();
-    qs('[data-mobile-drawer]')?.classList.remove('is-open');
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: 'auto', block: 'start' });
     history.replaceState(null, '', `#${id}`);
     setActiveNav(id);
   });
