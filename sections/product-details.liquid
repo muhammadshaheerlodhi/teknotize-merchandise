@@ -1,0 +1,84 @@
+<section class="product-details">
+  <div class="page-width product-details-grid">
+    <div class="product-details-gallery">
+      {%- if product.images.size > 0 -%}
+        {%- for image in product.images -%}
+          <button type="button" class="product-details-swatch" data-product-thumb="{{ image | image_url: width: 1800 }}">
+            <img
+              src="{{ image | image_url: width: 400 }}"
+              alt="{{ image.alt | default: product.title | escape }}"
+              width="400"
+              height="400"
+              loading="lazy"
+            >
+          </button>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    <div class="product-details-copy">
+      <h2 class="product-details-heading">{{ section.settings.heading }}</h2>
+      {%- if section.blocks.size > 0 -%}
+        <ol class="product-details-list">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              <span class="product-details-label">{{ block.settings.label }}:</span>
+              {{ block.settings.value }}
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+      {%- if section.settings.care != blank -%}
+        <p class="product-details-care">
+          <span class="product-details-label">Care:</span>
+          {{ section.settings.care }}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product details",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Product Details"
+    },
+    {
+      "type": "textarea",
+      "id": "care",
+      "label": "Care",
+      "default": "Machine wash at 30°C. Do not bleach. Tumble dry low. Iron on low, avoiding the print. Do not dry clean."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Spec",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Gender" },
+        { "type": "text", "id": "value", "label": "Value", "default": "Unisex" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product details",
+      "blocks": [
+        { "type": "spec", "settings": { "label": "Gender", "value": "Unisex" } },
+        { "type": "spec", "settings": { "label": "Fabric", "value": "42% Cotton, 53% Polyester, 5% Other Fibers" } },
+        { "type": "spec", "settings": { "label": "Weight", "value": "10.3 oz/yd² (350g/m²)" } },
+        { "type": "spec", "settings": { "label": "Thickness", "value": "Thick" } },
+        { "type": "spec", "settings": { "label": "Stretch", "value": "Slight Stretch" } },
+        { "type": "spec", "settings": { "label": "Fit", "value": "Regular / Loose" } },
+        { "type": "spec", "settings": { "label": "Style", "value": "Long Sleeve, Drop Shoulder, Hooded" } },
+        { "type": "spec", "settings": { "label": "Season", "value": "Autumn / Winter" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

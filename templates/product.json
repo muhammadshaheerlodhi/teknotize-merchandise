@@ -4,6 +4,24 @@
       "type": "main-product",
       "settings": {}
     },
+    "details": {
+      "type": "product-details",
+      "blocks": {
+        "gender": { "type": "spec", "settings": { "label": "Gender", "value": "Unisex" } },
+        "fabric": { "type": "spec", "settings": { "label": "Fabric", "value": "42% Cotton, 53% Polyester, 5% Other Fibers" } },
+        "weight": { "type": "spec", "settings": { "label": "Weight", "value": "10.3 oz/yd² (350g/m²)" } },
+        "thickness": { "type": "spec", "settings": { "label": "Thickness", "value": "Thick" } },
+        "stretch": { "type": "spec", "settings": { "label": "Stretch", "value": "Slight Stretch" } },
+        "fit": { "type": "spec", "settings": { "label": "Fit", "value": "Regular / Loose" } },
+        "style": { "type": "spec", "settings": { "label": "Style", "value": "Long Sleeve, Drop Shoulder, Hooded" } },
+        "season": { "type": "spec", "settings": { "label": "Season", "value": "Autumn / Winter" } }
+      },
+      "block_order": ["gender", "fabric", "weight", "thickness", "stretch", "fit", "style", "season"],
+      "settings": {
+        "heading": "Product Details",
+        "care": "Machine wash at 30°C. Do not bleach. Tumble dry low. Iron on low, avoiding the print. Do not dry clean."
+      }
+    },
     "related": {
       "type": "featured-products",
       "settings": {
@@ -13,5 +31,5 @@
       }
     }
   },
-  "order": ["main", "related"]
+  "order": ["main", "details", "related"]
 }
