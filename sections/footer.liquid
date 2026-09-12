@@ -22,12 +22,11 @@
 
       <div class="footer-links">
         <h4>Platform</h4>
-        <a href="{{ routes.root_url }}">Home</a>
-        <a href="{{ routes.root_url }}#why-teknotize">About Us</a>
-        <a href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Partnerships</a>
+        <a href="{{ routes.root_url | default: '/' }}">Home</a>
+        <a href="{{ routes.root_url | default: '/' }}#why-teknotize">About Us</a>
+        <a href="{{ signup_url }}" target="_blank" rel="noopener">Athlete Merch Sign-up</a>
         <a href="{{ store_url }}">Athlete Store</a>
         <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact Us</a>
-        <a href="{{ signup_url }}" target="_blank" rel="noopener">Athlete Dashboard</a>
         <a href="{{ agency_url }}" target="_blank" rel="noopener">NIL Agency</a>
       </div>
 

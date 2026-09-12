@@ -246,17 +246,20 @@
   });
 
   const sections = qsa('section[id]');
-  const navLinks = qsa('[data-scroll-nav] a[href^="#"]');
+  const navLinks = qsa('[data-scroll-nav] a[href*="#"]');
   const setActiveNav = (id) => {
     navLinks.forEach((link) => {
-      link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`);
+      const href = link.getAttribute('href') || '';
+      link.classList.toggle('is-active', href === `#${id}` || href.endsWith(`#${id}`));
     });
   };
 
   document.addEventListener('click', (e) => {
-    const anchor = e.target.closest('a[href^="#"]');
-    if (!anchor) return;
-    const id = anchor.getAttribute('href').slice(1);
+    const anchor = e.target.closest('a[href*="#"]');
+    if (!anchor || anchor.target === '_blank') return;
+    const href = anchor.getAttribute('href') || '';
+    const id = href.split('#')[1];
+    if (!id) return;
     const target = document.getElementById(id);
     if (!target) return;
     e.preventDefault();
