@@ -1,0 +1,61 @@
+<section class="hero">
+  <div class="hero__inner">
+    {%- if section.settings.badge_text != blank -%}
+      <span class="hero__badge">{{ section.settings.badge_text }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.kicker != blank -%}
+      <p class="hero__kicker">{{ section.settings.kicker }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h1 class="hero__heading">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.copy != blank -%}
+      <p class="hero__copy">{{ section.settings.copy }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.copy_2 != blank -%}
+      <p class="hero__copy hero__copy--secondary">{{ section.settings.copy_2 }}</p>
+    {%- endif -%}
+
+    <div class="hero__actions">
+      {%- if section.settings.cta_primary != blank -%}
+        <a href="{{ section.settings.cta_primary_link | default: '#' }}" class="btn btn-primary">
+          {{ section.settings.cta_primary }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.cta_secondary != blank -%}
+        <a href="{{ section.settings.cta_secondary_link | default: '#' }}" class="btn btn-secondary">
+          {{ section.settings.cta_secondary }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.float_text != blank -%}
+      <div class="hero__float">{{ section.settings.float_text }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker text" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "copy", "label": "Copy" },
+    { "type": "textarea", "id": "copy_2", "label": "Secondary copy" },
+    { "type": "text", "id": "cta_primary", "label": "Primary button label" },
+    { "type": "url", "id": "cta_primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "cta_secondary", "label": "Secondary button label" },
+    { "type": "url", "id": "cta_secondary_link", "label": "Secondary button link" },
+    { "type": "text", "id": "badge_text", "label": "Badge text" },
+    { "type": "text", "id": "float_text", "label": "Floating stat text" }
+  ],
+  "presets": [
+    { "name": "Hero" }
+  ]
+}
+{% endschema %}
