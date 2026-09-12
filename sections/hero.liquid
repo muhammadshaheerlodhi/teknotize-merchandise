@@ -3,6 +3,37 @@
   assign store_url = settings.athlete_store_url | default: default_store_url
   assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
   assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
+
+  assign youtube_id = ''
+  assign vimeo_id = ''
+  assign hero_poster = ''
+
+  if section.settings.image != blank
+    assign hero_poster = section.settings.image | image_url: width: 900
+  endif
+
+  if section.settings.video_url.id != blank
+    if section.settings.video_url.type == 'youtube'
+      assign youtube_id = section.settings.video_url.id
+    elsif section.settings.video_url.type == 'vimeo'
+      assign vimeo_id = section.settings.video_url.id
+    endif
+  endif
+
+  if youtube_id == blank and vimeo_id == blank and section.settings.embed_url != blank
+    assign raw_url = section.settings.embed_url | strip
+    if raw_url contains 'youtu.be/'
+      assign youtube_id = raw_url | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first
+    elsif raw_url contains 'youtube.com/embed/'
+      assign youtube_id = raw_url | split: 'embed/' | last | split: '?' | first | split: '&' | first
+    elsif raw_url contains 'youtube.com/shorts/'
+      assign youtube_id = raw_url | split: 'shorts/' | last | split: '?' | first | split: '&' | first
+    elsif raw_url contains 'v='
+      assign youtube_id = raw_url | split: 'v=' | last | split: '&' | first
+    elsif raw_url contains 'vimeo.com/'
+      assign vimeo_id = raw_url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | last
+    endif
+  endif
 -%}
 <section class="hero" id="home">
   <div class="page-width hero-grid">
@@ -16,201 +47,148 @@
       </div>
 
       <p class="hero-copy">{{ section.settings.copy }}</p>
-
       {% if section.settings.copy_2 != blank %}<p class="hero-copy">{{ section.settings.copy_2 }}</p>{% endif %}
-
     </div>
 
     <div class="hero-media reveal reveal-right">
-
       <div class="hero-image-frame">
-
-        {% if section.settings.video != blank %}
-
-          {{ section.settings.video | video_tag: class: 'hero-art-video', autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '900x' }}
-
-        {% elsif section.settings.video_file != blank %}
-
-          <video class="hero-art-video" autoplay loop muted playsinline preload="metadata"
-            {%- if section.settings.image != blank %} poster="{{ section.settings.image | image_url: width: 900 }}"{% endif %}>
-            <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
-          </video>
-
-        {% elsif section.settings.image != blank %}
-
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag:
+            class: 'hero-art-video',
+            autoplay: true,
+            loop: true,
+            muted: true,
+            controls: false,
+            playsinline: true,
+            image_size: '900x'
+          }}
+        {%- elsif youtube_id != blank -%}
+          <div class="hero-art-embed">
+            {%- if hero_poster != blank -%}
+              <img class="hero-art-poster" src="{{ hero_poster }}" alt="{{ section.settings.heading | escape }}" loading="eager">
+            {%- endif -%}
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/{{ youtube_id }}?autoplay=1&mute=1&loop=1&playlist={{ youtube_id }}&controls=0&playsinline=1&rel=0&modestbranding=1"
+              title="{{ section.settings.heading | escape }}"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowfullscreen
+              loading="eager"></iframe>
+          </div>
+        {%- elsif vimeo_id != blank -%}
+          <div class="hero-art-embed">
+            {%- if hero_poster != blank -%}
+              <img class="hero-art-poster" src="{{ hero_poster }}" alt="{{ section.settings.heading | escape }}" loading="eager">
+            {%- endif -%}
+            <iframe
+              src="https://player.vimeo.com/video/{{ vimeo_id }}?autoplay=1&muted=1&loop=1&background=1&dnt=1"
+              title="{{ section.settings.heading | escape }}"
+              allow="autoplay; picture-in-picture"
+              allowfullscreen
+              loading="eager"></iframe>
+          </div>
+        {%- elsif section.settings.image != blank -%}
           {%- assign hero_alt = section.settings.image.alt | default: section.settings.heading -%}
           {{ section.settings.image | image_url: width: 900 | image_tag: class: 'hero-art-img', loading: 'eager', alt: hero_alt }}
-
-        {% else %}
-
+        {%- else -%}
           <img class="hero-art-img" src="{{ 'hero-athlete.png' | asset_url }}" alt="James Visocky — Teknotize athlete merchandise" loading="eager" width="520" height="650">
-
-        {% endif %}
+        {%- endif -%}
 
         <span class="hero-badge">{{ section.settings.badge_text }}</span>
-
       </div>
 
       {% if section.settings.float_text != blank %}
-
         <div class="hero-float">{{ section.settings.float_text }}</div>
-
       {% endif %}
-
     </div>
-
   </div>
-
 </section>
 
-
-
 {% schema %}
-
 {
-
   "name": "Hero",
-
   "settings": [
-
     {
-
+      "type": "header",
+      "content": "Hero media"
+    },
+    {
+      "type": "paragraph",
+      "content": "Use a video, an embed URL, or an image. The first option that has a value is shown. The image is also used as the poster while a video loads."
+    },
+    {
       "type": "video",
-
       "id": "video",
-
-      "label": "Hero video",
-
-      "info": "Upload in Shopify under Content > Files, then pick it here. Plays muted and looped. Takes priority over the hero image."
-
+      "label": "Uploaded video",
+      "info": "Upload an MP4 under Content > Files, then pick it here. Plays muted and looped."
     },
-
     {
-
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video embed (YouTube or Vimeo)",
+      "accept": ["youtube", "vimeo"],
+      "info": "Paste a YouTube or Vimeo link. Plays muted and looped."
+    },
+    {
       "type": "text",
-
-      "id": "video_file",
-
-      "label": "Hero video asset filename",
-
-      "info": "Fallback for an MP4 placed in the theme assets folder, for example hero-video.mp4. Only used when no hero video is selected above."
-
+      "id": "embed_url",
+      "label": "Or paste a video URL",
+      "info": "Optional fallback if the embed picker is empty. Accepts youtube.com, youtu.be, shorts, or vimeo.com links."
     },
-
     {
-
       "type": "image_picker",
-
       "id": "image",
-
       "label": "Hero image",
-
-      "info": "Also used as the video poster frame."
-
+      "info": "Shown when no video is set. Also used as the poster frame behind an embed."
     },
-
     {
-
       "type": "text",
-
       "id": "kicker",
-
       "label": "Kicker",
-
       "default": "Partnered with 500+ athletes and growing..."
-
     },
-
     {
-
       "type": "textarea",
-
       "id": "heading",
-
       "label": "Heading",
-
       "default": "your story, your brand, your legacy"
-
     },
-
     {
-
       "type": "text",
-
       "id": "cta_primary",
-
       "label": "Primary button",
-
       "default": "Athlete Stores"
-
     },
-
     {
-
       "type": "text",
-
       "id": "cta_secondary",
-
       "label": "Secondary button",
-
       "default": "Start Earning"
-
     },
-
     {
-
       "type": "textarea",
-
       "id": "copy",
-
       "label": "Copy",
-
       "default": "We handle the complicated mechanics—design, fulfillment, shipping, manufacturing, storefronts, and customer support—so you don't have to. You focus on your sport and pushing fans to purchase."
-
     },
-
     {
-
       "type": "textarea",
-
       "id": "copy_2",
-
       "label": "Secondary copy",
-
       "default": ""
-
     },
-
     {
-
       "type": "text",
-
       "id": "badge_text",
-
       "label": "Image badge",
-
       "default": "Official Athlete Merch"
-
     },
-
     {
-
       "type": "text",
-
       "id": "float_text",
-
       "label": "Floating stat",
-
       "default": "50+ Orders"
-
     }
-
   ],
-
   "presets": [{ "name": "Hero" }]
-
 }
-
 {% endschema %}
-
-

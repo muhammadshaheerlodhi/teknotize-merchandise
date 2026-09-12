@@ -989,6 +989,44 @@ p:last-child { margin-bottom: 0; }
   background: #140808;
 }
 
+/* Embedded players only expose an iframe, so the frame owns the aspect ratio. */
+.hero-art-embed {
+  position: relative;
+  width: 100%;
+  max-width: min(380px, 100%);
+  aspect-ratio: 9 / 11;
+  margin-inline: auto;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #140808;
+  filter: drop-shadow(0 16px 40px rgba(252, 0, 10, 0.22));
+  transition: transform 0.28s var(--tm-ease), filter 0.28s var(--tm-ease);
+}
+
+.hero-art-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero-art-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  z-index: 1;
+}
+
+.hero-image-frame:hover .hero-art-embed {
+  transform: translateY(-4px) scale(1.02);
+  filter: drop-shadow(0 22px 48px rgba(252, 0, 10, 0.32));
+}
+
 .hero-image-frame:hover img,
 .hero-image-frame:hover .hero-art-img,
 .hero-image-frame:hover .hero-art-video {
@@ -2305,7 +2343,7 @@ label {
   }
 
   .hero-image-frame { max-height: none; aspect-ratio: auto; }
-  .hero-image-frame img, .hero-art-img { max-width: min(320px, 100%); }
+  .hero-image-frame img, .hero-art-img, .hero-art-video, .hero-art-embed { max-width: min(320px, 100%); }
 
   .store-toolbar {
     flex-direction: column;
@@ -2349,7 +2387,7 @@ label {
   .hero-actions .btn { width: 100%; }
   .hero-media { max-width: min(300px, 100%); }
   .hero-image-frame { max-height: none; aspect-ratio: auto; }
-  .hero-image-frame img, .hero-art-img { max-width: min(280px, 100%); }
+  .hero-image-frame img, .hero-art-img, .hero-art-video, .hero-art-embed { max-width: min(280px, 100%); }
   .btn { min-height: 48px; font-size: 11px; }
   .icon-btn { width: 44px; height: 44px; }
   .stat-card, .stage { min-height: auto; }
