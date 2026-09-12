@@ -1,36 +1,48 @@
 <section class="mission">
-  <div class="mission__header">
-    {%- if section.settings.label != blank -%}
-      <p class="mission__label">{{ section.settings.label }}</p>
-    {%- endif -%}
-    {%- if section.settings.heading != blank -%}
-      <h2 class="mission__heading">{{ section.settings.heading }}</h2>
-    {%- endif -%}
-    {%- if section.settings.copy != blank -%}
-      <p class="mission__copy">{{ section.settings.copy }}</p>
-    {%- endif -%}
-    {%- if section.settings.copy_2 != blank -%}
-      <p class="mission__copy mission__copy--secondary">{{ section.settings.copy_2 }}</p>
-    {%- endif -%}
-  </div>
+  <div class="page-width">
+    <div class="section-intro section-intro--center">
+      {%- if section.settings.label != blank -%}
+        <p class="section-label">{{ section.settings.label }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.copy != blank -%}
+        <p class="lede">{{ section.settings.copy }}</p>
+      {%- endif -%}
+      {%- if section.settings.copy_2 != blank -%}
+        <p class="lede">{{ section.settings.copy_2 }}</p>
+      {%- endif -%}
+    </div>
 
-  <div class="mission__grid">
-    {%- for block in section.blocks -%}
-      <div class="mission__card" {{ block.shopify_attributes }}>
-        {%- if block.settings.icon != blank -%}
-          <div class="mission__card-icon">{{ block.settings.icon }}</div>
-        {%- endif -%}
-        {%- if block.settings.kicker != blank -%}
-          <p class="mission__card-kicker">{{ block.settings.kicker }}</p>
-        {%- endif -%}
-        {%- if block.settings.title != blank -%}
-          <h3 class="mission__card-title">{{ block.settings.title }}</h3>
-        {%- endif -%}
-        {%- if block.settings.copy != blank -%}
-          <p class="mission__card-copy">{{ block.settings.copy }}</p>
-        {%- endif -%}
-      </div>
-    {%- endfor -%}
+    <div class="orbit-cards">
+      {%- for block in section.blocks -%}
+        <div class="orbit-card crystal" {{ block.shopify_attributes }}>
+          <div class="orbit-card-media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 700
+                | image_tag: loading: 'lazy', widths: '340,500,700', sizes: '340px'
+              }}
+            {%- else -%}
+              <div class="orbit-fallback-bg" aria-hidden="true"></div>
+            {%- endif -%}
+          </div>
+          <div class="orbit-card-body">
+            {%- if block.settings.icon != blank -%}
+              <span class="orbit-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h3>{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.copy != blank -%}
+              <p class="orbit-desc">{{ block.settings.copy }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
   </div>
 </section>
 
@@ -48,7 +60,8 @@
       "type": "card",
       "name": "Card",
       "settings": [
-        { "type": "text", "id": "icon", "label": "Icon (emoji)" },
+        { "type": "image_picker", "id": "image", "label": "Background image (optional)" },
+        { "type": "text", "id": "icon", "label": "Icon (emoji, shown if no image)" },
         { "type": "text", "id": "kicker", "label": "Kicker" },
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "textarea", "id": "copy", "label": "Copy" }
