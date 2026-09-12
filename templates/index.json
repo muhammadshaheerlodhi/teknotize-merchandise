@@ -169,7 +169,8 @@
             "icon": "⚡",
             "label": "For Athletes",
             "title": "Launch Without the Overhead",
-            "copy": "No upfront costs. No boxes in your garage. Get a pro storefront, custom designs, and a team that ships every order while you train."
+            "copy": "No upfront costs. No boxes in your garage. Get a pro storefront, custom designs, and a team that ships every order while you train.",
+            "image": "shopify://shop_images/473994de-2e6f-4160-b8b3-d11ab5807712.png"
           }
         },
         "a2": {
@@ -178,7 +179,8 @@
             "icon": "🛒",
             "label": "For Fans",
             "title": "Official Merch, Not Bootleg",
-            "copy": "Every store is verified. Every product is premium. Buy with confidence knowing your money goes directly to the athlete you support."
+            "copy": "Every store is verified. Every product is premium. Buy with confidence knowing your money goes directly to the athlete you support.",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_12_2026_07_20_28_PM.png"
           }
         },
         "a3": {
@@ -187,7 +189,8 @@
             "icon": "🏅",
             "label": "For Programs",
             "title": "Scale Your Whole Roster",
-            "copy": "NIL agencies, teams, and schools onboard athletes in bulk with white-label stores and revenue share built in."
+            "copy": "NIL agencies, teams, and schools onboard athletes in bulk with white-label stores and revenue share built in.",
+            "image": "shopify://shop_images/3019b8e8-11fc-4521-b1a9-33dd6b9d3c47.png"
           }
         }
       },
@@ -210,16 +213,18 @@
         "m1": {
           "type": "card",
           "settings": {
-            "icon": "📸",
+            "image": "shopify://shop_images/ffc98f09-9992-4f87-b9fe-8f7327bc872e.png",
+            "icon": "",
             "kicker": "Content Ready",
             "title": "Merch That Looks Fire on Camera",
-            "copy": "Designed for social, built for the stands. Your drop will look as good in a TikTok as it does in person."
+            "copy": "Designed for social, built for the stands. Your drop will look as good in a instagram as it does in person."
           }
         },
         "m2": {
           "type": "card",
           "settings": {
-            "icon": "🛍️",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_12_2026_07_30_26_PM.png",
+            "icon": "",
             "kicker": "Storefront",
             "title": "Built to Convert Followers",
             "copy": "Clean layouts, fast checkout, mobile-first design because most of your fans are buying from their phone."
@@ -228,7 +233,8 @@
         "m3": {
           "type": "card",
           "settings": {
-            "icon": "🎯",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_12_2026_07_31_13_PM.png",
+            "icon": "",
             "kicker": "Design Team",
             "title": "Custom Graphics On Demand",
             "copy": "Our artists build around your brand: colors, fonts, logos, and layouts that feel authentically you."
@@ -237,7 +243,8 @@
         "m4": {
           "type": "card",
           "settings": {
-            "icon": "🏭",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_12_2026_07_32_31_PM.png",
+            "icon": "",
             "kicker": "Fulfillment",
             "title": "We Print, Pack & Ship Everything",
             "copy": "Production partners, quality control, and worldwide shipping handled end-to-end so you never touch a box."
@@ -246,7 +253,8 @@
         "m5": {
           "type": "card",
           "settings": {
-            "icon": "👕",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_12_2026_07_33_45_PM.png",
+            "icon": "",
             "kicker": "Quality",
             "title": "Premium Blanks Only",
             "copy": "Oversized hoodies, heavyweight boxy tees, fleece sweatshirts. Fabrics that feel expensive because they are."
@@ -255,7 +263,7 @@
         "m6": {
           "type": "card",
           "settings": {
-            "icon": "🚀",
+            "icon": "",
             "kicker": "Growth",
             "title": "Scale As You Blow Up",
             "copy": "More products, bigger drops, team deals, and agency partnerships. We grow when you grow."
