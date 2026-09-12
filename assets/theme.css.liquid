@@ -2186,41 +2186,9 @@ label {
 
 .product-details-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(260px, 1.1fr);
-  gap: clamp(24px, 4vw, 48px);
-  align-items: start;
-}
-
-.product-details-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 8px;
-  align-items: flex-start;
-}
-
-.product-details-gallery:empty { display: none; }
-
-.product-details-grid:has(.product-details-gallery:empty) {
   grid-template-columns: minmax(0, 36rem);
-}
-
-.product-details-swatch {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  width: 72px;
-  min-width: 0;
-  cursor: pointer;
-}
-
-.product-details-swatch img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: contain;
-  display: block;
+  gap: 32px;
+  align-items: start;
 }
 
 .product-details-heading {
@@ -2551,10 +2519,6 @@ label {
 
   .product-details-grid {
     grid-template-columns: 1fr;
-  }
-
-  .product-details-swatch {
-    width: 64px;
   }
 
   .athlete-grid, .product-grid, .category-grid {

@@ -1,21 +1,5 @@
 <section class="product-details">
   <div class="page-width product-details-grid">
-    <div class="product-details-gallery">
-      {%- if product.images.size > 0 -%}
-        {%- for image in product.images -%}
-          <button type="button" class="product-details-swatch" data-product-thumb="{{ image | image_url: width: 1800 }}">
-            <img
-              src="{{ image | image_url: width: 400 }}"
-              alt="{{ image.alt | default: product.title | escape }}"
-              width="400"
-              height="400"
-              loading="lazy"
-            >
-          </button>
-        {%- endfor -%}
-      {%- endif -%}
-    </div>
-
     <div class="product-details-copy">
       <h2 class="product-details-heading">{{ section.settings.heading }}</h2>
       {%- if section.blocks.size > 0 -%}
