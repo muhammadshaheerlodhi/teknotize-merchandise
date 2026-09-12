@@ -74,6 +74,7 @@ html, body {
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: contain;
 }
 
 body {
@@ -82,7 +83,7 @@ body {
     radial-gradient(ellipse 50% 40% at 100% 20%, rgba(255, 107, 43, 0.1), transparent 50%),
     radial-gradient(ellipse 45% 35% at 0% 70%, rgba(252, 0, 10, 0.06), transparent 50%),
     linear-gradient(180deg, #fff9f6 0%, var(--tm-bg) 35%, #fffaf8 100%);
-  background-attachment: fixed;
+  background-attachment: scroll;
 }
 
 img, svg, video { max-width: 100%; display: block; height: auto; }
@@ -719,14 +720,21 @@ p:last-child { margin-bottom: 0; }
   flex-shrink: 0;
 }
 
+/* Keep announcement + header stuck on desktop and mobile. */
+#shopify-section-group-header-group,
+.shopify-section-group-header-group {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: #fff;
+}
+
 /* Header */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  background: #fff;
   border-bottom: 1px solid rgba(252, 0, 10, 0.08);
   box-shadow: 0 8px 32px rgba(252, 0, 10, 0.05);
 }
@@ -2492,13 +2500,37 @@ label {
   .desktop-only { display: none !important; }
   .mobile-only.header-signup { display: none !important; }
 
+  #shopify-section-group-header-group,
+  .shopify-section-group-header-group,
+  #shopify-section-header,
   .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 80;
     overflow: visible;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    transform: none;
   }
 
   html { scroll-behavior: auto; }
+
+  .announcement-track {
+    animation: none;
+    justify-content: center;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .announcement-track span:nth-child(n + 2) { display: none; }
+
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
 
   body {
     background-attachment: scroll;
