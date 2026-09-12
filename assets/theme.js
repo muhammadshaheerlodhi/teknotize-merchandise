@@ -77,8 +77,7 @@
       return;
     }
     await refreshCart();
-    if (window.theme && window.theme.cartDrawer) openDrawer();
-    else window.location.href = '/cart';
+    window.location.href = '/checkout';
   };
 
   const updateQty = async (key, quantity) => {
