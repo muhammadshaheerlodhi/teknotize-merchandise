@@ -1,0 +1,62 @@
+<section class="mission">
+  <div class="mission__header">
+    {%- if section.settings.label != blank -%}
+      <p class="mission__label">{{ section.settings.label }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="mission__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.copy != blank -%}
+      <p class="mission__copy">{{ section.settings.copy }}</p>
+    {%- endif -%}
+    {%- if section.settings.copy_2 != blank -%}
+      <p class="mission__copy mission__copy--secondary">{{ section.settings.copy_2 }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="mission__grid">
+    {%- for block in section.blocks -%}
+      <div class="mission__card" {{ block.shopify_attributes }}>
+        {%- if block.settings.icon != blank -%}
+          <div class="mission__card-icon">{{ block.settings.icon }}</div>
+        {%- endif -%}
+        {%- if block.settings.kicker != blank -%}
+          <p class="mission__card-kicker">{{ block.settings.kicker }}</p>
+        {%- endif -%}
+        {%- if block.settings.title != blank -%}
+          <h3 class="mission__card-title">{{ block.settings.title }}</h3>
+        {%- endif -%}
+        {%- if block.settings.copy != blank -%}
+          <p class="mission__card-copy">{{ block.settings.copy }}</p>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Mission",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "copy", "label": "Copy" },
+    { "type": "textarea", "id": "copy_2", "label": "Secondary copy" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)" },
+        { "type": "text", "id": "kicker", "label": "Kicker" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "copy", "label": "Copy" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Mission" }
+  ]
+}
+{% endschema %}
