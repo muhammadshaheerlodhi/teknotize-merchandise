@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "logo_width": 120,
@@ -9,15 +18,16 @@
     "color_live": "#22c55e",
     "show_announcement": true,
     "announcement_text": "FREE SHIPPING ON ORDERS $150+",
+    "athlete_store_url": "shopify://collections",
+    "signup_url": "https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform",
+    "agency_url": "https://docs.google.com/forms/d/e/1FAIpQLSeHk1xJDML2hD0uBmKdL0uFBV7Kc1W9t1bvXFb55sO_LllfvQ/viewform",
+    "social_instagram": "https://www.instagram.com/tmerchandiseshop/",
+    "social_facebook": "https://www.facebook.com/profile.php?id=61592521479363",
     "contact_email": "info@teknotizemerchandise.com",
     "contact_phone": "+1 631-308-9457",
     "contact_address": "43 McKinley Ave, Farmingdale NY 11735, United States",
     "cart_drawer_enabled": true,
     "free_shipping_threshold": "150",
-    "athlete_store_url": "https://teknotizemerchandise.com/collections/all",
-    "signup_url": "https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform",
-    "agency_url": "https://docs.google.com/forms/d/e/1FAIpQLSeHk1xJDML2hD0uBmKdL0uFBV7Kc1W9t1bvXFb55sO_LllfvQ/viewform",
-    "social_instagram": "https://www.instagram.com/tmerchandiseshop/",
-    "social_facebook": "https://www.facebook.com/profile.php?id=61592521479363"
+    "content_for_index": []
   }
 }
