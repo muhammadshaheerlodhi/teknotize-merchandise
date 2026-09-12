@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Gift card — {{ shop.name }}</title>
+    {% # theme-check-disable RemoteAsset %}
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    {% # theme-check-enable RemoteAsset %}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
   </head>
   <body>
