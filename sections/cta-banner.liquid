@@ -3,8 +3,14 @@
   if store_url == blank or store_url == 'shopify://collections' or store_url contains '/collections/all'
     assign store_url = routes.collections_url | default: '/collections'
   endif
-  assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
-  assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
+  assign signup_url = settings.signup_url | default: 'https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform'
+  if signup_url == blank or signup_url contains '/pages/signup'
+    assign signup_url = 'https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform'
+  endif
+  assign agency_url = settings.agency_url | default: 'https://docs.google.com/forms/d/e/1FAIpQLSeHk1xJDML2hD0uBmKdL0uFBV7Kc1W9t1bvXFb55sO_LllfvQ/viewform'
+  if agency_url == blank or agency_url contains '/pages/agency'
+    assign agency_url = 'https://docs.google.com/forms/d/e/1FAIpQLSeHk1xJDML2hD0uBmKdL0uFBV7Kc1W9t1bvXFb55sO_LllfvQ/viewform'
+  endif
 -%}
 <section class="signup-block cta-banner" id="signup">
   <div class="page-width reveal">
@@ -21,11 +27,17 @@
         <div class="cta-split-card">
           <h3>🛒 I'm a Fan</h3>
           <p>Browse official athlete stores. Every purchase puts money directly in their pocket.</p>
-          <a class="btn btn-ghost" href="{{ store_url }}">{{ section.settings.cta_secondary }}</a>
+          {%- liquid
+            assign fan_url = store_url
+            if section.settings.cta_secondary contains 'Contact'
+              assign fan_url = pages.contact.url | default: '/pages/contact'
+            endif
+          -%}
+          <a class="btn btn-ghost" href="{{ fan_url }}">{{ section.settings.cta_secondary }}</a>
         </div>
       </div>
       <div class="hero-actions" style="justify-content:center;margin-top:24px;">
-        <a class="btn btn-ghost" href="{% if template.name == 'index' %}#contact{% else %}{{ pages.contact.url | default: '/pages/contact' }}{% endif %}">Questions? Contact Us</a>
+        <a class="btn btn-ghost" href="{{ pages.contact.url | default: '/pages/contact' }}">Questions? Contact Us</a>
         <a class="btn btn-ghost" href="{{ agency_url }}" target="_blank" rel="noopener">NIL Agency Partnership</a>
       </div>
     </div>

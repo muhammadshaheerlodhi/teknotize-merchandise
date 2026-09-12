@@ -3,8 +3,14 @@
   if store_url == blank or store_url == 'shopify://collections' or store_url contains '/collections/all'
     assign store_url = routes.collections_url | default: '/collections'
   endif
-  assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
-  assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
+  assign signup_url = settings.signup_url | default: 'https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform'
+  if signup_url == blank or signup_url contains '/pages/signup'
+    assign signup_url = 'https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform'
+  endif
+  assign agency_url = settings.agency_url | default: 'https://docs.google.com/forms/d/e/1FAIpQLSeHk1xJDML2hD0uBmKdL0uFBV7Kc1W9t1bvXFb55sO_LllfvQ/viewform'
+  if agency_url == blank or agency_url contains '/pages/agency'
+    assign agency_url = 'https://docs.google.com/forms/d/e/1FAIpQLSeHk1xJDML2hD0uBmKdL0uFBV7Kc1W9t1bvXFb55sO_LllfvQ/viewform'
+  endif
 -%}
 <footer class="site-footer">
   <div class="page-width">
