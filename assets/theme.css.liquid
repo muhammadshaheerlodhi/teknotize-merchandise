@@ -2207,13 +2207,23 @@ label {
   padding: clamp(32px, 5vw, 56px) 0 40px;
   background: #fff8f6;
   color: #2a1c1c;
+  overflow: hidden;
 }
 
 .product-details-grid {
   display: grid;
-  grid-template-columns: minmax(0, 36rem);
+  grid-template-columns: minmax(0, 1fr);
   gap: 32px;
   align-items: start;
+  max-width: 100%;
+}
+
+.product-details-copy,
+.product-details-list,
+.product-details-care {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .product-details-heading {
@@ -2242,7 +2252,6 @@ label {
 
 .product-details-care {
   margin: 28px 0 0;
-  max-width: 36ch;
   color: #5a4a4a;
   font-size: 1rem;
   line-height: 1.7;
@@ -2251,11 +2260,15 @@ label {
 .product-size-card {
   grid-column: 1 / -1;
   margin-top: 8px;
+  max-width: 100%;
 }
+
+.product-size-mobile { display: none; }
 
 .product-size-table-wrap {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .product-size-table {
@@ -2636,6 +2649,41 @@ label {
 
   .product-details-grid {
     grid-template-columns: 1fr;
+  }
+
+  .product-size-table-wrap { display: none; }
+
+  .product-size-mobile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .product-size-mobile-card {
+    background: #fff;
+    border: 1px solid #ece6e4;
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+
+  .product-size-mobile-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    color: #111;
+  }
+
+  .product-size-mobile-card p {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 6px;
+    font-size: 0.95rem;
+    color: #5a4a4a;
+  }
+
+  .product-size-mobile-card span {
+    font-weight: 700;
+    color: #2a1c1c;
   }
 
   .athlete-grid, .product-grid, .category-grid {
