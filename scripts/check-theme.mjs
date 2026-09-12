@@ -46,6 +46,15 @@ for (const urlPath of paths) {
     path.join(ROOT, `templates/${route.name}${route.suffix ? '.' + route.suffix : ''}.json`)
   );
 
+  // An empty href renders as a link that silently goes nowhere, which is what
+  // happens when a section reads a variable that was assigned inside a snippet.
+  const dead = [...html.matchAll(/<a[^>]*href=""[^>]*>([\s\S]{0,80}?)<\/a>/g)].map((m) =>
+    m[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+  );
+  for (const label of new Set(dead)) {
+    warnings.push(`${urlPath} has a dead link (empty href): "${label || 'unlabelled'}"`);
+  }
+
   if (added) failures += added;
   if (isJsonTemplate && !sections) warnings.push(`${urlPath} rendered 0 sections inside <main>`);
   if (text.length < 40) warnings.push(`${urlPath} has almost no body text (${text.length} chars)`);

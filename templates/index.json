@@ -132,6 +132,63 @@
         "intro": "Athletes who sell with us. Fans who shop with us. No fluff, just what people actually say."
       }
     },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "item",
+          "settings": {
+            "question": "What does it cost to launch my store?",
+            "answer": "<p>Nothing. Creating your Teknotize storefront is free. There are no setup fees, no monthly fees, and no minimum order. You only earn once fans start buying.</p>"
+          }
+        },
+        "q2": {
+          "type": "item",
+          "settings": {
+            "question": "Do I have to hold inventory or ship anything?",
+            "answer": "<p>No. We handle production, quality control, packing, shipping, and customer support. Nothing is printed until a fan orders it, so you never buy stock or store boxes.</p>"
+          }
+        },
+        "q3": {
+          "type": "item",
+          "settings": {
+            "question": "How and when do I get paid?",
+            "answer": "<p>You earn a share of every sale from your store. Earnings are tracked against your storefront link and paid out on a regular schedule once your balance clears.</p>"
+          }
+        },
+        "q4": {
+          "type": "item",
+          "settings": {
+            "question": "What products can I put my name on?",
+            "answer": "<p>Oversized hoodies, boxy tees, fleece sweatshirts, washed tees, and more. Our design team builds custom graphics around your colors, logo, and brand.</p>"
+          }
+        },
+        "q5": {
+          "type": "item",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>Most orders are produced and dispatched within a few business days, then shipped worldwide. Fans get tracking as soon as the order leaves our facility.</p>"
+          }
+        },
+        "q6": {
+          "type": "item",
+          "settings": {
+            "question": "Can a team or NIL agency sign up multiple athletes?",
+            "answer": "<p>Yes. Agencies, schools, clubs, and programs can onboard a full roster with white-label storefronts and revenue share. Reach out through the partnerships page to get set up.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"],
+      "settings": {
+        "label": "Questions",
+        "heading": "Everything You Wanted to Ask",
+        "copy": "Straight answers for athletes, fans, agencies, and teams.",
+        "open_first": true,
+        "cta_copy": "Still need a hand?",
+        "cta_label": "Contact Us",
+        "cta_link": "/pages/contact"
+      }
+    },
     "contact": {
       "type": "page-contact",
       "settings": {
@@ -151,5 +208,5 @@
       }
     }
   },
-  "order": ["hero", "athletes", "roster", "shop", "engine", "about", "mission", "partners", "reviews", "contact", "cta"]
+  "order": ["hero", "athletes", "roster", "shop", "engine", "about", "mission", "partners", "reviews", "faq", "contact", "cta"]
 }

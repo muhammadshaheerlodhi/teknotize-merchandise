@@ -1,4 +1,9 @@
-{% render 'site-urls' %}
+{%- liquid
+  assign default_store_url = routes.collections_url | append: '/all'
+  assign store_url = settings.athlete_store_url | default: default_store_url
+  assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
+  assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
+-%}
 
 
 
@@ -26,8 +31,6 @@
 
         <a href="#why-teknotize">About</a>
 
-        <a href="#how-it-works">How It Works</a>
-
         <a href="#reviews">Reviews</a>
 
         <a href="#contact">Contact</a>
@@ -41,8 +44,6 @@
         <a href="{{ store_url }}">Athlete Store</a>
 
         <a href="{{ routes.root_url }}#why-teknotize">About</a>
-
-        <a href="{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}">How It Works</a>
 
         <a href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Partnerships</a>
 
@@ -93,8 +94,6 @@
     <a href="{{ store_url }}">Athlete Store</a>
 
     <a href="{% if template.name == 'index' %}#why-teknotize{% else %}{{ routes.root_url }}#why-teknotize{% endif %}">About</a>
-
-    <a href="{% if template.name == 'index' %}#how-it-works{% else %}{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}{% endif %}">How It Works</a>
 
     <a href="{% if template.name == 'index' %}#reviews{% else %}{{ routes.root_url }}#reviews{% endif %}">Reviews</a>
 

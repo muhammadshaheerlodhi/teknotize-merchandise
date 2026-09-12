@@ -1,5 +1,10 @@
+{%- liquid
+  assign default_store_url = routes.collections_url | append: '/all'
+  assign store_url = settings.athlete_store_url | default: default_store_url
+  assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
+  assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
+-%}
 <footer class="site-footer">
-  {% render 'site-urls' %}
   <div class="page-width">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -32,7 +37,6 @@
         <h4 style="margin-top:28px;">Shop</h4>
         <a href="{{ routes.all_products_collection_url }}">All Products</a>
         <a href="{{ routes.collections_url }}">Collections</a>
-        <a href="{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}">How It Works</a>
       </div>
     </div>
 

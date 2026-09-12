@@ -1,4 +1,9 @@
-{% render 'site-urls' %}
+{%- liquid
+  assign default_store_url = routes.collections_url | append: '/all'
+  assign store_url = settings.athlete_store_url | default: default_store_url
+  assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
+  assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
+-%}
 <section class="hero" id="home">
   <div class="page-width hero-grid">
     <div class="hero-content reveal reveal-left">
@@ -20,7 +25,18 @@
 
       <div class="hero-image-frame">
 
-        {% if section.settings.image != blank %}
+        {% if section.settings.video != blank %}
+
+          {{ section.settings.video | video_tag: class: 'hero-art-video', autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '900x' }}
+
+        {% elsif section.settings.video_file != blank %}
+
+          <video class="hero-art-video" autoplay loop muted playsinline preload="metadata"
+            {%- if section.settings.image != blank %} poster="{{ section.settings.image | image_url: width: 900 }}"{% endif %}>
+            <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
+          </video>
+
+        {% elsif section.settings.image != blank %}
 
           {%- assign hero_alt = section.settings.image.alt | default: section.settings.heading -%}
           {{ section.settings.image | image_url: width: 900 | image_tag: class: 'hero-art-img', loading: 'eager', alt: hero_alt }}
@@ -59,11 +75,37 @@
 
     {
 
+      "type": "video",
+
+      "id": "video",
+
+      "label": "Hero video",
+
+      "info": "Upload in Shopify under Content > Files, then pick it here. Plays muted and looped. Takes priority over the hero image."
+
+    },
+
+    {
+
+      "type": "text",
+
+      "id": "video_file",
+
+      "label": "Hero video asset filename",
+
+      "info": "Fallback for an MP4 placed in the theme assets folder, for example hero-video.mp4. Only used when no hero video is selected above."
+
+    },
+
+    {
+
       "type": "image_picker",
 
       "id": "image",
 
-      "label": "Hero image"
+      "label": "Hero image",
+
+      "info": "Also used as the video poster frame."
 
     },
 

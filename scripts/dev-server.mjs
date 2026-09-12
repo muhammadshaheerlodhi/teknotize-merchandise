@@ -108,6 +108,11 @@ const routes = {
   account_login_url: '/account/login',
   account_register_url: '/account/register',
   account_logout_url: '/account/logout',
+  account_addresses_url: '/account/addresses',
+  account_recover_url: '/account/recover',
+  cart_clear_url: '/cart/clear',
+  predictive_search_url: '/search/suggest',
+  product_recommendations_url: '/recommendations/products',
 };
 
 const pageHandles = fs
@@ -167,6 +172,17 @@ engine.registerFilter('script_tag', (url) => `<script src="${url}"></script>`);
 engine.registerFilter('image_tag', (url, ...rest) => {
   const options = typeof rest[0] === 'object' && rest[0] !== null ? rest[0] : {};
   return `<img src="${url || ''}"${attrs(options)}>`;
+});
+engine.registerFilter('video_tag', (video, ...rest) => {
+  const options = typeof rest[0] === 'object' && rest[0] !== null ? rest[0] : {};
+  const { image_size, ...htmlOptions } = options;
+  const sources = (video && video.sources) || [];
+  const src = sources.length ? sources[0].url : video && video.src ? assetUrl(video.src) : '';
+  return `<video${attrs(htmlOptions)}><source src="${src}" type="video/mp4"></video>`;
+});
+engine.registerFilter('external_video_tag', (video, ...rest) => {
+  const options = typeof rest[0] === 'object' && rest[0] !== null ? rest[0] : {};
+  return `<iframe${attrs(options)} src="${(video && video.src) || ''}"></iframe>`;
 });
 engine.registerFilter('placeholder_svg_tag', (_name, className = '') =>
   `<svg class="${className}" viewBox="0 0 100 100" role="presentation"><rect width="100" height="100" fill="#222"/></svg>`
@@ -313,7 +329,9 @@ const renderSection = async (key, config, globals) => {
 
   const source = read(`sections/${type}.liquid`);
   try {
-    const html = await engine.parseAndRender(source, { ...globals, section });
+    // Shopify keeps global objects visible inside {% render %} but isolates
+    // variables assigned by the caller, which is what renderOptions.globals does.
+    const html = await engine.parseAndRender(source, { section }, { globals });
     return `<div id="shopify-section-${key}" class="shopify-section">${html}</div>`;
   } catch (e) {
     fail(`sections/${type}.liquid`, e.message.split('\n')[0]);
@@ -353,7 +371,7 @@ engine.registerTag('sections', {
   },
   *render(ctx, emitter) {
     const name = yield this.value.value(ctx);
-    emitter.write(yield renderSectionGroup(name, ctx.getAll()));
+    emitter.write(yield renderSectionGroup(name, ctx.globals));
   },
 });
 
@@ -363,7 +381,7 @@ engine.registerTag('section', {
   },
   *render(ctx, emitter) {
     const name = yield this.value.value(ctx);
-    emitter.write(yield renderSection(name, { type: name }, ctx.getAll()));
+    emitter.write(yield renderSection(name, { type: name }, ctx.globals));
   },
 });
 
@@ -428,7 +446,7 @@ const renderTemplate = async (templateName, suffix, extra = {}) => {
     contentForLayout = parts.join('\n');
   } else if (exists(liquidFile)) {
     try {
-      contentForLayout = await engine.parseAndRender(read(liquidFile), globals);
+      contentForLayout = await engine.parseAndRender(read(liquidFile), {}, { globals });
     } catch (e) {
       fail(liquidFile, e.message.split('\n')[0]);
     }
@@ -437,10 +455,11 @@ const renderTemplate = async (templateName, suffix, extra = {}) => {
   }
 
   try {
-    const html = await engine.parseAndRender(read('layout/theme.liquid'), {
-      ...globals,
-      content_for_layout: contentForLayout,
-    });
+    const html = await engine.parseAndRender(
+      read('layout/theme.liquid'),
+      { content_for_layout: contentForLayout },
+      { globals }
+    );
     return { html, file: jsonFile };
   } catch (e) {
     fail('layout/theme.liquid', e.message.split('\n')[0]);

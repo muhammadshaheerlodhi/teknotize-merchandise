@@ -11,7 +11,13 @@
       {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
         {% assign idx = forloop.index0 %}
-        <article class="orbit-card crystal" tabindex="0" {{ block.shopify_attributes }}>
+        {%- if block.settings.link != blank -%}
+          {%- assign card_tag = 'a' -%}
+        {%- else -%}
+          {%- assign card_tag = 'article' -%}
+        {%- endif -%}
+        <{{ card_tag }} class="orbit-card crystal" tabindex="0"
+          {%- if block.settings.link != blank %} href="{{ block.settings.link }}"{% endif %} {{ block.shopify_attributes }}>
           <div class="orbit-card-media">
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.title }}
@@ -23,7 +29,7 @@
             <h3>{{ block.settings.title }}</h3>
             <p class="orbit-desc">{{ block.settings.copy }}</p>
           </div>
-        </article>
+        </{{ card_tag }}>
       {% endfor %}
       {% else %}
         <article class="orbit-card crystal" tabindex="0"><div class="orbit-card-media"><img src="{{ 'orbit-merch-camera.png' | asset_url }}" alt="Merch That Looks Fire on Camera" loading="lazy" width="400" height="400"></div><div class="orbit-card-body"><h3>Merch That Looks Fire on Camera</h3><p class="orbit-desc">Designed for social, built for the stands. Your drop will look as good in a TikTok as it does in person.</p></div></article>
@@ -55,7 +61,8 @@
         { "type": "text", "id": "kicker", "label": "Kicker" },
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "textarea", "id": "copy", "label": "Copy" },
-        { "type": "image_picker", "id": "image", "label": "Card image" }
+        { "type": "image_picker", "id": "image", "label": "Card image" },
+        { "type": "url", "id": "link", "label": "Card link" }
       ]
     }
   ],

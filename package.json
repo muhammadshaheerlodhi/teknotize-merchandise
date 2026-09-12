@@ -4,6 +4,8 @@
   "scripts": {
     "dev": "node scripts/dev-server.mjs",
     "check": "node scripts/check-theme.mjs",
+    "check:links": "node scripts/link-check.mjs",
+    "fix:encoding": "node scripts/fix-encoding.mjs",
     "preview": "npx serve preview -l 3000",
     "preview:8080": "npx serve preview -l 8080",
     "sync-preview-css": "node scripts/sync-preview-css.mjs",

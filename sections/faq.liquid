@@ -1,0 +1,68 @@
+<section class="faq" id="faq">
+  <div class="page-width reveal">
+    <div class="section-intro section-intro--center">
+      <p class="section-label">{{ section.settings.label }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {% if section.settings.copy != blank %}<p class="lede">{{ section.settings.copy }}</p>{% endif %}
+    </div>
+
+    <div class="faq-list reveal-stagger">
+      {%- for block in section.blocks -%}
+        <details class="faq-item crystal" {% if forloop.first and section.settings.open_first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary class="faq-question">
+            <span>{{ block.settings.question }}</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-answer">{{ block.settings.answer }}</div>
+        </details>
+      {%- else -%}
+        <div class="empty-state">
+          <p>No questions added yet.</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {% if section.settings.cta_label != blank and section.settings.cta_link != blank %}
+      <div class="faq-cta">
+        <p>{{ section.settings.cta_copy }}</p>
+        <a class="btn btn-primary" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Questions" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Everything You Wanted to Ask" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Straight answers for athletes, fans, agencies, and teams." },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first question by default", "default": true },
+    { "type": "text", "id": "cta_copy", "label": "Footer copy", "default": "Still need a hand?" },
+    { "type": "text", "id": "cta_label", "label": "Footer button label", "default": "Contact Us" },
+    { "type": "url", "id": "cta_link", "label": "Footer button link" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

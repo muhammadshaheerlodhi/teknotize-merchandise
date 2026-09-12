@@ -1,4 +1,9 @@
-{% render 'site-urls' %}
+{%- liquid
+  assign default_store_url = routes.collections_url | append: '/all'
+  assign store_url = settings.athlete_store_url | default: default_store_url
+  assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
+  assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
+-%}
 <section class="athlete-stores featured-athletes" id="athlete-stores">
 
   <div class="page-width">

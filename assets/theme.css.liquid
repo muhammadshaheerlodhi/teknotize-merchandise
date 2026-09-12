@@ -54,7 +54,7 @@ img, video {
   height: auto;
 }
 
-.roster, .shop-categories, .engine, .about-block, .mission, .partners-block, .testimonials, .contact-block, .signup-block, .athlete-stores {
+.roster, .shop-categories, .engine, .about-block, .mission, .partners-block, .testimonials, .faq, .contact-block, .signup-block, .athlete-stores {
   content-visibility: auto;
   contain-intrinsic-size: auto 480px;
 }
@@ -972,7 +972,8 @@ p:last-child { margin-bottom: 0; }
 }
 
 .hero-image-frame img,
-.hero-art-img {
+.hero-art-img,
+.hero-art-video {
   width: 100%;
   max-width: min(380px, 100%);
   height: auto;
@@ -983,8 +984,14 @@ p:last-child { margin-bottom: 0; }
   transition: transform 0.28s var(--tm-ease), filter 0.28s var(--tm-ease);
 }
 
+.hero-art-video {
+  border-radius: 18px;
+  background: #140808;
+}
+
 .hero-image-frame:hover img,
-.hero-image-frame:hover .hero-art-img {
+.hero-image-frame:hover .hero-art-img,
+.hero-image-frame:hover .hero-art-video {
   transform: translateY(-4px) scale(1.02);
   filter: drop-shadow(0 22px 48px rgba(252, 0, 10, 0.32));
 }
@@ -1495,6 +1502,12 @@ p:last-child { margin-bottom: 0; }
   transition: transform 0.22s var(--tm-ease-out), box-shadow 0.22s var(--tm-ease-out);
 }
 
+a.orbit-card {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
 .orbit-card.crystal {
   background: transparent;
   backdrop-filter: none;
@@ -1517,6 +1530,8 @@ p:last-child { margin-bottom: 0; }
   inset: 0;
   border-radius: inherit;
   overflow: hidden;
+  /* Keeps white card text readable while the lazy image is still loading. */
+  background: #140808;
 }
 
 .orbit-card-media img {
@@ -1543,7 +1558,7 @@ p:last-child { margin-bottom: 0; }
 
 .orbit-card.is-open .orbit-desc {
   opacity: 1;
-  max-height: 140px;
+  max-height: 118px;
   margin-top: 10px;
   transform: translateY(0);
 }
@@ -1582,9 +1597,11 @@ p:last-child { margin-bottom: 0; }
   z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  padding: clamp(20px, 4.5vw, 32px);
+  /* A circle's inscribed square is ~70% of its diameter, so a 15% inset on
+     every side keeps text off the curve instead of letting it clip. */
+  padding: 15%;
   text-align: center;
   pointer-events: none;
 }
@@ -1600,13 +1617,18 @@ p:last-child { margin-bottom: 0; }
   color: #fff;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
   transition: transform 0.22s var(--tm-ease-out);
+  max-width: 100%;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .orbit-card .orbit-desc {
   margin: 0;
   padding: 0;
-  font-size: clamp(0.72rem, 1.5vw, 0.84rem);
-  line-height: 1.55;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  font-size: clamp(0.7rem, 1.4vw, 0.8rem);
+  line-height: 1.5;
   color: rgba(255, 255, 255, 0.92);
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
   max-height: 0;
@@ -1628,7 +1650,7 @@ p:last-child { margin-bottom: 0; }
 .orbit-card:hover .orbit-desc,
 .orbit-card:focus-within .orbit-desc {
   opacity: 1;
-  max-height: 140px;
+  max-height: 118px;
   margin-top: 10px;
   transform: translateY(0);
 }
@@ -1725,6 +1747,118 @@ p:last-child { margin-bottom: 0; }
   font-size: 0.92rem;
   margin: 0;
   line-height: 1.65;
+}
+
+/* FAQ */
+.faq-list {
+  display: grid;
+  gap: 14px;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+.faq-item {
+  border-radius: var(--tm-radius);
+  padding: 0;
+}
+
+/* An accordion that lifts on hover reads as unstable, so opt out of .crystal's lift. */
+.faq-item.crystal:hover {
+  transform: none;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: clamp(18px, 2.6vw, 24px) clamp(20px, 3vw, 28px);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--tm-font-display);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  letter-spacing: 0.02em;
+  color: var(--tm-heading);
+}
+
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--tm-accent);
+  outline-offset: -4px;
+}
+
+.faq-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--tm-accent-soft);
+  transition: transform 0.24s var(--tm-ease-out), background 0.24s var(--tm-ease-out);
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--tm-accent);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s var(--tm-ease-out), background 0.24s var(--tm-ease-out);
+}
+
+.faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faq-item[open] .faq-icon {
+  transform: rotate(180deg);
+  background: var(--tm-accent);
+}
+
+.faq-item[open] .faq-icon::before {
+  background: #fff;
+}
+
+.faq-item[open] .faq-icon::after {
+  opacity: 0;
+}
+
+.faq-answer {
+  padding: 0 clamp(20px, 3vw, 28px) clamp(20px, 3vw, 26px);
+  color: var(--tm-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.faq-answer p {
+  margin: 0 0 10px;
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: var(--tm-space-lg);
+  text-align: center;
+}
+
+.faq-cta p {
+  margin: 0;
+  color: var(--tm-muted);
 }
 
 /* CTA */
