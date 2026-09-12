@@ -35,6 +35,68 @@
         </p>
       {%- endif -%}
     </div>
+
+    {%- if section.settings.show_size_chart -%}
+      <div class="product-size-card">
+        <div class="product-size-table-wrap">
+          <table class="product-size-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th colspan="2">S</th>
+                <th colspan="2">M</th>
+                <th colspan="2">L</th>
+                <th colspan="2">XL</th>
+                <th colspan="2">2XL</th>
+              </tr>
+              <tr>
+                <th></th>
+                <th>inch</th><th>cm</th>
+                <th>inch</th><th>cm</th>
+                <th>inch</th><th>cm</th>
+                <th>inch</th><th>cm</th>
+                <th>inch</th><th>cm</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Length</th>
+                <td>26.77</td><td>68</td>
+                <td>27.56</td><td>70</td>
+                <td>28.35</td><td>72</td>
+                <td>29.13</td><td>74</td>
+                <td>29.92</td><td>76</td>
+              </tr>
+              <tr>
+                <th>Chest</th>
+                <td>23.62</td><td>60</td>
+                <td>24.41</td><td>62</td>
+                <td>25.20</td><td>64</td>
+                <td>25.98</td><td>66</td>
+                <td>26.77</td><td>68</td>
+              </tr>
+              <tr>
+                <th>Shoulder</th>
+                <td>24.02</td><td>61</td>
+                <td>24.80</td><td>63</td>
+                <td>25.59</td><td>65</td>
+                <td>26.38</td><td>67</td>
+                <td>27.17</td><td>69</td>
+              </tr>
+              <tr>
+                <th>Sleeve length</th>
+                <td>20.08</td><td>51</td>
+                <td>20.47</td><td>52</td>
+                <td>20.87</td><td>53</td>
+                <td>21.26</td><td>54</td>
+                <td>21.65</td><td>55</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="product-size-shipping">Free shipping on orders $150+.</p>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -53,6 +115,12 @@
       "id": "care",
       "label": "Care",
       "default": "Machine wash at 30°C. Do not bleach. Tumble dry low. Iron on low, avoiding the print. Do not dry clean."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_size_chart",
+      "label": "Show size chart",
+      "default": true
     }
   ],
   "blocks": [

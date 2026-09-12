@@ -38,7 +38,7 @@
         </p>
 
         {% form 'product', product, data-product-form: '' %}
-          <select name="id" data-variant-select {% if product.has_only_default_variant %}class="visually-hidden" style="position:absolute;left:-9999px;"{% endif %}>
+          <select name="id" data-variant-select class="visually-hidden" tabindex="-1" aria-hidden="true">
             {%- for variant in product.variants -%}
               <option
                 value="{{ variant.id }}"
@@ -95,10 +95,6 @@
           </button>
         {% endform %}
 
-        <div class="product-meta rte">
-          {{ product.description }}
-          <p><strong>Free shipping on orders $150+.</strong> Premium athletic apparel. Worldwide fulfillment.</p>
-        </div>
       </div>
     </div>
   </div>

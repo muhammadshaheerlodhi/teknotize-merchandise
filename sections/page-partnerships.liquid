@@ -17,7 +17,7 @@
     <div class="cta-box" style="margin-top:40px;">
       <h2>Become a partner</h2>
       <p class="lede" style="margin-inline:auto;">Agencies, teams, and brands can launch athlete merch programs with Teknotize.</p>
-      <a class="btn btn-primary" href="{{ pages.agency.url | default: '/pages/agency' }}">Become An NIL Agency</a>
+      <a class="btn btn-primary" href="{{ settings.agency_url | default: pages.agency.url | default: '/pages/agency' }}" target="_blank" rel="noopener">Become An NIL Agency</a>
     </div>
   </div>
 </section>

@@ -1,6 +1,9 @@
 {%- liquid
   assign default_store_url = routes.collections_url | append: '/all'
   assign store_url = settings.athlete_store_url | default: default_store_url
+  if store_url == 'shopify://collections' or store_url == '/collections'
+    assign store_url = default_store_url
+  endif
   assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
   assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
 -%}

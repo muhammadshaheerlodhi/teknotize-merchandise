@@ -11,32 +11,46 @@
       </div>
     {%- else -%}
       <div class="cart-layout">
-        <div>
+        <div class="cart-lines">
           {%- for item in cart.items -%}
-            <div class="cart-item">
-              <a href="{{ item.url }}">
-                <img src="{{ item.image | image_url: width: 240 }}" alt="{{ item.title | escape }}">
+            <article class="cart-item">
+              <a class="cart-item-media" href="{{ item.url }}">
+                {%- if item.image -%}
+                  <img
+                    src="{{ item.image | image_url: width: 720 }}"
+                    alt="{{ item.image.alt | default: item.product.title | escape }}"
+                    width="360"
+                    height="360"
+                  >
+                {%- endif -%}
               </a>
-              <div>
+              <div class="cart-item-copy">
                 <a href="{{ item.url }}"><strong>{{ item.product.title }}</strong></a>
-                <p class="price">{{ item.variant.title }}</p>
-                {% form 'change', cart %}
-                  <input type="hidden" name="line" value="{{ forloop.index }}">
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-item-variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <p class="price">{{ item.original_price | money }} each</p>
+                <form action="{{ routes.cart_change_url }}" method="post">
+                  <input type="hidden" name="id" value="{{ item.key }}">
                   <div class="qty">
-                    <input type="number" name="quantity" value="{{ item.quantity }}" min="0">
+                    <label class="visually-hidden" for="CartQty-{{ item.index }}">Quantity</label>
+                    <input id="CartQty-{{ item.index }}" type="number" name="quantity" value="{{ item.quantity }}" min="0">
                     <button class="btn btn-ghost" type="submit">Update</button>
                   </div>
-                {% endform %}
+                </form>
+                <a class="cart-item-remove" href="{{ item.url_to_remove }}">Remove</a>
               </div>
-              <strong>{{ item.final_line_price | money }}</strong>
-            </div>
+              <strong class="cart-item-price">{{ item.final_line_price | money }}</strong>
+            </article>
           {%- endfor -%}
         </div>
         <aside class="cart-summary">
-          <p style="display:flex;justify-content:space-between;"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></p>
-          <p class="price">Shipping & taxes calculated at checkout. Free shipping on orders $150+.</p>
+          <h2>Order summary</h2>
+          <p class="cart-summary-row"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></p>
+          <p class="cart-summary-copy">Shipping and taxes are calculated at checkout.</p>
+          <p class="cart-summary-copy">Free shipping on orders $150+.</p>
           <a class="btn btn-primary btn-full" href="/checkout">Checkout</a>
-          <a class="btn btn-ghost btn-full" href="{{ routes.all_products_collection_url }}" style="margin-top:10px;">Continue shopping</a>
+          <a class="btn btn-ghost btn-full" href="{{ routes.all_products_collection_url }}">Continue shopping</a>
         </aside>
       </div>
     {%- endif -%}

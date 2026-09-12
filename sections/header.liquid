@@ -1,6 +1,9 @@
 {%- liquid
   assign default_store_url = routes.collections_url | append: '/all'
   assign store_url = settings.athlete_store_url | default: default_store_url
+  if store_url == 'shopify://collections' or store_url == '/collections'
+    assign store_url = default_store_url
+  endif
   assign signup_url = settings.signup_url | default: pages.signup.url | default: '/pages/signup'
   assign agency_url = settings.agency_url | default: pages.agency.url | default: '/pages/agency'
 -%}
@@ -29,7 +32,7 @@
 
         <a href="{{ store_url }}">Athlete Store</a>
 
-        <a href="#why-teknotize">About</a>
+        <a href="#why-teknotize">About Us</a>
 
         <a href="#reviews">Reviews</a>
 
@@ -43,7 +46,8 @@
 
         <a href="{{ store_url }}">Athlete Store</a>
 
-        <a href="{{ routes.root_url }}#why-teknotize">About</a>
+        <a href="{{ routes.root_url }}#why-teknotize">About Us</a>
+        <a href="{{ routes.root_url }}#reviews">Reviews</a>
 
         <a href="{{ pages.partnerships.url | default: '/pages/partnerships' }}">Partnerships</a>
 
@@ -93,7 +97,7 @@
 
     <a href="{{ store_url }}">Athlete Store</a>
 
-    <a href="{% if template.name == 'index' %}#why-teknotize{% else %}{{ routes.root_url }}#why-teknotize{% endif %}">About</a>
+    <a href="{% if template.name == 'index' %}#why-teknotize{% else %}{{ routes.root_url }}#why-teknotize{% endif %}">About Us</a>
 
     <a href="{% if template.name == 'index' %}#reviews{% else %}{{ routes.root_url }}#reviews{% endif %}">Reviews</a>
 

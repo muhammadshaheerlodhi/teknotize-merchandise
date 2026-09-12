@@ -19,7 +19,8 @@
       "block_order": ["gender", "fabric", "weight", "thickness", "stretch", "fit", "style", "season"],
       "settings": {
         "heading": "Product Details",
-        "care": "Machine wash at 30°C. Do not bleach. Tumble dry low. Iron on low, avoiding the print. Do not dry clean."
+        "care": "Machine wash at 30°C. Do not bleach. Tumble dry low. Iron on low, avoiding the print. Do not dry clean.",
+        "show_size_chart": true
       }
     },
     "related": {

@@ -1,4 +1,4 @@
-<section class="about-block{% if template.name != 'index' %} main-page{% endif %}" id="about">
+<section class="about-block{% if template.name != 'index' %} main-page{% endif %}" id="why-teknotize">
   <div class="page-width reveal">
     <div class="section-intro{% if template.name == 'index' %}{% else %} section-intro--center{% endif %}">
       <p class="eyebrow">{{ section.settings.kicker }}</p>
@@ -40,7 +40,7 @@
       </div>
       <div class="cta-box crystal" style="margin-top:40px;">
         <h2>Ready to build your legacy?</h2>
-        <a class="btn btn-primary" href="{{ pages.signup.url | default: '/pages/signup' }}">Sign Up</a>
+        <a class="btn btn-primary" href="{{ settings.signup_url | default: pages.signup.url | default: '/pages/signup' }}" target="_blank" rel="noopener">Sign Up</a>
       </div>
     {% endif %}
   </div>

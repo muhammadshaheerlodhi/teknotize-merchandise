@@ -46,10 +46,10 @@
       .map(
         (item) => `
         <div class="cart-item">
-          <img src="${item.image || ''}" alt="${item.title}">
+          <a class="cart-item-media" href="${item.url || '#'}"><img src="${item.image || ''}" alt="${item.title}"></a>
           <div>
             <strong>${item.product_title}</strong>
-            <p class="price">${item.variant_title || ''} · ${formatMoney(item.final_line_price)}</p>
+            <p class="price">${item.variant_title && item.variant_title !== 'Default Title' ? item.variant_title + ' · ' : ''}${formatMoney(item.final_line_price)}</p>
             <div class="qty">
               <button type="button" data-qty-change="${item.key}" data-qty="${item.quantity - 1}">−</button>
               <span>${item.quantity}</span>
