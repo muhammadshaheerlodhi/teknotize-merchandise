@@ -12,14 +12,17 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "badge_text": "Official Athlete Merch",
         "kicker": "Partnered with 500+ athletes and growing",
         "heading": "your story, your brand, your legacy",
-        "cta_primary": "Shop Athlete Stores",
-        "cta_secondary": "Athlete Merch Sign-up",
         "copy": "We handle design, fulfillment, shipping, manufacturing, storefronts, and customer support so you focus on your sport and your fans.",
         "copy_2": "",
-        "badge_text": "Official Athlete Merch",
-        "float_text": "50+ Orders"
+        "cta_primary": "Shop Athlete Stores",
+        "cta_primary_link": "shopify://collections",
+        "cta_secondary": "Athlete Merch Sign-up",
+        "cta_secondary_link": "",
+        "float_text": "50+ Orders",
+        "image": "shopify://shop_images/IMG_9282_-_Jamerion_Coleman_b63cc6a0-c927-4893-8a4e-08b09113e0e9.jpg"
       }
     },
     "athletes": {
@@ -28,8 +31,15 @@
         "label": "Fan Marketplace",
         "heading": "Shop Official Athlete Drops",
         "copy": "Every store is athlete-owned. Every order puts money back in their pocket. Browse live storefronts with hoodies, boxy tees, fleece, and game-day heat fans actually want to wear.",
+        "store_url": "",
         "button": "Browse All Athlete Stores",
-        "badge_text": "Fan Favorite"
+        "badge_text": "Fan Favorite",
+        "stat_1_value": "500+",
+        "stat_1_label": "Athletes",
+        "stat_2_value": "50K+",
+        "stat_2_label": "Orders",
+        "stat_3_value": "100%",
+        "stat_3_label": "Premium"
       }
     },
     "roster": {
@@ -38,28 +48,53 @@
         "label": "The Proof",
         "heading": "Built Different. Backed by Real Numbers.",
         "intro": "Athletes trust us to run their store. Fans trust us to deliver the goods.",
+        "stat_1_icon": "🏆",
         "stat_1_label": "Athletes On Platform",
         "stat_1_value": "50+",
         "stat_1_copy": "From high school standouts to D1 stars. If you've got a name, we've got a store for it.",
-        "stat_1_icon": "🏆",
+        "stat_2_icon": "📦",
         "stat_2_label": "Orders Delivered",
         "stat_2_value": "450+",
         "stat_2_copy": "Premium hoodies, boxy tees, and custom drops packed and shipped to fans across the globe.",
-        "stat_2_icon": "📦",
+        "stat_3_icon": "🌍",
         "stat_3_label": "Countries Reached",
         "stat_3_value": "5+",
-        "stat_3_copy": "Your fans don't stop at the city limits. Neither does your merch. We ship worldwide.",
-        "stat_3_icon": "🌍"
+        "stat_3_copy": "Your fans don't stop at the city limits. Neither does your merch. We ship worldwide."
       }
     },
     "shop": {
       "type": "shop-categories",
       "blocks": {
-        "c1": { "type": "category", "settings": { "title": "Oversized Hoodies", "subtitle": "Heavyweight fleece. Boxy fit. Built for cold games and colder timelines." } },
-        "c2": { "type": "category", "settings": { "title": "Boxy Tees", "subtitle": "Structured shoulders. Premium cotton. The tee that looks expensive on camera." } },
-        "c3": { "type": "category", "settings": { "title": "Fleece Layers", "subtitle": "Game-day warmups and post-win fits. Soft inside, sharp on the outside." } }
+        "c1": {
+          "type": "category",
+          "settings": {
+            "title": "Oversized Hoodies",
+            "subtitle": "Heavyweight fleece. Boxy fit. Built for cold games and colder timelines.",
+            "link": ""
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "title": "Boxy Tees",
+            "subtitle": "Structured shoulders. Premium cotton. The tee that looks expensive on camera.",
+            "link": ""
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "title": "Fleece Layers",
+            "subtitle": "Game-day warmups and post-win fits. Soft inside, sharp on the outside.",
+            "link": ""
+          }
+        }
       },
-      "block_order": ["c1", "c2", "c3"],
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
       "settings": {
         "label": "The Drop",
         "heading": "Cop the Heat. Support Your Athlete.",
@@ -69,12 +104,53 @@
     "engine": {
       "type": "how-it-works",
       "blocks": {
-        "s1": { "type": "stage", "settings": { "number": "01", "kicker": "Step 01", "title": "Apply & Get Approved", "copy": "Fill out a quick sign-up. We review your brand, sport, and audience, then green-light your store within days.", "icon": "📝" } },
-        "s2": { "type": "stage", "settings": { "number": "02", "kicker": "Step 02", "title": "We Design Your Drop", "copy": "Our team builds custom graphics and product layouts that match your vibe: hoodies, tees, fleece, and more.", "icon": "🎨" } },
-        "s3": { "type": "stage", "settings": { "number": "03", "kicker": "Step 03", "title": "Share Your Store Link", "copy": "Drop the link in your bio, post it after big games, send it to family. Every sale tracks back to you.", "icon": "🔗" } },
-        "s4": { "type": "stage", "settings": { "number": "04", "kicker": "Step 04", "title": "Get Paid. We Handle the Rest", "copy": "Production, packing, shipping, and customer support all on us. You focus on your sport and your fans.", "icon": "💰" } }
+        "s1": {
+          "type": "stage",
+          "settings": {
+            "number": "01",
+            "icon": "📝",
+            "kicker": "Step 01",
+            "title": "Apply & Get Approved",
+            "copy": "Fill out a quick sign-up. We review your brand, sport, and audience, then green-light your store within days."
+          }
+        },
+        "s2": {
+          "type": "stage",
+          "settings": {
+            "number": "02",
+            "icon": "🎨",
+            "kicker": "Step 02",
+            "title": "We Design Your Drop",
+            "copy": "Our team builds custom graphics and product layouts that match your vibe: hoodies, tees, fleece, and more."
+          }
+        },
+        "s3": {
+          "type": "stage",
+          "settings": {
+            "number": "03",
+            "icon": "🔗",
+            "kicker": "Step 03",
+            "title": "Share Your Store Link",
+            "copy": "Drop the link in your bio, post it after big games, send it to family. Every sale tracks back to you."
+          }
+        },
+        "s4": {
+          "type": "stage",
+          "settings": {
+            "number": "04",
+            "icon": "💰",
+            "kicker": "Step 04",
+            "title": "Get Paid. We Handle the Rest",
+            "copy": "Production, packing, shipping, and customer support all on us. You focus on your sport and your fans."
+          }
+        }
       },
-      "block_order": ["s1", "s2", "s3", "s4"],
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
       "settings": {
         "label": "For Athletes",
         "heading": "From Sign-Up to Sold Out in 4 Moves",
@@ -84,28 +160,113 @@
     "about": {
       "type": "page-about",
       "blocks": {
-        "a1": { "type": "card", "settings": { "icon": "⚡", "label": "For Athletes", "title": "Launch Without the Overhead", "copy": "No upfront costs. No boxes in your garage. Get a pro storefront, custom designs, and a team that ships every order while you train." } },
-        "a2": { "type": "card", "settings": { "icon": "🛒", "label": "For Fans", "title": "Official Merch, Not Bootleg", "copy": "Every store is verified. Every product is premium. Buy with confidence knowing your money goes directly to the athlete you support." } },
-        "a3": { "type": "card", "settings": { "icon": "🏅", "label": "For Programs", "title": "Scale Your Whole Roster", "copy": "NIL agencies, teams, and schools onboard athletes in bulk with white-label stores and revenue share built in." } }
+        "a1": {
+          "type": "card",
+          "settings": {
+            "icon": "⚡",
+            "label": "For Athletes",
+            "title": "Launch Without the Overhead",
+            "copy": "No upfront costs. No boxes in your garage. Get a pro storefront, custom designs, and a team that ships every order while you train."
+          }
+        },
+        "a2": {
+          "type": "card",
+          "settings": {
+            "icon": "🛒",
+            "label": "For Fans",
+            "title": "Official Merch, Not Bootleg",
+            "copy": "Every store is verified. Every product is premium. Buy with confidence knowing your money goes directly to the athlete you support."
+          }
+        },
+        "a3": {
+          "type": "card",
+          "settings": {
+            "icon": "🏅",
+            "label": "For Programs",
+            "title": "Scale Your Whole Roster",
+            "copy": "NIL agencies, teams, and schools onboard athletes in bulk with white-label stores and revenue share built in."
+          }
+        }
       },
-      "block_order": ["a1", "a2", "a3"],
+      "block_order": [
+        "a1",
+        "a2",
+        "a3"
+      ],
       "settings": {
         "kicker": "Why Teknotize",
         "heading": "Your Name Is Worth More Than a Highlight Reel",
-        "intro": "Fans don't just watch you play. They want to rep you. We turn that energy into official merch, real income, and a storefront that looks as elite as your game."
+        "intro": "Fans don't just watch you play. They want to rep you. We turn that energy into official merch, real income, and a storefront that looks as elite as your game.",
+        "y1": "100+",
+        "today": "500+"
       }
     },
     "mission": {
       "type": "mission",
       "blocks": {
-        "m1": { "type": "card", "settings": { "kicker": "Content Ready", "title": "Merch That Looks Fire on Camera", "copy": "Designed for social, built for the stands. Your drop will look as good in a TikTok as it does in person.", "icon": "📸" } },
-        "m2": { "type": "card", "settings": { "kicker": "Storefront", "title": "Built to Convert Followers", "copy": "Clean layouts, fast checkout, mobile-first design because most of your fans are buying from their phone.", "icon": "🛍️" } },
-        "m3": { "type": "card", "settings": { "kicker": "Design Team", "title": "Custom Graphics On Demand", "copy": "Our artists build around your brand: colors, fonts, logos, and layouts that feel authentically you.", "icon": "🎯" } },
-        "m4": { "type": "card", "settings": { "kicker": "Fulfillment", "title": "We Print, Pack & Ship Everything", "copy": "Production partners, quality control, and worldwide shipping handled end-to-end so you never touch a box.", "icon": "🏭" } },
-        "m5": { "type": "card", "settings": { "kicker": "Quality", "title": "Premium Blanks Only", "copy": "Oversized hoodies, heavyweight boxy tees, fleece sweatshirts. Fabrics that feel expensive because they are.", "icon": "👕" } },
-        "m6": { "type": "card", "settings": { "kicker": "Growth", "title": "Scale As You Blow Up", "copy": "More products, bigger drops, team deals, and agency partnerships. We grow when you grow.", "icon": "🚀" } }
+        "m1": {
+          "type": "card",
+          "settings": {
+            "icon": "📸",
+            "kicker": "Content Ready",
+            "title": "Merch That Looks Fire on Camera",
+            "copy": "Designed for social, built for the stands. Your drop will look as good in a TikTok as it does in person."
+          }
+        },
+        "m2": {
+          "type": "card",
+          "settings": {
+            "icon": "🛍️",
+            "kicker": "Storefront",
+            "title": "Built to Convert Followers",
+            "copy": "Clean layouts, fast checkout, mobile-first design because most of your fans are buying from their phone."
+          }
+        },
+        "m3": {
+          "type": "card",
+          "settings": {
+            "icon": "🎯",
+            "kicker": "Design Team",
+            "title": "Custom Graphics On Demand",
+            "copy": "Our artists build around your brand: colors, fonts, logos, and layouts that feel authentically you."
+          }
+        },
+        "m4": {
+          "type": "card",
+          "settings": {
+            "icon": "🏭",
+            "kicker": "Fulfillment",
+            "title": "We Print, Pack & Ship Everything",
+            "copy": "Production partners, quality control, and worldwide shipping handled end-to-end so you never touch a box."
+          }
+        },
+        "m5": {
+          "type": "card",
+          "settings": {
+            "icon": "👕",
+            "kicker": "Quality",
+            "title": "Premium Blanks Only",
+            "copy": "Oversized hoodies, heavyweight boxy tees, fleece sweatshirts. Fabrics that feel expensive because they are."
+          }
+        },
+        "m6": {
+          "type": "card",
+          "settings": {
+            "icon": "🚀",
+            "kicker": "Growth",
+            "title": "Scale As You Blow Up",
+            "copy": "More products, bigger drops, team deals, and agency partnerships. We grow when you grow."
+          }
+        }
       },
-      "block_order": ["m1", "m2", "m3", "m4", "m5", "m6"],
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5",
+        "m6"
+      ],
       "settings": {
         "label": "The Advantage",
         "heading": "Everything You Need to Win Off the Field",
@@ -116,10 +277,33 @@
     "partners": {
       "type": "partnerships-home",
       "blocks": {
-        "p1": { "type": "partner", "settings": { "icon": "🤝", "title": "NIL Agencies", "copy": "Bulk athlete onboarding, white-label storefronts, and revenue share models. Give every client a merch engine without hiring a fulfillment team.", "button": "Partner With Us", "link_type": "agency" } },
-        "p2": { "type": "partner", "settings": { "icon": "🏟️", "title": "Teams & Programs", "copy": "Custom team stores, fundraising drops, and fan gear for schools, clubs, and orgs. Turn your community into a revenue stream.", "button": "Explore Team Stores", "link_type": "partnerships" } }
+        "p1": {
+          "type": "partner",
+          "settings": {
+            "icon": "🤝",
+            "title": "NIL Agencies",
+            "copy": "Bulk athlete onboarding, white-label storefronts, and revenue share models. Give every client a merch engine without hiring a fulfillment team.",
+            "button": "Partner With Us",
+            "link_type": "agency",
+            "link": ""
+          }
+        },
+        "p2": {
+          "type": "partner",
+          "settings": {
+            "icon": "🏟️",
+            "title": "Teams & Programs",
+            "copy": "Custom team stores, fundraising drops, and fan gear for schools, clubs, and orgs. Turn your community into a revenue stream.",
+            "button": "Explore Team Stores",
+            "link_type": "partnerships",
+            "link": ""
+          }
+        }
       },
-      "block_order": ["p1", "p2"],
+      "block_order": [
+        "p1",
+        "p2"
+      ],
       "settings": {
         "kicker": "Partnerships",
         "heading": "Power Your Entire Roster",
@@ -129,12 +313,49 @@
     "reviews": {
       "type": "testimonials",
       "blocks": {
-        "r1": { "type": "review", "settings": { "quote": "My store went live in a week. First drop sold out in 3 days. The hoodie quality is insane and fans keep asking when the next one drops.", "author": "Jordan M.", "role": "D1 Basketball · Athlete", "initials": "JM" } },
-        "r2": { "type": "review", "settings": { "quote": "Ordered a boxy tee from my favorite athlete's store. Fit is perfect, fabric feels premium, and it shipped faster than I expected.", "author": "Sarah R.", "role": "Fan · Verified Buyer", "initials": "SR" } },
-        "r3": { "type": "review", "settings": { "quote": "I didn't think anyone would buy merch from a high school player. Teknotize proved me wrong. My whole team wants stores now.", "author": "Darius K.", "role": "High School Football · Athlete", "initials": "DK" } },
-        "r4": { "type": "review", "settings": { "quote": "We onboarded 30 athletes in one month. The ops team handles everything. Our clients just share their link and collect.", "author": "Amanda L.", "role": "NIL Agency Partner", "initials": "AL" } }
+        "r1": {
+          "type": "review",
+          "settings": {
+            "quote": "My store went live in a week. First drop sold out in 3 days. The hoodie quality is insane and fans keep asking when the next one drops.",
+            "author": "Jordan M.",
+            "role": "D1 Basketball · Athlete",
+            "initials": "JM"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "quote": "Ordered a boxy tee from my favorite athlete's store. Fit is perfect, fabric feels premium, and it shipped faster than I expected.",
+            "author": "Sarah R.",
+            "role": "Fan · Verified Buyer",
+            "initials": "SR"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "quote": "I didn't think anyone would buy merch from a high school player. Teknotize proved me wrong. My whole team wants stores now.",
+            "author": "Darius K.",
+            "role": "High School Football · Athlete",
+            "initials": "DK"
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "quote": "We onboarded 30 athletes in one month. The ops team handles everything. Our clients just share their link and collect.",
+            "author": "Amanda L.",
+            "role": "NIL Agency Partner",
+            "initials": "AL"
+          }
+        }
       },
-      "block_order": ["r1", "r2", "r3", "r4"],
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
       "settings": {
         "label": "Real Reviews",
         "heading": "From the Locker Room & the Stands",
@@ -187,7 +408,14 @@
           }
         }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"],
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
       "settings": {
         "label": "Questions",
         "heading": "Everything You Wanted to Ask",
@@ -217,5 +445,18 @@
       }
     }
   },
-  "order": ["hero", "athletes", "roster", "shop", "engine", "about", "mission", "partners", "reviews", "faq", "contact", "cta"]
+  "order": [
+    "hero",
+    "athletes",
+    "roster",
+    "shop",
+    "engine",
+    "about",
+    "mission",
+    "partners",
+    "reviews",
+    "faq",
+    "contact",
+    "cta"
+  ]
 }
