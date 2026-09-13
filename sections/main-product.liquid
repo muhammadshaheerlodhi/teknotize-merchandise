@@ -1,6 +1,35 @@
 <section class="main-product">
   <div class="page-width">
-    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {%- liquid
+      assign current_variant = product.selected_or_first_available_variant
+      assign athlete_store = false
+      if product
+        for collection in product.collections
+          if collection.handle == 'all' or collection.handle == 'frontpage'
+            continue
+          endif
+          assign collection_name = collection.title | downcase
+          assign product_name = product.title | downcase
+          if product_name contains collection_name
+            assign athlete_store = collection
+            break
+          endif
+        endfor
+      endif
+      unless athlete_store
+        if product
+          for collection in product.collections
+            if collection.handle == 'all' or collection.handle == 'frontpage'
+              continue
+            endif
+            assign athlete_store = collection
+            break
+          endfor
+        endif
+      endunless
+      assign athlete_store_url = athlete_store.url | default: routes.collections_url
+      assign athlete_store_title = athlete_store.title | default: 'Athlete Store'
+    -%}
     <div class="product-layout">
       <div class="product-media">
         {%- liquid
@@ -31,9 +60,12 @@
         {%- endif -%}
       </div>
 
-      <div>
+      <div class="product-buy">
+        {%- if athlete_store -%}
+          <a class="product-athlete-link" href="{{ athlete_store_url }}">{{ athlete_store_title }}</a>
+        {%- endif -%}
         <p class="eyebrow">{{ product.vendor | default: 'Teknotize Merchandise' }}</p>
-        <h1 class="section-title" style="font-size:clamp(2rem,4vw,3.4rem);">{{ product.title }}</h1>
+        <h1 class="section-title product-title">{{ product.title }}</h1>
         <p class="price" data-product-price style="font-size:1.25rem;margin:12px 0 20px;">
           {{ current_variant.price | money }}
           {%- if current_variant.compare_at_price > current_variant.price -%}
@@ -42,6 +74,7 @@
         </p>
 
         {% form 'product', product, data-product-form: '' %}
+          <span hidden data-athlete-store="{{ athlete_store_url }}"></span>
           <script type="application/json" data-product-json>
             {
               "id": {{ product.id | json }},
@@ -126,7 +159,8 @@
 
           {%- unless product.has_only_default_variant -%}
             {%- for option in product.options_with_values -%}
-              <fieldset class="option-row">
+              {%- assign option_key = option.name | downcase -%}
+              <fieldset class="option-row{% if option_key contains 'size' %} option-row--size{% endif %}">
                 <legend>{{ option.name }}</legend>
                 <div class="swatches">
                   {%- for value in option.values -%}
@@ -169,6 +203,9 @@
                     </label>
                   {%- endfor -%}
                 </div>
+                {%- if option_key contains 'size' -%}
+                  {% render 'size-chart' %}
+                {%- endif -%}
               </fieldset>
             {%- endfor -%}
             <p class="product-selected-variant" data-selected-variant>{{ current_variant.title }}</p>

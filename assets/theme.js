@@ -22,6 +22,13 @@
   const drawerBody = qs('[data-cart-drawer-body]');
   const drawerSubtotal = qs('[data-cart-subtotal]');
   const shippingNote = qs('[data-shipping-note]');
+  const keepShopping = qs('[data-keep-shopping]');
+
+  const setKeepShopping = (url) => {
+    if (!keepShopping || !url) return;
+    keepShopping.href = url;
+    keepShopping.hidden = false;
+  };
 
   const openDrawer = () => {
     if (!drawer) return;
@@ -82,6 +89,8 @@
       const select = qs('[data-variant-select]', form);
       if (select) select.value = String(selected.id);
     }
+    const athleteStore = form.dataset.athleteStore || qs('[data-athlete-store]', form)?.getAttribute('data-athlete-store');
+    if (athleteStore) setKeepShopping(athleteStore);
     const data = new FormData(form);
     const res = await fetch('/cart/add.js', { method: 'POST', body: data });
     if (!res.ok) {
@@ -295,6 +304,10 @@
     colorInput.checked = true;
     selectVariantFromSwatches(colorInput);
   });
+
+  const productForm = qs('[data-product-form]');
+  const athleteStore = productForm?.dataset.athleteStore || qs('[data-athlete-store]', productForm)?.getAttribute('data-athlete-store');
+  if (athleteStore) setKeepShopping(athleteStore);
 
   refreshCart().catch(() => {});
 

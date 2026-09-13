@@ -1,3 +1,9 @@
+{%- liquid
+  assign keep_url = routes.collections_url
+  if template.name == 'collection' and collection.url != blank
+    assign keep_url = collection.url
+  endif
+-%}
 <div class="cart-drawer" data-cart-drawer>
   <div class="cart-drawer-overlay" data-cart-drawer-overlay data-close-cart></div>
   <aside class="cart-drawer-panel" role="dialog" aria-label="Cart">
@@ -10,12 +16,15 @@
     </div>
     <div class="drawer-foot">
       <p class="price" data-shipping-note>Shipping & taxes calculated at checkout.</p>
-      <p style="display:flex;justify-content:space-between;margin:12px 0 16px;">
+      <p class="cart-drawer-subtotal">
         <span>Subtotal</span>
         <strong data-cart-subtotal>{{ cart.total_price | money }}</strong>
       </p>
-      <a class="btn btn-primary btn-full" href="/checkout">Checkout</a>
-      <a class="btn btn-ghost btn-full" href="{{ routes.cart_url }}" style="margin-top:10px;">View cart</a>
+      <div class="cart-drawer-actions">
+        <a class="btn btn-primary" href="/checkout">Checkout</a>
+        <a class="btn btn-ghost" data-keep-shopping href="{{ keep_url }}">Keep shopping this athlete</a>
+      </div>
+      <a class="cart-drawer-view" href="{{ routes.cart_url }}">View cart</a>
     </div>
   </aside>
 </div>
