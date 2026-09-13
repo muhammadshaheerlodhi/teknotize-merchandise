@@ -2187,12 +2187,20 @@ label {
   color: var(--tm-muted);
 }
 
-.option-row--size .product-size-card {
-  margin-top: 14px;
-  padding: 14px;
-  background: #fff;
-  border: 1px solid #ece6e4;
-  border-radius: 14px;
+.option-row--size legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.size-chart-link {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-weight: 700;
+  color: var(--tm-accent);
 }
 
 .product-size-heading {
@@ -2318,10 +2326,10 @@ label {
 
 .product-size-table {
   width: 100%;
-  min-width: 560px;
+  min-width: 640px;
   border-collapse: collapse;
   color: #5a4a4a;
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   background: #fff;
 }
 

@@ -20,6 +20,9 @@
       {%- endif -%}
     </div>
 
+    {%- if section.settings.show_size_chart -%}
+      {% render 'size-chart' %}
+    {%- endif -%}
   </div>
 </section>
 

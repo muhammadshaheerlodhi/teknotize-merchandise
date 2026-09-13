@@ -161,7 +161,12 @@
             {%- for option in product.options_with_values -%}
               {%- assign option_key = option.name | downcase -%}
               <fieldset class="option-row{% if option_key contains 'size' %} option-row--size{% endif %}">
-                <legend>{{ option.name }}</legend>
+                <legend>
+                  {{ option.name }}
+                  {%- if option_key contains 'size' -%}
+                    <a class="size-chart-link" href="#size-chart">Size chart</a>
+                  {%- endif -%}
+                </legend>
                 <div class="swatches">
                   {%- for value in option.values -%}
                     {%- liquid
@@ -203,9 +208,6 @@
                     </label>
                   {%- endfor -%}
                 </div>
-                {%- if option_key contains 'size' -%}
-                  {% render 'size-chart' %}
-                {%- endif -%}
               </fieldset>
             {%- endfor -%}
             <p class="product-selected-variant" data-selected-variant>{{ current_variant.title }}</p>
