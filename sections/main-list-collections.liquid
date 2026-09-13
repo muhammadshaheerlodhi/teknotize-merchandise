@@ -9,8 +9,9 @@
     </form>
 
     <div class="athlete-grid">
-      {%- for collection in collections -%}
-        {%- if collection.handle == 'all' -%}{%- continue -%}{%- endif -%}
+      {%- assign athlete_stores = collections | sort: 'published_at' | reverse -%}
+      {%- for collection in athlete_stores -%}
+        {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
         {% render 'collection-card', collection: collection %}
       {%- endfor -%}
     </div>
