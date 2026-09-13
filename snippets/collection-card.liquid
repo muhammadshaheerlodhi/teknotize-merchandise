@@ -1,4 +1,4 @@
-<a class="athlete-card crystal" href="{{ collection.url }}">
+<a class="athlete-card crystal" href="{{ collection.url }}" data-name="{{ collection.title | downcase | escape }}">
   {%- if collection.image -%}
     <img
       src="{{ collection.image | image_url: width: 900 }}"

@@ -4,17 +4,18 @@
     <h1 class="section-title">Athlete Stores</h1>
     <p class="lede">Shop signed athlete stores. Every purchase puts money directly in their pockets. Free shipping over $150.</p>
 
-    <form action="{{ routes.search_url }}" method="get" style="max-width:560px;margin:24px 0 32px;">
-      <input class="field" type="search" name="q" placeholder="Search athletes" autocomplete="off">
+    <form data-athlete-filter-form style="max-width:560px;margin:24px 0 32px;">
+      <input class="field" id="athlete-search" type="search" name="q" placeholder="Search athletes" autocomplete="off">
     </form>
 
-    <div class="athlete-grid">
+    <div class="athlete-grid" data-athlete-grid>
       {%- assign athlete_stores = collections | sort: 'published_at' | reverse -%}
       {%- for collection in athlete_stores -%}
         {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
         {% render 'collection-card', collection: collection %}
       {%- endfor -%}
     </div>
+    <p class="no-results" data-no-results>No athletes found.</p>
   </div>
 </section>
 

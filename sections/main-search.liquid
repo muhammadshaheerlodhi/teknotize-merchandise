@@ -2,65 +2,20 @@
   <div class="page-width">
     <p class="eyebrow">THE ATHLETES</p>
     <h1 class="section-title">Search athletes</h1>
-    <p class="lede">Find an athlete storefront by name. Type a letter to start, then keep typing the full name.</p>
+    <p class="lede">Find an athlete storefront by name. Clear the box to see every store again.</p>
 
-    <form action="{{ routes.search_url }}" method="get" role="search" style="max-width:640px;margin:28px 0;">
-      <input class="field" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search athletes" autocomplete="off">
+    <form data-athlete-filter-form style="max-width:640px;margin:28px 0;">
+      <input class="field" id="athlete-search" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search athletes" autocomplete="off">
     </form>
 
-    {%- if search.performed -%}
-      {%- liquid
-        assign q = search.terms | strip | downcase
-        assign q_size = q | size
-        assign matched = 0
-      -%}
-      <div class="athlete-grid">
-        {%- for collection in collections -%}
-          {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
-          {%- liquid
-            assign title_down = collection.title | downcase
-            assign is_match = false
-            assign prefix = title_down | slice: 0, q_size
-            if q_size > 0 and prefix == q
-              assign is_match = true
-            endif
-            unless is_match
-              assign words = title_down | replace: "'", ' ' | replace: '-', ' ' | split: ' '
-              for word in words
-                assign wpre = word | slice: 0, q_size
-                if q_size > 0 and wpre == q
-                  assign is_match = true
-                  break
-                endif
-              endfor
-            endunless
-            if is_match == false and q_size >= 3 and title_down contains q
-              assign is_match = true
-            endif
-          -%}
-          {%- if is_match -%}
-            {% render 'collection-card', collection: collection %}
-            {%- assign matched = matched | plus: 1 -%}
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-      {%- if matched == 0 -%}
-        <div class="empty-state"><p>No athletes found for “{{ search.terms }}”.</p></div>
-      {%- else -%}
-        <p class="price" style="margin-top:20px;">{{ matched }} athlete{% if matched != 1 %}s{% endif %}</p>
-      {%- endif -%}
-    {%- else -%}
-      <h2 class="section-title" style="font-size:2rem;">Athlete stores</h2>
-      <div class="athlete-grid">
-        {%- assign shown = 0 -%}
-        {%- for collection in collections -%}
-          {%- if collection.handle == 'all' -%}{%- continue -%}{%- endif -%}
-          {%- if shown >= 8 -%}{%- break -%}{%- endif -%}
-          {% render 'collection-card', collection: collection %}
-          {%- assign shown = shown | plus: 1 -%}
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
+    <div class="athlete-grid" data-athlete-grid>
+      {%- assign athlete_stores = collections | sort: 'published_at' | reverse -%}
+      {%- for collection in athlete_stores -%}
+        {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+        {% render 'collection-card', collection: collection %}
+      {%- endfor -%}
+    </div>
+    <p class="no-results" data-no-results>No athletes found.</p>
   </div>
 </section>
 

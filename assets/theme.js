@@ -345,23 +345,36 @@
   const storeCount = qs('[data-store-count]');
   let activeFilter = 'all';
 
+  const nameMatchesQuery = (name, query) => {
+    const q = (query || '').trim().toLowerCase();
+    if (!q) return true;
+    const t = (name || '').toLowerCase();
+    if (t.startsWith(q) || t.includes(q)) return true;
+    return t.split(/[\s'_-]+/).some((word) => word.startsWith(q));
+  };
+
   const filterAthletes = () => {
     const query = (searchInput?.value || '').trim().toLowerCase();
     let visible = 0;
     athleteCards.forEach((card) => {
       const name = card.dataset.name || '';
       const sport = card.dataset.sport || '';
-      const matchQuery = !query || name.includes(query) || sport.includes(query);
+      const matchQuery = nameMatchesQuery(name, query) || (!!query && sport.includes(query));
       const matchFilter = activeFilter === 'all' || sport === activeFilter;
       const show = matchQuery && matchFilter;
       card.hidden = !show;
       if (show) visible += 1;
     });
     if (storeCount) storeCount.textContent = `${visible} store${visible === 1 ? '' : 's'}`;
-    if (noResults) noResults.classList.toggle('is-visible', visible === 0);
+    if (noResults) noResults.classList.toggle('is-visible', visible === 0 && athleteCards.length > 0);
   };
 
+  qsa('[data-athlete-filter-form]').forEach((form) => {
+    form.addEventListener('submit', (e) => e.preventDefault());
+  });
   searchInput?.addEventListener('input', filterAthletes);
+  searchInput?.addEventListener('search', filterAthletes);
+  if (searchInput) filterAthletes();
   qsa('[data-filter]').forEach((chip) => {
     chip.addEventListener('click', () => {
       qsa('[data-filter]').forEach((c) => c.classList.remove('is-active'));
