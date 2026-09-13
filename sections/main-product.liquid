@@ -164,7 +164,7 @@
                 <legend>
                   {{ option.name }}
                   {%- if option_key contains 'size' -%}
-                    <a class="size-chart-link" href="#size-chart">Size chart</a>
+                    <a class="size-chart-btn" href="#size-chart">Size chart</a>
                   {%- endif -%}
                 </legend>
                 <div class="swatches">
@@ -208,6 +208,9 @@
                     </label>
                   {%- endfor -%}
                 </div>
+                {%- if option_key contains 'size' -%}
+                  <p class="size-chart-hint">Not sure of your size? Check the size chart below.</p>
+                {%- endif -%}
               </fieldset>
             {%- endfor -%}
             <p class="product-selected-variant" data-selected-variant>{{ current_variant.title }}</p>
