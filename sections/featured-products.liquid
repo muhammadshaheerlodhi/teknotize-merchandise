@@ -1,22 +1,66 @@
 <section class="featured-products">
-  <div class="page-width">
-    <div class="section-head">
-      <div>
-        <p class="section-label">{{ section.settings.label }}</p>
-        <h2 class="section-title">{{ section.settings.heading }}</h2>
+  {%- liquid
+    assign related_collection = false
+    assign picked_collection = section.settings.collection | strip
+    if picked_collection != blank and picked_collection != ''
+      assign related_collection = collections[picked_collection]
+      if related_collection == blank or related_collection.handle == blank
+        assign related_collection = false
+      endif
+    endif
+    if related_collection == false and product
+      for collection in product.collections
+        if collection.handle == 'all' or collection.handle == 'frontpage'
+          continue
+        endif
+        assign collection_name = collection.title | downcase
+        assign product_name = product.title | downcase
+        if product_name contains collection_name
+          assign related_collection = collection
+          break
+        endif
+      endfor
+    endif
+    unless related_collection
+      if product
+        for collection in product.collections
+          if collection.handle == 'all' or collection.handle == 'frontpage'
+            continue
+          endif
+          assign related_collection = collection
+          break
+        endfor
+      endif
+    endunless
+    assign related_url = related_collection.url | default: routes.collections_url
+    assign extra_count = 0
+    if related_collection
+      assign extra_count = related_collection.products.size
+      if product and extra_count == 1 and related_collection.products.first.id == product.id
+        assign extra_count = 0
+      endif
+    endif
+  -%}
+  {%- if related_collection and extra_count > 0 -%}
+    <div class="page-width">
+      <div class="section-head">
+        <div>
+          <p class="section-label">{{ section.settings.label }}</p>
+          <h2 class="section-title">{{ section.settings.heading }}</h2>
+        </div>
+        <a class="btn btn-ghost" href="{{ related_url }}">Shop storefront</a>
       </div>
-      <a class="btn btn-ghost" href="{{ routes.all_products_collection_url }}">Shop all</a>
+      <div class="product-grid">
+        {%- assign shown = 0 -%}
+        {%- for rec_product in related_collection.products -%}
+          {%- if product and rec_product.id == product.id -%}{%- continue -%}{%- endif -%}
+          {%- if shown >= section.settings.limit -%}{%- break -%}{%- endif -%}
+          {% render 'product-card', product: rec_product %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endfor -%}
+      </div>
     </div>
-    <div class="product-grid">
-      {%- assign featured_collection = collections.all -%}
-      {%- if section.settings.collection != blank -%}
-        {%- assign featured_collection = collections[section.settings.collection] -%}
-      {%- endif -%}
-      {%- for product in featured_collection.products limit: section.settings.limit -%}
-        {% render 'product-card', product: product %}
-      {%- endfor -%}
-    </div>
-  </div>
+  {%- endif -%}
 </section>
 
 {% schema %}

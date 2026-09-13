@@ -1,37 +1,56 @@
 <section class="main-search">
   <div class="page-width">
     <p class="eyebrow">THE ATHLETES</p>
-    <h1 class="section-title">Search</h1>
-    <p class="lede">Shop signed athlete stores. Every purchase puts money directly in their pockets.</p>
+    <h1 class="section-title">Search athletes</h1>
+    <p class="lede">Find an athlete storefront by name. Type a letter to start, then keep typing the full name.</p>
 
     <form action="{{ routes.search_url }}" method="get" role="search" style="max-width:640px;margin:28px 0;">
-      <input type="hidden" name="type" value="product">
-      <input class="field" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search hoodies, athletes, boxy tees...">
+      <input class="field" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search athletes" autocomplete="off">
     </form>
 
     {%- if search.performed -%}
-      {%- paginate search.results by 24 -%}
-        <p class="price">{{ search.results_count }} results</p>
-        <div class="product-grid">
-          {%- for item in search.results -%}
-            {%- if item.object_type == 'product' -%}
-              {% render 'product-card', product: item %}
-            {%- else -%}
-              <a class="product-card" href="{{ item.url }}">
-                <div class="card-body">
-                  <h3>{{ item.title }}</h3>
-                  <p class="price">{{ item.object_type }}</p>
-                </div>
-              </a>
-            {%- endif -%}
-          {%- else -%}
-            <div class="empty-state"><p>No results for “{{ search.terms }}”.</p></div>
-          {%- endfor -%}
-        </div>
-        {% render 'pagination', paginate: paginate %}
-      {%- endpaginate -%}
+      {%- liquid
+        assign q = search.terms | strip | downcase
+        assign q_size = q | size
+        assign matched = 0
+      -%}
+      <div class="athlete-grid">
+        {%- for collection in collections -%}
+          {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+          {%- liquid
+            assign title_down = collection.title | downcase
+            assign is_match = false
+            assign prefix = title_down | slice: 0, q_size
+            if q_size > 0 and prefix == q
+              assign is_match = true
+            endif
+            unless is_match
+              assign words = title_down | replace: "'", ' ' | replace: '-', ' ' | split: ' '
+              for word in words
+                assign wpre = word | slice: 0, q_size
+                if q_size > 0 and wpre == q
+                  assign is_match = true
+                  break
+                endif
+              endfor
+            endunless
+            if is_match == false and q_size >= 3 and title_down contains q
+              assign is_match = true
+            endif
+          -%}
+          {%- if is_match -%}
+            {% render 'collection-card', collection: collection %}
+            {%- assign matched = matched | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if matched == 0 -%}
+        <div class="empty-state"><p>No athletes found for “{{ search.terms }}”.</p></div>
+      {%- else -%}
+        <p class="price" style="margin-top:20px;">{{ matched }} athlete{% if matched != 1 %}s{% endif %}</p>
+      {%- endif -%}
     {%- else -%}
-      <h2 class="section-title" style="font-size:2rem;">Featured collections</h2>
+      <h2 class="section-title" style="font-size:2rem;">Athlete stores</h2>
       <div class="athlete-grid">
         {%- assign shown = 0 -%}
         {%- for collection in collections -%}

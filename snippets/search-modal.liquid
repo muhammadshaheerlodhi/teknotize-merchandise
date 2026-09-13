@@ -1,16 +1,35 @@
 <div class="search-modal" data-search-modal>
   <form action="{{ routes.search_url }}" method="get" role="search">
-    <input type="hidden" name="type" value="product,page,article">
     <input
       type="search"
       name="q"
-      placeholder="{{ 'general.search.placeholder' | t }}"
-      aria-label="{{ 'general.accessibility.search' | t }}"
+      data-athlete-search
+      placeholder="Search athletes"
+      aria-label="Search athletes"
       value="{{ search.terms | escape }}"
+      autocomplete="off"
     >
-    <p style="text-align:center;margin-top:14px;color:var(--tm-muted);">
-      Press Enter to search athletes, hoodies, tees, and more.
+    <div class="athlete-search-results" data-athlete-results></div>
+    <p class="search-modal-copy">
+      Type a name to find an athlete store.
       <button type="button" data-close-search class="btn btn-ghost" style="margin-left:8px;">Close</button>
     </p>
   </form>
+  <script type="application/json" data-athlete-index>
+    [
+      {%- assign athlete_first = true -%}
+      {%- for collection in collections -%}
+        {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+        {%- unless athlete_first -%},{%- endunless -%}
+        {%- assign athlete_first = false -%}
+        {%- liquid
+          assign athlete_img = ''
+          if collection.image != blank
+            assign athlete_img = collection.image | image_url: width: 160
+          endif
+        -%}
+        {"title":{{ collection.title | json }},"url":{{ collection.url | json }},"image":{{ athlete_img | json }}}
+      {%- endfor -%}
+    ]
+  </script>
 </div>

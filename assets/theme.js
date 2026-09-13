@@ -23,8 +23,16 @@
   const drawerSubtotal = qs('[data-cart-subtotal]');
   const shippingNote = qs('[data-shipping-note]');
 
-  const openDrawer = () => drawer && drawer.classList.add('is-open');
-  const closeDrawer = () => drawer && drawer.classList.remove('is-open');
+  const openDrawer = () => {
+    if (!drawer) return;
+    drawer.classList.add('is-open');
+    document.body.classList.add('cart-open');
+  };
+  const closeDrawer = () => {
+    if (!drawer) return;
+    drawer.classList.remove('is-open');
+    document.body.classList.remove('cart-open');
+  };
 
   const renderDrawer = (cart) => {
     if (!drawerBody) return;
@@ -82,7 +90,7 @@
       return;
     }
     await refreshCart();
-    window.location.href = '/checkout';
+    openDrawer();
   };
 
   const updateQty = async (key, quantity) => {
@@ -386,6 +394,67 @@
     history.replaceState(null, '', `#${id}`);
     setActiveNav(id);
   });
+
+  const athleteSearch = qs('[data-athlete-search]');
+  const athleteResults = qs('[data-athlete-results]');
+  const athleteIndexNode = qs('[data-athlete-index]');
+  let athleteIndex = [];
+  if (athleteIndexNode) {
+    try {
+      athleteIndex = JSON.parse(athleteIndexNode.textContent || '[]');
+    } catch (err) {
+      athleteIndex = [];
+    }
+  }
+
+  const athleteMatches = (title, query) => {
+    const q = query.trim().toLowerCase();
+    if (!q) return false;
+    const t = title.toLowerCase();
+    if (t.startsWith(q)) return true;
+    if (t.split(/[\s'_-]+/).some((word) => word.startsWith(q))) return true;
+    return q.length >= 3 && t.includes(q);
+  };
+
+  const escapeHtml = (value) =>
+    String(value || '').replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }[char]));
+
+  const renderAthleteResults = (query) => {
+    if (!athleteResults) return;
+    const q = (query || '').trim();
+    if (!q) {
+      athleteResults.innerHTML = '';
+      return;
+    }
+    const hits = athleteIndex.filter((item) => athleteMatches(item.title, q)).slice(0, 12);
+    if (!hits.length) {
+      athleteResults.innerHTML = `<p class="athlete-search-empty">No athletes found for “${escapeHtml(q)}”.</p>`;
+      return;
+    }
+    athleteResults.innerHTML = hits
+      .map((item) => {
+        const img = item.image
+          ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" width="48" height="48" loading="lazy">`
+          : '';
+        return `<a class="athlete-search-hit" href="${escapeHtml(item.url)}">${img}<span>${escapeHtml(item.title)}</span></a>`;
+      })
+      .join('');
+  };
+
+  if (athleteSearch) {
+    let searchTimer = 0;
+    athleteSearch.addEventListener('input', () => {
+      window.clearTimeout(searchTimer);
+      searchTimer = window.setTimeout(() => renderAthleteResults(athleteSearch.value), 120);
+    });
+    if (athleteSearch.value) renderAthleteResults(athleteSearch.value);
+  }
 
   if (sections.length && 'IntersectionObserver' in window) {
     const navObs = new IntersectionObserver(
