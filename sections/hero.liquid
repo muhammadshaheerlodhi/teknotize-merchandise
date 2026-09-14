@@ -101,9 +101,9 @@
           </div>
         {%- elsif section.settings.image != blank -%}
           {%- assign hero_alt = section.settings.image.alt | default: section.settings.heading -%}
-          {{ section.settings.image | image_url: width: 900 | image_tag: class: 'hero-art-img', loading: 'eager', alt: hero_alt }}
+          {{ section.settings.image | image_url: width: 900 | image_tag: class: 'hero-art-img', loading: 'eager', fetchpriority: 'high', decoding: 'async', alt: hero_alt }}
         {%- else -%}
-          <img class="hero-art-img" src="{{ 'hero-athlete.png' | asset_url }}" alt="James Visocky — Teknotize athlete merchandise" loading="eager" width="520" height="650">
+          <img class="hero-art-img" src="{{ 'hero-athlete.png' | asset_url }}" alt="James Visocky — Teknotize athlete merchandise" loading="eager" fetchpriority="high" decoding="async" width="520" height="650">
         {%- endif -%}
 
         <span class="hero-badge">{{ section.settings.badge_text }}</span>

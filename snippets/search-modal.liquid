@@ -1,20 +1,24 @@
 <div class="search-modal" data-search-modal>
-  <form action="{{ routes.search_url }}" method="get" role="search">
-    <input
-      type="search"
-      name="q"
-      data-athlete-search
-      placeholder="Search athletes"
-      aria-label="Search athletes"
-      value="{{ search.terms | escape }}"
-      autocomplete="off"
-    >
-    <div class="athlete-search-results" data-athlete-results></div>
-    <p class="search-modal-copy">
-      Type a name to find an athlete store.
-      <button type="button" data-close-search class="btn btn-ghost" style="margin-left:8px;">Close</button>
-    </p>
-  </form>
+  <div class="search-modal-panel">
+    <form action="{{ routes.search_url }}" method="get" role="search" data-athlete-search-form>
+      <div class="search-modal-bar">
+        <input
+          type="search"
+          name="q"
+          data-athlete-search
+          placeholder="Search athletes"
+          aria-label="Search athletes"
+          value="{{ search.terms | escape }}"
+          autocomplete="off"
+          enterkeyhint="search"
+          spellcheck="false"
+        >
+        <button type="button" data-close-search class="search-modal-close">Close</button>
+      </div>
+      <div class="athlete-search-results" data-athlete-results></div>
+      <p class="search-modal-copy">Type a name to find an athlete store.</p>
+    </form>
+  </div>
   <script type="application/json" data-athlete-index>
     [
       {%- assign athlete_first = true -%}

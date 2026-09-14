@@ -1,20 +1,26 @@
 <a class="athlete-card crystal" href="{{ collection.url }}" data-name="{{ collection.title | downcase | escape }}">
   {%- if collection.image -%}
     <img
-      src="{{ collection.image | image_url: width: 900 }}"
+      src="{{ collection.image | image_url: width: 700 }}"
+      srcset="{{ collection.image | image_url: width: 400 }} 400w, {{ collection.image | image_url: width: 700 }} 700w, {{ collection.image | image_url: width: 900 }} 900w"
+      sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 30vw"
       alt="{{ collection.title | escape }}"
       width="600"
       height="750"
       loading="lazy"
+      decoding="async"
     >
   {%- elsif collection.products.first.featured_image -%}
     <img
-      src="{{ collection.products.first.featured_image | image_url: width: 900 }}"
+      src="{{ collection.products.first.featured_image | image_url: width: 700 }}"
+      srcset="{{ collection.products.first.featured_image | image_url: width: 400 }} 400w, {{ collection.products.first.featured_image | image_url: width: 700 }} 700w, {{ collection.products.first.featured_image | image_url: width: 900 }} 900w"
+      sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 30vw"
       alt="{{ collection.title | escape }}"
       loading="lazy"
+      decoding="async"
     >
   {%- else -%}
-    <img src="{{ 'logo.png' | asset_url }}" alt="{{ collection.title | escape }}" style="object-fit:contain;background:#000;padding:40px;">
+    <img src="{{ 'logo.png' | asset_url }}" alt="{{ collection.title | escape }}" width="600" height="750" loading="lazy" decoding="async" style="object-fit:contain;background:#000;padding:40px;">
   {%- endif -%}
   <div class="card-overlay">
     <h3>{{ collection.title }}</h3>

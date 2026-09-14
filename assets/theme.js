@@ -1,6 +1,6 @@
 (() => {
-  const qs = (sel, root = document) => root.querySelector(sel);
-  const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
+  const qs = (sel, root = document) => (root || document).querySelector(sel);
+  const qsa = (sel, root = document) => [...(root || document).querySelectorAll(sel)];
 
   const formatMoney = (cents) => {
     const format = (window.theme && window.theme.moneyFormat) || '${{amount}}';
@@ -121,10 +121,25 @@
     mobileDrawer?.classList.toggle('is-open', open);
     document.body.classList.toggle('menu-open', open);
   };
+  const syncSearchViewport = () => {
+    if (!searchModal?.classList.contains('is-open')) return;
+    const vv = window.visualViewport;
+    const height = vv?.height || window.innerHeight;
+    const offset = vv?.offsetTop || 0;
+    searchModal.style.height = `${Math.round(height)}px`;
+    searchModal.style.top = `${Math.round(offset)}px`;
+  };
+
   const setSearchOpen = (open) => {
     searchModal?.classList.toggle('is-open', open);
     document.body.classList.toggle('search-open', open);
-    if (open) searchModal?.querySelector('input')?.focus();
+    if (open) {
+      syncSearchViewport();
+      window.setTimeout(() => searchModal?.querySelector('input')?.focus(), 20);
+    } else if (searchModal) {
+      searchModal.style.height = '';
+      searchModal.style.top = '';
+    }
   };
 
   const applyVariantImage = (image, alt) => {
@@ -244,7 +259,7 @@
       setSearchOpen(true);
     }
     if (searchClose || e.target === searchModal) {
-      if (Date.now() - uiOpenedAt < 400) return;
+      if (Date.now() - uiOpenedAt < 800) return;
       if (e.target === searchModal || searchClose) setSearchOpen(false);
     }
     if (thumb) applyVariantImage(thumb.dataset.productThumb);
@@ -306,10 +321,10 @@
   });
 
   const productForm = qs('[data-product-form]');
-  const athleteStore = productForm?.dataset.athleteStore || qs('[data-athlete-store]', productForm)?.getAttribute('data-athlete-store');
+  const athleteStore = productForm
+    ? productForm.dataset.athleteStore || qs('[data-athlete-store]', productForm)?.getAttribute('data-athlete-store')
+    : null;
   if (athleteStore) setKeepShopping(athleteStore);
-
-  refreshCart().catch(() => {});
 
   /* Scroll reveal — fast, minimal delay */
   const revealEls = qsa('.reveal, .reveal-stagger');
@@ -352,8 +367,6 @@
     marqueeObs.observe(marquee);
   }
 
-  const searchInput = qs('#athlete-search');
-  const athleteCards = qsa('[data-athlete-grid] .athlete-card');
   const noResults = qs('[data-no-results]');
   const storeCount = qs('[data-store-count]');
   let activeFilter = 'all';
@@ -366,8 +379,9 @@
     return t.split(/[\s'_-]+/).some((word) => word.startsWith(q));
   };
 
-  const filterAthletes = () => {
-    const query = (searchInput?.value || '').trim().toLowerCase();
+  const filterAthletes = (input = qs('#athlete-search')) => {
+    const query = (input?.value || '').trim().toLowerCase();
+    const athleteCards = qsa('[data-athlete-grid] .athlete-card');
     let visible = 0;
     athleteCards.forEach((card) => {
       const name = card.dataset.name || '';
@@ -382,12 +396,6 @@
     if (noResults) noResults.classList.toggle('is-visible', visible === 0 && athleteCards.length > 0);
   };
 
-  qsa('[data-athlete-filter-form]').forEach((form) => {
-    form.addEventListener('submit', (e) => e.preventDefault());
-  });
-  searchInput?.addEventListener('input', filterAthletes);
-  searchInput?.addEventListener('search', filterAthletes);
-  if (searchInput) filterAthletes();
   qsa('[data-filter]').forEach((chip) => {
     chip.addEventListener('click', () => {
       qsa('[data-filter]').forEach((c) => c.classList.remove('is-active'));
@@ -396,6 +404,7 @@
       filterAthletes();
     });
   });
+  if (qs('#athlete-search')) filterAthletes();
 
   const sections = qsa('section[id]');
   const navLinks = qsa('[data-scroll-nav] a[href*="#"]');
@@ -433,13 +442,29 @@
     }
   }
 
-  const athleteMatches = (title, query) => {
+  const ensureAthleteIndex = async () => {
+    if (athleteIndex.length) return;
+    try {
+      const res = await fetch('/collections.json?limit=250');
+      if (!res.ok) return;
+      const data = await res.json();
+      athleteIndex = (data.collections || [])
+        .filter((item) => item.handle && item.handle !== 'all' && item.handle !== 'frontpage')
+        .map((item) => ({
+          title: item.title,
+          url: `/collections/${item.handle}`,
+          image: (item.image && item.image.src) || '',
+        }));
+    } catch (err) {}
+  };
+
+  const athleteMatches = (item, query) => {
     const q = query.trim().toLowerCase();
     if (!q) return false;
-    const t = title.toLowerCase();
-    if (t.startsWith(q)) return true;
-    if (t.split(/[\s'_-]+/).some((word) => word.startsWith(q))) return true;
-    return q.length >= 3 && t.includes(q);
+    const t = String(item.title || '').toLowerCase();
+    const url = String(item.url || '').toLowerCase().replace(/-/g, ' ');
+    if (t.startsWith(q) || t.includes(q) || url.includes(q)) return true;
+    return t.split(/[\s'_-]+/).some((word) => word.startsWith(q));
   };
 
   const escapeHtml = (value) =>
@@ -452,35 +477,62 @@
     }[char]));
 
   const renderAthleteResults = (query) => {
-    if (!athleteResults) return;
+    const results = qs('[data-athlete-results]');
+    if (!results) return;
     const q = (query || '').trim();
     if (!q) {
-      athleteResults.innerHTML = '';
+      results.innerHTML = '';
       return;
     }
-    const hits = athleteIndex.filter((item) => athleteMatches(item.title, q)).slice(0, 12);
+    const hits = athleteIndex.filter((item) => athleteMatches(item, q)).slice(0, 12);
     if (!hits.length) {
-      athleteResults.innerHTML = `<p class="athlete-search-empty">No athletes found for “${escapeHtml(q)}”.</p>`;
+      results.innerHTML = `<p class="athlete-search-empty">No athletes found for “${escapeHtml(q)}”.</p>`;
       return;
     }
-    athleteResults.innerHTML = hits
+    results.innerHTML = hits
       .map((item) => {
-        const img = item.image
-          ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" width="48" height="48" loading="lazy">`
+        const src = String(item.image || '').replace(/^\/\//, 'https://');
+        const img = src
+          ? `<img src="${escapeHtml(src)}" alt="${escapeHtml(item.title)}" width="48" height="48" loading="lazy" decoding="async">`
           : '';
         return `<a class="athlete-search-hit" href="${escapeHtml(item.url)}">${img}<span>${escapeHtml(item.title)}</span></a>`;
       })
       .join('');
   };
 
-  if (athleteSearch) {
-    let searchTimer = 0;
-    athleteSearch.addEventListener('input', () => {
-      window.clearTimeout(searchTimer);
-      searchTimer = window.setTimeout(() => renderAthleteResults(athleteSearch.value), 120);
-    });
-    if (athleteSearch.value) renderAthleteResults(athleteSearch.value);
-  }
+  let searchTimer = 0;
+  const queueAthleteResults = (value) => {
+    window.clearTimeout(searchTimer);
+    searchTimer = window.setTimeout(async () => {
+      await ensureAthleteIndex();
+      renderAthleteResults(value);
+    }, 40);
+  };
+
+  document.addEventListener('input', (e) => {
+    if (e.target.matches('[data-athlete-search]')) queueAthleteResults(e.target.value);
+    if (e.target.matches('#athlete-search') || e.target.closest('[data-athlete-filter-form]')) {
+      filterAthletes(e.target);
+    }
+  });
+  document.addEventListener('search', (e) => {
+    if (e.target.matches('[data-athlete-search]')) renderAthleteResults(e.target.value);
+    if (e.target.matches('#athlete-search')) filterAthletes(e.target);
+  }, true);
+  document.addEventListener('submit', (e) => {
+    if (!e.target.matches('[data-athlete-search-form], [data-athlete-filter-form]')) return;
+    e.preventDefault();
+    const modalInput = qs('[data-athlete-search]', e.target);
+    const pageInput = qs('#athlete-search', e.target) || qs('#athlete-search');
+    if (modalInput) renderAthleteResults(modalInput.value);
+    if (pageInput) filterAthletes(pageInput);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setSearchOpen(false);
+  });
+  window.visualViewport?.addEventListener('resize', syncSearchViewport);
+  window.visualViewport?.addEventListener('scroll', syncSearchViewport);
+  if (athleteSearch?.value) renderAthleteResults(athleteSearch.value);
 
   if (sections.length && 'IntersectionObserver' in window) {
     const navObs = new IntersectionObserver(

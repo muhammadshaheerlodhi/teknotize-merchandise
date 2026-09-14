@@ -39,10 +39,14 @@
           <div class="product-media-frame">
             <img
               data-product-main
-              src="{{ main_image | image_url: width: 1800 }}"
+              src="{{ main_image | image_url: width: 1200 }}"
+              srcset="{{ main_image | image_url: width: 800 }} 800w, {{ main_image | image_url: width: 1200 }} 1200w, {{ main_image | image_url: width: 1800 }} 1800w"
+              sizes="(max-width: 980px) 92vw, 46vw"
               alt="{{ main_image.alt | default: product.title | escape }}"
               width="1800"
               height="1800"
+              fetchpriority="high"
+              decoding="async"
             >
           </div>
         {%- endif -%}
@@ -52,8 +56,12 @@
               <img
                 src="{{ image | image_url: width: 240 }}"
                 alt="{{ image.alt | escape }}"
-                data-product-thumb="{{ image | image_url: width: 1800 }}"
+                data-product-thumb="{{ image | image_url: width: 1200 }}"
                 {% if image.variants.first %}data-thumb-option1="{{ image.variants.first.option1 | escape }}"{% endif %}
+                width="240"
+                height="240"
+                loading="lazy"
+                decoding="async"
               >
             {%- endfor -%}
           </div>
