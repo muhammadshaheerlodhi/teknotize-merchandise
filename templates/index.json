@@ -88,7 +88,7 @@
           "settings": {
             "title": "Oversized Hoodies",
             "subtitle": "Heavyweight fleece. Boxy fit. Built for cold games and colder timelines.",
-            "link": "",
+            "link": "/search?q=hoodie&type=product",
             "image": "shopify://shop_images/85e244afc77f4bab8b7e8285792a4a00_eeef2835-2015-4481-8fdc-29c9a7bdaf50.webp"
           }
         },
@@ -97,7 +97,7 @@
           "settings": {
             "title": "Boxy Tees",
             "subtitle": "Structured shoulders. Premium cotton. The tee that looks expensive on camera.",
-            "link": "",
+            "link": "/search?q=boxy&type=product",
             "image": "shopify://shop_images/88e7a6dbfb3241ef925598bc5eecaf2f.webp"
           }
         },
@@ -106,7 +106,7 @@
           "settings": {
             "title": "Fleece Layers",
             "subtitle": "Game-day warmups and post-win fits. Soft inside, sharp on the outside.",
-            "link": "",
+            "link": "/search?q=fleece&type=product",
             "image": "shopify://shop_images/Black-front-Mockup-20260908.webp"
           }
         }

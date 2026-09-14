@@ -16,7 +16,8 @@
     <div class="athlete-grid latest-athletes-grid">
       {%- assign athlete_stores = collections | sort: 'published_at' | reverse -%}
       {%- for collection in athlete_stores -%}
-        {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+        {%- assign handle_l = collection.handle | downcase -%}
+        {%- if handle_l == 'all' or handle_l == 'frontpage' or handle_l == 'products' -%}{%- continue -%}{%- endif -%}
         {%- assign shown = shown | plus: 1 -%}
         {%- if shown > 6 -%}{%- break -%}{%- endif -%}
         {% render 'collection-card', collection: collection %}

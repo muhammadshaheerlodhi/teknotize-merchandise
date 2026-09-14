@@ -1,21 +1,62 @@
 <section class="main-search">
   <div class="page-width">
-    <p class="eyebrow">THE ATHLETES</p>
-    <h1 class="section-title">Search athletes</h1>
-    <p class="lede">Find an athlete storefront by name. Clear the box to see every store again.</p>
+    {%- liquid
+      assign q = search.terms | downcase
+      assign catalog = false
+      assign catalog_title = search.terms | default: 'Products'
+      if q contains 'hoodie'
+        assign catalog = true
+        assign catalog_title = 'Oversized Hoodies'
+      elsif q contains 'fleece' or q contains 'sweatshirt'
+        assign catalog = true
+        assign catalog_title = 'Fleece Layers'
+      elsif q contains 'boxy'
+        assign catalog = true
+        assign catalog_title = 'Boxy Tees'
+      elsif q == 'tee' or q == 'tees' or q contains 't-shirt'
+        assign catalog = true
+        assign catalog_title = 'Tees'
+      endif
+    -%}
 
-    <form data-athlete-filter-form style="max-width:640px;margin:28px 0;">
-      <input class="field" id="athlete-search" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search athletes" autocomplete="off">
-    </form>
+    {%- if catalog -%}
+      <p class="eyebrow">THE DROP</p>
+      <h1 class="section-title">{{ catalog_title }}</h1>
+      <p class="lede">Every hoodie, tee, and fleece from athlete stores, in one place.</p>
 
-    <div class="athlete-grid" data-athlete-grid>
-      {%- assign athlete_stores = collections | sort: 'published_at' | reverse -%}
-      {%- for collection in athlete_stores -%}
-        {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
-        {% render 'collection-card', collection: collection %}
-      {%- endfor -%}
-    </div>
-    <p class="no-results" data-no-results>No athletes found.</p>
+      {%- paginate search.results by 24 -%}
+        <div class="product-grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' or item.price -%}
+              {% render 'product-card', product: item %}
+            {%- endif -%}
+          {%- else -%}
+            <div class="empty-state">
+              <p>No matching products yet. Browse athlete stores while drops go live.</p>
+              <a class="btn btn-primary" href="{{ routes.collections_url }}">Athlete Stores</a>
+            </div>
+          {%- endfor -%}
+        </div>
+        {% render 'pagination', paginate: paginate %}
+      {%- endpaginate -%}
+    {%- else -%}
+      <p class="eyebrow">THE ATHLETES</p>
+      <h1 class="section-title">Search athletes</h1>
+      <p class="lede">Find an athlete storefront by name. Clear the box to see every store again.</p>
+
+      <form data-athlete-filter-form style="max-width:640px;margin:28px 0;">
+        <input class="field" id="athlete-search" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search athletes" autocomplete="off">
+      </form>
+
+      <div class="athlete-grid" data-athlete-grid>
+        {%- assign athlete_stores = collections | sort: 'published_at' | reverse -%}
+        {%- for collection in athlete_stores -%}
+          {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+          {% render 'collection-card', collection: collection %}
+        {%- endfor -%}
+      </div>
+      <p class="no-results" data-no-results>No athletes found.</p>
+    {%- endif -%}
   </div>
 </section>
 

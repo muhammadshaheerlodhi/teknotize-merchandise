@@ -24,7 +24,32 @@
       {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
           {% assign idx = forloop.index0 %}
-          <a class="category-card crystal" href="{{ block.settings.link | default: store_url }}" {{ block.shopify_attributes }}>
+          {%- liquid
+            assign title_l = block.settings.title | downcase
+            assign cat_url = block.settings.link
+            assign use_saved = false
+            if cat_url != blank and cat_url contains 'q='
+              assign use_saved = true
+            elsif cat_url != blank and cat_url != store_url and cat_url != routes.search_url and cat_url != '/search' and cat_url != '/collections' and cat_url != '/collections/all'
+              unless cat_url contains '/search'
+                assign use_saved = true
+              endunless
+            endif
+            unless use_saved
+              if title_l contains 'hoodie'
+                assign cat_url = routes.search_url | append: '?q=hoodie&type=product'
+              elsif title_l contains 'fleece' or title_l contains 'sweat'
+                assign cat_url = routes.search_url | append: '?q=fleece&type=product'
+              elsif title_l contains 'boxy'
+                assign cat_url = routes.search_url | append: '?q=boxy&type=product'
+              elsif title_l contains 'tee' or title_l contains 't-shirt'
+                assign cat_url = routes.search_url | append: '?q=t-shirt&type=product'
+              else
+                assign cat_url = store_url
+              endif
+            endunless
+          -%}
+          <a class="category-card crystal" href="{{ cat_url }}" {{ block.shopify_attributes }}>
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.title }}
             {%- else -%}
@@ -38,15 +63,15 @@
           </a>
         {% endfor %}
       {% else %}
-        <a class="category-card crystal" href="{{ store_url }}">
+        <a class="category-card crystal" href="{{ routes.search_url }}?q=hoodie&type=product">
           <img src="{{ 'category-hoodie.jpg' | asset_url }}" alt="Oversized Hoodies" loading="lazy" width="640" height="480">
           <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Oversized Hoodies</h3><p>Heavyweight fleece. Boxy fit. Built for cold games and colder timelines.</p></div>
         </a>
-        <a class="category-card crystal" href="{{ store_url }}">
+        <a class="category-card crystal" href="{{ routes.search_url }}?q=boxy&type=product">
           <img src="{{ 'category-tee.jpg' | asset_url }}" alt="Boxy Tees" loading="lazy" width="640" height="480">
           <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Boxy Tees</h3><p>Structured shoulders. Premium cotton. The tee that looks expensive on camera.</p></div>
         </a>
-        <a class="category-card crystal" href="{{ store_url }}">
+        <a class="category-card crystal" href="{{ routes.search_url }}?q=fleece&type=product">
           <img src="{{ 'category-fleece.jpg' | asset_url }}" alt="Fleece Layers" loading="lazy" width="640" height="480">
           <div class="card-overlay"><div class="card-kicker">Shop</div><h3>Fleece Layers</h3><p>Game-day warmups and post-win fits. Soft inside, sharp on the outside.</p></div>
         </a>
