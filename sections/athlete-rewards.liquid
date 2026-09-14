@@ -1,0 +1,89 @@
+<section class="athlete-rewards" id="athlete-rewards">
+  <div class="page-width">
+    <div class="section-intro section-intro--center pop-in">
+      <p class="section-label">{{ section.settings.label | default: 'Athlete Partner Program' }}</p>
+      <h2 class="section-title">{{ section.settings.heading | default: 'Your Sales.' }} <span class="text-accent">{{ section.settings.heading_accent | default: 'Your Rewards.' }}</span></h2>
+      <p class="lede rewards-kicker">{{ section.settings.kicker | default: 'Sign an NIL deal · Create your merch · Earn more' }}</p>
+    </div>
+
+    <div class="rewards-track">
+      <article class="reward-card pop-in">
+        <span class="reward-lock" aria-hidden="true">{% render 'icon-lock' %}</span>
+        <p class="reward-tier">{{ section.settings.tier_1_label | default: 'Tier 1' }}</p>
+        <p class="reward-range">{{ section.settings.tier_1_range | default: '1–9 Sales' }}</p>
+        <p class="reward-value">{{ section.settings.tier_1_value | default: '15%' }}</p>
+        <p class="reward-share">{{ section.settings.tier_1_share | default: 'Profit Share' }}</p>
+        <p class="reward-note">{{ section.settings.tier_1_note | default: 'On your sales' }}</p>
+      </article>
+      <span class="rewards-arrow" aria-hidden="true"></span>
+      <article class="reward-card pop-in">
+        <span class="reward-lock" aria-hidden="true">{% render 'icon-lock' %}</span>
+        <p class="reward-tier">{{ section.settings.tier_2_label | default: 'Tier 2' }}</p>
+        <p class="reward-range">{{ section.settings.tier_2_range | default: 'At 10 Sales' }}</p>
+        <p class="reward-value">{{ section.settings.tier_2_value | default: '20%' }}</p>
+        <p class="reward-share">{{ section.settings.tier_2_share | default: 'Profit Share' }}</p>
+        <p class="reward-note">{{ section.settings.tier_2_note | default: 'On your sales' }}</p>
+      </article>
+      <span class="rewards-arrow" aria-hidden="true"></span>
+      <article class="reward-card pop-in">
+        <span class="reward-lock" aria-hidden="true">{% render 'icon-lock' %}</span>
+        <p class="reward-tier">{{ section.settings.tier_3_label | default: 'Tier 3' }}</p>
+        <p class="reward-range">{{ section.settings.tier_3_range | default: 'At 30 Sales' }}</p>
+        <p class="reward-value">{{ section.settings.tier_3_value | default: '40%' }}</p>
+        <p class="reward-share">{{ section.settings.tier_3_share | default: 'Profit Share' }}</p>
+        <p class="reward-note">{{ section.settings.tier_3_note | default: 'On your sales' }}</p>
+      </article>
+      <span class="rewards-arrow" aria-hidden="true"></span>
+      <article class="reward-card pop-in">
+        <span class="reward-lock" aria-hidden="true">{% render 'icon-lock' %}</span>
+        <p class="reward-tier">{{ section.settings.tier_4_label | default: 'Tier 4' }}</p>
+        <p class="reward-range">{{ section.settings.tier_4_range | default: 'At 40+ Sales' }}</p>
+        <p class="reward-value reward-value--text">{{ section.settings.tier_4_value | default: '1 Free' }}</p>
+        <p class="reward-share">{{ section.settings.tier_4_share | default: 'T-shirt or Hoodie' }}</p>
+        <p class="reward-note">{{ section.settings.tier_4_note | default: '(Your choice)' }}</p>
+      </article>
+    </div>
+
+    <div class="rewards-footer pop-in">
+      <p class="rewards-footer-title">{{ section.settings.footer_title | default: 'No inventory. No hassle. Just share.' }}</p>
+      <p class="rewards-footer-copy">{{ section.settings.footer_copy | default: 'You don’t have to purchase any inventory. We handle everything — all you need to do is share with your fans, post your story, and drive more sales.' }}</p>
+      <p class="rewards-footer-eq">{{ section.settings.footer_eq | default: 'More sales = more profit share' }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Athlete rewards",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Athlete Partner Program" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Sales." },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent", "default": "Your Rewards." },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Sign an NIL deal · Create your merch · Earn more" },
+    { "type": "text", "id": "tier_1_label", "label": "Tier 1 label", "default": "Tier 1" },
+    { "type": "text", "id": "tier_1_range", "label": "Tier 1 range", "default": "1–9 Sales" },
+    { "type": "text", "id": "tier_1_value", "label": "Tier 1 value", "default": "15%" },
+    { "type": "text", "id": "tier_1_share", "label": "Tier 1 share", "default": "Profit Share" },
+    { "type": "text", "id": "tier_1_note", "label": "Tier 1 note", "default": "On your sales" },
+    { "type": "text", "id": "tier_2_label", "label": "Tier 2 label", "default": "Tier 2" },
+    { "type": "text", "id": "tier_2_range", "label": "Tier 2 range", "default": "At 10 Sales" },
+    { "type": "text", "id": "tier_2_value", "label": "Tier 2 value", "default": "20%" },
+    { "type": "text", "id": "tier_2_share", "label": "Tier 2 share", "default": "Profit Share" },
+    { "type": "text", "id": "tier_2_note", "label": "Tier 2 note", "default": "On your sales" },
+    { "type": "text", "id": "tier_3_label", "label": "Tier 3 label", "default": "Tier 3" },
+    { "type": "text", "id": "tier_3_range", "label": "Tier 3 range", "default": "At 30 Sales" },
+    { "type": "text", "id": "tier_3_value", "label": "Tier 3 value", "default": "40%" },
+    { "type": "text", "id": "tier_3_share", "label": "Tier 3 share", "default": "Profit Share" },
+    { "type": "text", "id": "tier_3_note", "label": "Tier 3 note", "default": "On your sales" },
+    { "type": "text", "id": "tier_4_label", "label": "Tier 4 label", "default": "Tier 4" },
+    { "type": "text", "id": "tier_4_range", "label": "Tier 4 range", "default": "At 40+ Sales" },
+    { "type": "text", "id": "tier_4_value", "label": "Tier 4 value", "default": "1 Free" },
+    { "type": "text", "id": "tier_4_share", "label": "Tier 4 share", "default": "T-shirt or Hoodie" },
+    { "type": "text", "id": "tier_4_note", "label": "Tier 4 note", "default": "(Your choice)" },
+    { "type": "text", "id": "footer_title", "label": "Footer title", "default": "No inventory. No hassle. Just share." },
+    { "type": "textarea", "id": "footer_copy", "label": "Footer copy", "default": "You don’t have to purchase any inventory. We handle everything — all you need to do is share with your fans, post your story, and drive more sales." },
+    { "type": "text", "id": "footer_eq", "label": "Footer equation", "default": "More sales = more profit share" }
+  ],
+  "presets": [{ "name": "Athlete rewards" }]
+}
+{% endschema %}

@@ -1,0 +1,43 @@
+{%- liquid
+  assign store_url = settings.athlete_store_url | default: routes.collections_url
+  if store_url == blank or store_url == 'shopify://collections' or store_url contains '/collections/all'
+    assign store_url = routes.collections_url | default: '/collections'
+  endif
+  assign shown = 0
+-%}
+<section class="latest-athletes" id="latest-athletes">
+  <div class="page-width">
+    <div class="section-intro section-intro--center">
+      <p class="section-label">{{ section.settings.label }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {% if section.settings.copy != blank %}<p class="lede">{{ section.settings.copy }}</p>{% endif %}
+    </div>
+
+    <div class="athlete-grid latest-athletes-grid">
+      {%- assign athlete_stores = collections | sort: 'published_at' | reverse -%}
+      {%- for collection in athlete_stores -%}
+        {%- if collection.handle == 'all' or collection.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+        {%- assign shown = shown | plus: 1 -%}
+        {%- if shown > 6 -%}{%- break -%}{%- endif -%}
+        {% render 'collection-card', collection: collection %}
+      {%- endfor -%}
+    </div>
+
+    <div class="section-actions">
+      <a class="btn btn-primary" href="{{ store_url }}">{{ section.settings.button }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Latest athletes",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "For Athletes" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop the Latest Athlete Stores" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "New storefronts, dropping now. Every purchase puts money in their pocket." },
+    { "type": "text", "id": "button", "label": "Button text", "default": "Show more athletes" }
+  ],
+  "presets": [{ "name": "Latest athletes" }]
+}
+{% endschema %}

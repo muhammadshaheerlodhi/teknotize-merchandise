@@ -327,7 +327,7 @@
   if (athleteStore) setKeepShopping(athleteStore);
 
   /* Scroll reveal — fast, minimal delay */
-  const revealEls = qsa('.reveal, .reveal-stagger');
+  const revealEls = qsa('.reveal, .reveal-stagger, .pop-in');
   if (revealEls.length && 'IntersectionObserver' in window) {
     const revealObs = new IntersectionObserver(
       (entries) => entries.forEach((entry) => {

@@ -21,8 +21,17 @@
         "cta_primary_link": "shopify://collections",
         "cta_secondary": "Athlete Merch Sign-up",
         "cta_secondary_link": "https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform",
-        "float_text": "50+ Orders",
+        "float_text": "",
         "image": "shopify://shop_images/video.gif"
+      }
+    },
+    "rewards": {
+      "type": "athlete-rewards",
+      "settings": {
+        "label": "Athlete Partner Program",
+        "heading": "Your Sales.",
+        "heading_accent": "Your Rewards.",
+        "kicker": "Sign an NIL deal · Create your merch · Earn more"
       }
     },
     "athletes": {
@@ -40,6 +49,15 @@
         "stat_2_label": "Orders",
         "stat_3_value": "100%",
         "stat_3_label": "Premium"
+      }
+    },
+    "latest_athletes": {
+      "type": "latest-athletes",
+      "settings": {
+        "label": "For Athletes",
+        "heading": "Shop the Latest Athlete Stores",
+        "copy": "New storefronts, dropping now. Every purchase puts money in their pocket.",
+        "button": "Show more athletes"
       }
     },
     "roster": {
@@ -451,7 +469,9 @@
   },
   "order": [
     "hero",
+    "rewards",
     "athletes",
+    "latest_athletes",
     "roster",
     "shop",
     "engine",
