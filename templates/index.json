@@ -22,7 +22,27 @@
         "cta_secondary": "Athlete Merch Sign-up",
         "cta_secondary_link": "https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform",
         "float_text": "",
-        "image": "shopify://shop_images/video.gif"
+        "image": "shopify://shop_images/ChatGPT_Image_Sep_15_2026_12_50_21_AM.png"
+      }
+    },
+    "roster": {
+      "type": "roster-stats",
+      "settings": {
+        "label": "The Proof",
+        "heading": "Built Different. Backed by Real Numbers.",
+        "intro": "Athletes trust us to run their store. Fans trust us to deliver the goods.",
+        "stat_1_icon": "",
+        "stat_1_label": "Athletes On Platform",
+        "stat_1_value": "500+",
+        "stat_1_copy": "From high school standouts to D1 stars. If you've got a name, we've got a store for it.",
+        "stat_2_icon": "",
+        "stat_2_label": "Orders Delivered",
+        "stat_2_value": "2k+",
+        "stat_2_copy": "Premium hoodies, boxy tees, and custom drops packed and shipped to fans across the globe.",
+        "stat_3_icon": "",
+        "stat_3_label": "Countries Reached",
+        "stat_3_value": "5+",
+        "stat_3_copy": "Your fans don't stop at the city limits. Neither does your merch. We ship worldwide."
       }
     },
     "rewards": {
@@ -31,7 +51,40 @@
         "label": "Athlete Partner Program",
         "heading": "Your Sales.",
         "heading_accent": "Your Rewards.",
-        "kicker": "Sign an NIL deal · Create your merch · Earn more"
+        "kicker": "Sign an NIL deal · Create your merch · Earn more",
+        "tier_1_label": "Tier 1",
+        "tier_1_range": "1–9 Sales",
+        "tier_1_value": "15%",
+        "tier_1_share": "Profit Share",
+        "tier_1_note": "On your sales",
+        "tier_2_label": "Tier 2",
+        "tier_2_range": "At 10 Sales",
+        "tier_2_value": "20%",
+        "tier_2_share": "Profit Share",
+        "tier_2_note": "On your sales",
+        "tier_3_label": "Tier 3",
+        "tier_3_range": "At 30 Sales",
+        "tier_3_value": "40%",
+        "tier_3_share": "Profit Share",
+        "tier_3_note": "On your sales",
+        "tier_4_label": "Tier 4",
+        "tier_4_range": "At 40+ Sales",
+        "tier_4_value": "1 Free",
+        "tier_4_share": "T-shirt or Hoodie",
+        "tier_4_note": "(Your choice)",
+        "footer_title": "No inventory. No hassle. Just share.",
+        "footer_copy": "You don’t have to purchase any inventory. We handle everything — all you need to do is share with your fans, post your story, and drive more sales.",
+        "footer_eq": "More sales = more profit share"
+      }
+    },
+    "cta": {
+      "type": "cta-banner",
+      "settings": {
+        "label": "Start Today. It's Free",
+        "heading": "Your Store. Your Brand. Your Money.",
+        "copy": "Join athletes already earning from their name. We handle the hard part. You bring the fans.",
+        "cta_primary": "Apply for Your Store",
+        "cta_secondary": "Shop Athlete Stores"
       }
     },
     "athletes": {
@@ -58,26 +111,6 @@
         "heading": "Shop the Latest Athlete Stores",
         "copy": "New storefronts, dropping now. Every purchase puts money in their pocket.",
         "button": "Show more athletes"
-      }
-    },
-    "roster": {
-      "type": "roster-stats",
-      "settings": {
-        "label": "The Proof",
-        "heading": "Built Different. Backed by Real Numbers.",
-        "intro": "Athletes trust us to run their store. Fans trust us to deliver the goods.",
-        "stat_1_icon": "🏆",
-        "stat_1_label": "Athletes On Platform",
-        "stat_1_value": "50+",
-        "stat_1_copy": "From high school standouts to D1 stars. If you've got a name, we've got a store for it.",
-        "stat_2_icon": "📦",
-        "stat_2_label": "Orders Delivered",
-        "stat_2_value": "450+",
-        "stat_2_copy": "Premium hoodies, boxy tees, and custom drops packed and shipped to fans across the globe.",
-        "stat_3_icon": "🌍",
-        "stat_3_label": "Countries Reached",
-        "stat_3_value": "5+",
-        "stat_3_copy": "Your fans don't stop at the city limits. Neither does your merch. We ship worldwide."
       }
     },
     "shop": {
@@ -116,6 +149,7 @@
         "c2",
         "c3"
       ],
+      "disabled": true,
       "settings": {
         "label": "The Drop",
         "heading": "Cop the Heat. Support Your Athlete.",
@@ -129,7 +163,7 @@
           "type": "stage",
           "settings": {
             "number": "01",
-            "icon": "📝",
+            "icon": "",
             "kicker": "Step 01",
             "title": "Apply & Get Approved",
             "copy": "Fill out a quick sign-up. We review your brand, sport, and audience, then green-light your store within days."
@@ -139,7 +173,7 @@
           "type": "stage",
           "settings": {
             "number": "02",
-            "icon": "🎨",
+            "icon": "",
             "kicker": "Step 02",
             "title": "We Design Your Drop",
             "copy": "Our team builds custom graphics and product layouts that match your vibe: hoodies, tees, fleece, and more."
@@ -149,7 +183,7 @@
           "type": "stage",
           "settings": {
             "number": "03",
-            "icon": "🔗",
+            "icon": "",
             "kicker": "Step 03",
             "title": "Share Your Store Link",
             "copy": "Drop the link in your bio, post it after big games, send it to family. Every sale tracks back to you."
@@ -159,7 +193,7 @@
           "type": "stage",
           "settings": {
             "number": "04",
-            "icon": "💰",
+            "icon": "",
             "kicker": "Step 04",
             "title": "Get Paid. We Handle the Rest",
             "copy": "Production, packing, shipping, and customer support all on us. You focus on your sport and your fans."
@@ -297,6 +331,7 @@
         "m5",
         "m6"
       ],
+      "disabled": true,
       "settings": {
         "label": "The Advantage",
         "heading": "Everything You Need to Win Off the Field",
@@ -334,62 +369,11 @@
         "p1",
         "p2"
       ],
+      "disabled": true,
       "settings": {
         "kicker": "Partnerships",
         "heading": "Power Your Entire Roster",
         "copy": "Managing talent at scale? We give agencies, teams, and programs the infrastructure to launch merch for every athlete without building it yourself."
-      }
-    },
-    "reviews": {
-      "type": "testimonials",
-      "blocks": {
-        "r1": {
-          "type": "review",
-          "settings": {
-            "quote": "My store went live in a week. First drop sold out in 3 days. The hoodie quality is insane and fans keep asking when the next one drops.",
-            "author": "Jordan M.",
-            "role": "D1 Basketball · Athlete",
-            "initials": "JM"
-          }
-        },
-        "r2": {
-          "type": "review",
-          "settings": {
-            "quote": "Ordered a boxy tee from my favorite athlete's store. Fit is perfect, fabric feels premium, and it shipped faster than I expected.",
-            "author": "Sarah R.",
-            "role": "Fan · Verified Buyer",
-            "initials": "SR"
-          }
-        },
-        "r3": {
-          "type": "review",
-          "settings": {
-            "quote": "I didn't think anyone would buy merch from a high school player. Teknotize proved me wrong. My whole team wants stores now.",
-            "author": "Darius K.",
-            "role": "High School Football · Athlete",
-            "initials": "DK"
-          }
-        },
-        "r4": {
-          "type": "review",
-          "settings": {
-            "quote": "We onboarded 30 athletes in one month. The ops team handles everything. Our clients just share their link and collect.",
-            "author": "Amanda L.",
-            "role": "NIL Agency Partner",
-            "initials": "AL"
-          }
-        }
-      },
-      "block_order": [
-        "r1",
-        "r2",
-        "r3",
-        "r4"
-      ],
-      "settings": {
-        "label": "Real Reviews",
-        "heading": "From the Locker Room & the Stands",
-        "intro": "Athletes who sell with us. Fans who shop with us. No fluff, just what people actually say."
       }
     },
     "faq": {
@@ -450,37 +434,80 @@
     },
     "contact": {
       "type": "page-contact",
+      "disabled": true,
       "settings": {
         "kicker": "Let's Talk",
         "heading": "Ready to Launch? Hit Us Up.",
         "intro": "Athletes, fans, agencies, or teams. Whatever you're building, our crew is here to help you get started."
       }
     },
-    "cta": {
-      "type": "cta-banner",
+    "reviews": {
+      "type": "testimonials",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "quote": "My store went live in a week. First drop sold out in 3 days. The hoodie quality is insane and fans keep asking when the next one drops.",
+            "author": "Jordan M.",
+            "role": "D1 Basketball · Athlete",
+            "initials": "JM"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "quote": "Ordered a boxy tee from my favorite athlete's store. Fit is perfect, fabric feels premium, and it shipped faster than I expected.",
+            "author": "Sarah R.",
+            "role": "Fan · Verified Buyer",
+            "initials": "SR"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "quote": "I didn't think anyone would buy merch from a high school player. Teknotize proved me wrong. My whole team wants stores now.",
+            "author": "Darius K.",
+            "role": "High School Football · Athlete",
+            "initials": "DK"
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "quote": "We onboarded 30 athletes in one month. The ops team handles everything. Our clients just share their link and collect.",
+            "author": "Amanda L.",
+            "role": "NIL Agency Partner",
+            "initials": "AL"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
       "settings": {
-        "label": "Start Today. It's Free",
-        "heading": "Your Store. Your Brand. Your Money.",
-        "copy": "Join athletes already earning from their name. We handle the hard part. You bring the fans.",
-        "cta_primary": "Apply for Your Store",
-        "cta_secondary": "Shop Athlete Stores"
+        "label": "Real Reviews",
+        "heading": "From the Locker Room & the Stands",
+        "intro": "Athletes who sell with us. Fans who shop with us. No fluff, just what people actually say."
       }
     }
   },
   "order": [
     "hero",
+    "roster",
     "rewards",
+    "cta",
     "athletes",
     "latest_athletes",
-    "roster",
     "shop",
     "engine",
     "about",
     "mission",
     "partners",
-    "reviews",
     "faq",
     "contact",
-    "cta"
+    "reviews"
   ]
 }
