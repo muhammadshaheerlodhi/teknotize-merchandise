@@ -1194,6 +1194,10 @@ p:last-child { margin-bottom: 0; }
   border: 3.5px solid #FC000A;
   box-shadow: none;
   overflow: hidden;
+  transition:
+    transform 0.28s var(--tm-ease-out),
+    box-shadow 0.28s var(--tm-ease-out),
+    border-color 0.28s var(--tm-ease-out);
 }
 
 .reward-card::before,
@@ -1203,8 +1207,13 @@ p:last-child { margin-bottom: 0; }
 
 @media (hover: hover) {
   .reward-card:hover {
+    transform: translateY(-6px);
     border-color: #FC000A;
-    box-shadow: none;
+    box-shadow: 0 16px 40px rgba(252, 0, 10, 0.14);
+  }
+
+  .reward-card:hover .reward-lock {
+    transform: scale(1.08) rotate(-3deg);
   }
 }
 
@@ -1219,6 +1228,7 @@ p:last-child { margin-bottom: 0; }
   background: #fff;
   border: 1px solid rgba(252, 0, 10, 0.22);
   box-shadow: none;
+  transition: transform 0.28s var(--tm-ease-out);
 }
 
 .reward-tier {

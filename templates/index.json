@@ -435,7 +435,6 @@
     },
     "contact": {
       "type": "page-contact",
-      "disabled": true,
       "settings": {
         "kicker": "Let's Talk",
         "heading": "Ready to Launch? Hit Us Up.",
