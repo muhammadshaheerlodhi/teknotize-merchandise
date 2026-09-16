@@ -38,9 +38,9 @@
         <span class="reward-lock" aria-hidden="true">{% render 'icon-lock' %}</span>
         <p class="reward-tier">{{ section.settings.tier_4_label | default: 'Tier 4' }}</p>
         <p class="reward-range">{{ section.settings.tier_4_range | default: 'At 40+ Sales' }}</p>
-        <p class="reward-value reward-value--text">{{ section.settings.tier_4_value | default: '1 Free' }}</p>
-        <p class="reward-share">{{ section.settings.tier_4_share | default: 'T-shirt or Hoodie' }}</p>
-        <p class="reward-note">{{ section.settings.tier_4_note | default: '(Your choice)' }}</p>
+        <p class="reward-value">{{ section.settings.tier_4_value | default: '45%' }}</p>
+        <p class="reward-share">{{ section.settings.tier_4_share | default: 'Profit Share' }}</p>
+        <p class="reward-note">{{ section.settings.tier_4_note | default: '+ 1 Free T-Shirt or Hoodie (Your choice)' }}</p>
       </article>
     </div>
 
@@ -77,9 +77,9 @@
     { "type": "text", "id": "tier_3_note", "label": "Tier 3 note", "default": "On your sales" },
     { "type": "text", "id": "tier_4_label", "label": "Tier 4 label", "default": "Tier 4" },
     { "type": "text", "id": "tier_4_range", "label": "Tier 4 range", "default": "At 40+ Sales" },
-    { "type": "text", "id": "tier_4_value", "label": "Tier 4 value", "default": "1 Free" },
-    { "type": "text", "id": "tier_4_share", "label": "Tier 4 share", "default": "T-shirt or Hoodie" },
-    { "type": "text", "id": "tier_4_note", "label": "Tier 4 note", "default": "(Your choice)" },
+    { "type": "text", "id": "tier_4_value", "label": "Tier 4 value", "default": "45%" },
+    { "type": "text", "id": "tier_4_share", "label": "Tier 4 share", "default": "Profit Share" },
+    { "type": "text", "id": "tier_4_note", "label": "Tier 4 note", "default": "+ 1 Free T-Shirt or Hoodie (Your choice)" },
     { "type": "text", "id": "footer_title", "label": "Footer title", "default": "No inventory. No hassle. Just share." },
     { "type": "textarea", "id": "footer_copy", "label": "Footer copy", "default": "You don’t have to purchase any inventory. We handle everything — all you need to do is share with your fans, post your story, and drive more sales." },
     { "type": "text", "id": "footer_eq", "label": "Footer equation", "default": "More sales = more profit share" }
