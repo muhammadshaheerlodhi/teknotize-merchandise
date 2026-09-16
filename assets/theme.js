@@ -84,7 +84,7 @@
   };
 
   const addToCart = async (form) => {
-    const selected = findVariant(form, selectedOptionValues(form));
+    const selected = enrichVariant(form, findVariant(form, selectedOptionValues(form)));
     if (selected) {
       const select = qs('[data-variant-select]', form);
       if (select) select.value = String(selected.id);
@@ -142,12 +142,71 @@
     }
   };
 
+  const shopifySrcset = (url) => {
+    if (!url) return '';
+    const clean = url.replace(/([?&])width=\d+/g, '').replace(/\?&/, '?').replace(/[?&]$/, '');
+    const join = clean.includes('?') ? '&' : '?';
+    return `${clean}${join}width=800 800w, ${clean}${join}width=1200 1200w, ${clean}${join}width=1800 1800w`;
+  };
+
   const applyVariantImage = (image, alt) => {
     const main = qs('[data-product-main]');
-    if (main && image) {
-      main.src = image;
-      if (alt) main.alt = alt;
+    if (!main || !image) return;
+    main.src = image;
+    const srcset = shopifySrcset(image);
+    if (srcset) main.srcset = srcset;
+    if (alt) main.alt = alt;
+  };
+
+  const getColorPosition = (form) => {
+    const product = productJsonFrom(form);
+    const fromJson = Number(product?.color_position);
+    if (fromJson > 0) return fromJson;
+    const fromForm = Number(form?.dataset.colorPosition);
+    return fromForm > 0 ? fromForm : 1;
+  };
+
+  const colorValueFromVariant = (variant, form) => {
+    if (!variant) return '';
+    const pos = getColorPosition(form);
+    return variant[`option${pos}`] || '';
+  };
+
+  const resolveVariantImage = (form, variant, clickedInput) => {
+    if (variant?.featured_image) return variant.featured_image;
+    const select = qs('[data-variant-select]', form);
+    if (variant?.id && select) {
+      const option = [...select.options].find((opt) => String(opt.value) === String(variant.id));
+      if (option?.dataset.image) return option.dataset.image;
     }
+    const colorPos = getColorPosition(form);
+    const colorVal =
+      clickedInput?.getAttribute('data-option-position') === String(colorPos)
+        ? clickedInput.value
+        : colorValueFromVariant(variant, form);
+    if (colorVal) {
+      const swatch = qsa(`[data-swatch][data-option-position="${colorPos}"]`, form).find(
+        (input) => input.value === colorVal
+      );
+      if (swatch?.dataset.image) return swatch.dataset.image;
+      const thumb = qsa('[data-product-thumb]').find((node) => {
+        const colors = (node.dataset.thumbColors || '')
+          .split('|')
+          .map((value) => value.trim())
+          .filter(Boolean);
+        return colors.includes(colorVal);
+      });
+      if (thumb?.dataset.productThumb) return thumb.dataset.productThumb;
+    }
+    if (clickedInput?.dataset.image) return clickedInput.dataset.image;
+    return '';
+  };
+
+  const enrichVariant = (form, variant) => {
+    if (!variant) return null;
+    if (variant.featured_image) return variant;
+    const image = resolveVariantImage(form, variant);
+    return image ? { ...variant, featured_image: image } : variant;
   };
 
   const productJsonFrom = (form) => {
@@ -197,34 +256,36 @@
     };
   };
 
-  const applySelectedVariant = (form, variant) => {
+  const applySelectedVariant = (form, variant, clickedInput) => {
     if (!form || !variant) return;
+    const resolved = enrichVariant(form, variant);
     const select = qs('[data-variant-select]', form);
-    if (select && String(select.value) !== String(variant.id)) {
-      select.value = String(variant.id);
+    if (select && String(select.value) !== String(resolved.id)) {
+      select.value = String(resolved.id);
     }
     if (select) {
-      const option = [...select.options].find((opt) => String(opt.value) === String(variant.id));
+      const option = [...select.options].find((opt) => String(opt.value) === String(resolved.id));
       const url = new URL(window.location.href);
-      url.searchParams.set('variant', String(variant.id));
+      url.searchParams.set('variant', String(resolved.id));
       window.history.replaceState({}, '', url);
       const priceEl = qs('[data-product-price]');
-      if (priceEl && (variant.price || option?.dataset.price)) {
-        priceEl.innerHTML = variant.price || option.dataset.price;
+      if (priceEl && (resolved.price || option?.dataset.price)) {
+        priceEl.innerHTML = resolved.price || option.dataset.price;
       }
       const btn = qs('[data-add-btn]', form);
       if (btn) {
-        const available = variant.available !== undefined ? !!variant.available : option?.dataset.available === 'true';
+        const available = resolved.available !== undefined ? !!resolved.available : option?.dataset.available === 'true';
         btn.disabled = !available;
         btn.textContent = available ? 'Add to cart' : 'Sold out';
       }
-      if (option && variant.featured_image && !option.dataset.image) {
-        option.dataset.image = variant.featured_image;
+      if (option && resolved.featured_image && !option.dataset.image) {
+        option.dataset.image = resolved.featured_image;
       }
     }
-    applyVariantImage(variant.featured_image, variant.title);
+    const image = resolveVariantImage(form, resolved, clickedInput) || resolved.featured_image;
+    applyVariantImage(image, resolved.title);
     const label = qs('[data-selected-variant]', form);
-    if (label && variant.title) label.textContent = variant.title;
+    if (label && resolved.title) label.textContent = resolved.title;
   };
 
   document.addEventListener('click', (e) => {
@@ -234,7 +295,6 @@
     const menuBtn = e.target.closest('[data-menu-toggle]');
     const searchOpen = e.target.closest('[data-open-search]');
     const searchClose = e.target.closest('[data-close-search]');
-    const thumb = e.target.closest('[data-product-thumb]');
     const drawerLink = e.target.closest('[data-mobile-drawer] a');
 
     if (openBtn) {
@@ -262,7 +322,6 @@
       if (Date.now() - uiOpenedAt < 800) return;
       if (e.target === searchModal || searchClose) setSearchOpen(false);
     }
-    if (thumb) applyVariantImage(thumb.dataset.productThumb);
   });
 
   qsa('[data-product-form]').forEach((form) => {
@@ -292,32 +351,61 @@
     const form = input.closest('form');
     if (!form) return;
     const byPos = selectedOptionValues(form, input);
-    const variant = findVariant(form, byPos);
+    const variant = enrichVariant(form, findVariant(form, byPos));
     if (variant) {
-      applySelectedVariant(form, variant);
+      applySelectedVariant(form, variant, input);
       return;
     }
-    applyVariantImage(input.dataset.image);
+    if (input.dataset.image) applyVariantImage(input.dataset.image);
   };
 
-  qsa('[data-swatch]').forEach((input) => {
-    const pick = () => selectVariantFromSwatches(input);
-    input.addEventListener('change', pick);
-    input.closest('label')?.addEventListener('click', () => {
-      window.requestAnimationFrame(pick);
-    });
+  document.addEventListener('change', (e) => {
+    if (e.target.matches('[data-swatch]')) selectVariantFromSwatches(e.target);
   });
 
   document.addEventListener('click', (e) => {
+    const swatchLabel = e.target.closest('.swatches label');
+    if (swatchLabel) {
+      const input = swatchLabel.querySelector('[data-swatch]');
+      if (input) window.requestAnimationFrame(() => selectVariantFromSwatches(input));
+    }
+
     const thumb = e.target.closest('[data-product-thumb]');
-    if (!thumb || !thumb.dataset.thumbOption1) return;
+    if (!thumb) return;
     const form = qs('[data-product-form]');
     if (!form) return;
-    const color = thumb.dataset.thumbOption1;
-    const colorInput = qsa('[data-swatch][data-option-position="1"]', form).find((input) => input.value === color);
-    if (!colorInput) return;
+    const colorPos = getColorPosition(form);
+    const thumbColors = (thumb.dataset.thumbColors || '')
+      .split('|')
+      .map((value) => value.trim())
+      .filter(Boolean);
+    if (!thumbColors.length) {
+      applyVariantImage(thumb.dataset.productThumb);
+      return;
+    }
+    const colorInput = qsa(`[data-swatch][data-option-position="${colorPos}"]`, form).find((input) =>
+      thumbColors.includes(input.value)
+    );
+    if (!colorInput) {
+      applyVariantImage(thumb.dataset.productThumb);
+      return;
+    }
     colorInput.checked = true;
     selectVariantFromSwatches(colorInput);
+  });
+
+  qsa('[data-product-form]').forEach((form) => {
+    const select = qs('[data-variant-select]', form);
+    if (!select) return;
+    const byPos = selectedOptionValues(form);
+    const product = productJsonFrom(form);
+    const variant =
+      enrichVariant(form, findVariant(form, byPos)) ||
+      enrichVariant(
+        form,
+        product?.variants?.find((item) => String(item.id) === String(select.value))
+      );
+    if (variant) applySelectedVariant(form, variant);
   });
 
   const productForm = qs('[data-product-form]');

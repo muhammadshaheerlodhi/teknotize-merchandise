@@ -1,0 +1,28 @@
+{%- comment -%}
+  Returns the best image URL for a variant (featured image, variant image, or attached product image).
+  Usage: {% render 'variant-image-url', variant: variant, product: product, width: 1800 %}
+{%- endcomment -%}
+{%- liquid
+  assign img_width = width | default: 1800
+  assign variant_image_url = ''
+  if variant.featured_image != blank
+    assign variant_image_url = variant.featured_image | image_url: width: img_width
+  elsif variant.image != blank
+    assign variant_image_url = variant.image | image_url: width: img_width
+  endif
+  if variant_image_url == blank and product != blank
+    for image in product.images
+      if image.variants != blank
+        for attached in image.variants
+          if attached.id == variant.id
+            assign variant_image_url = image | image_url: width: img_width
+            break
+          endif
+        endfor
+      endif
+      if variant_image_url != blank
+        break
+      endif
+    endfor
+  endif
+-%}{{ variant_image_url }}
