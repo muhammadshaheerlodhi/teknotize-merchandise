@@ -431,14 +431,6 @@
         "cta_link": "/pages/contact"
       }
     },
-    "contact": {
-      "type": "page-contact",
-      "settings": {
-        "kicker": "Let's Talk",
-        "heading": "Ready to Launch? Hit Us Up.",
-        "intro": "Athletes, fans, agencies, or teams. Whatever you're building, our crew is here to help you get started."
-      }
-    },
     "reviews": {
       "type": "testimonials",
       "blocks": {
@@ -489,6 +481,15 @@
         "label": "Real Reviews",
         "heading": "From the Locker Room & the Stands",
         "intro": "Athletes who sell with us. Fans who shop with us. No fluff, just what people actually say."
+      }
+    },
+    "contact": {
+      "type": "page-contact",
+      "disabled": true,
+      "settings": {
+        "kicker": "Let's Talk",
+        "heading": "Ready to Launch? Hit Us Up.",
+        "intro": "Athletes, fans, agencies, or teams. Whatever you're building, our crew is here to help you get started."
       }
     }
   },

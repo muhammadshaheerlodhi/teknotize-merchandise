@@ -105,11 +105,21 @@
         "collection": "",
         "limit": 4
       }
+    },
+    "testimonials_iaMMjy": {
+      "type": "testimonials",
+      "name": "Testimonials",
+      "settings": {
+        "label": "Real Reviews",
+        "heading": "From the Locker Room & the Stands",
+        "intro": "Athletes who sell with us. Fans who shop with us."
+      }
     }
   },
   "order": [
     "main",
     "details",
-    "related"
+    "related",
+    "testimonials_iaMMjy"
   ]
 }
