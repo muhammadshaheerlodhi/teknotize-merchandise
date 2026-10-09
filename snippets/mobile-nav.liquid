@@ -19,12 +19,16 @@
   if contact_url == blank
     assign contact_url = '/pages/contact'
   endif
+  assign about_url = pages.about.url | default: '/pages/about'
+  if about_url == blank
+    assign about_url = '/pages/about'
+  endif
 -%}
 <div class="mobile-nav" data-mobile-drawer>
   <nav class="mobile-nav-panel" aria-label="Mobile">
     <a href="{{ home_url }}">Home</a>
     <a href="{{ store_url }}">Athlete Store</a>
-    <a href="{{ home_url }}#why-teknotize">About Us</a>
+    <a href="{{ about_url }}">About Us</a>
     <a href="{{ home_url }}#reviews">Reviews</a>
     <a href="{{ contact_url }}">Contact</a>
     <a href="{{ signup_url }}" target="_blank" rel="noopener">Athlete Merch Sign-up</a>

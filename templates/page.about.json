@@ -1,48 +1,116 @@
 {
   "sections": {
     "main": {
-      "type": "page-about",
+      "type": "about-page",
       "blocks": {
-        "a1": {
-          "type": "card",
+        "p1": {
+          "type": "pillar",
           "settings": {
             "label": "Who we are",
             "title": "Created for athletes",
-            "copy": "Teknotize Merchandise was built so athletes can launch official merch without becoming a factory, warehouse, or customer-support team. We noticed how communities rally behind players: packed gyms, hometown pride, real demand for gear. That demand deserved a real store."
+            "copy": "Teknotize Merchandise was built so athletes can launch official merch without becoming a factory, warehouse, or customer-support team. Communities rally behind players — that energy deserves a real store."
           }
         },
-        "a2": {
-          "type": "card",
+        "p2": {
+          "type": "pillar",
           "settings": {
             "label": "What we sell",
             "title": "Premium drops",
             "copy": "Oversized hoodies, heavyweight boxy T-shirts, fleece sweatshirts, washed tees, and long sleeves. Every collection is custom to the athlete. Fans get quality. Athletes get a brand."
           }
         },
-        "a3": {
-          "type": "card",
+        "p3": {
+          "type": "pillar",
           "settings": {
             "label": "How we work",
             "title": "We handle everything",
             "copy": "Design, manufacturing, storefronts, fulfillment, shipping, and support. You pick products and graphics, share your link, and earn. We keep the operation moving worldwide."
           }
         },
-        "a4": {
-          "type": "card",
+        "p4": {
+          "type": "pillar",
           "settings": {
             "label": "The standard",
             "title": "Built by the game",
             "copy": "We work with high school, college, and pro athletes. If you have a name fans want to wear, you belong here. This is just the beginning."
           }
+        },
+        "v1": {
+          "type": "voice",
+          "settings": {
+            "quote": "My store went live in a week. First drop sold out in 3 days. The hoodie quality is insane and fans keep asking when the next one drops.",
+            "author": "Jordan M.",
+            "role": "D1 Basketball · Athlete",
+            "initials": "JM"
+          }
+        },
+        "v2": {
+          "type": "voice",
+          "settings": {
+            "quote": "I didn't think anyone would buy merch from a high school player. Teknotize proved me wrong. My whole team wants stores now.",
+            "author": "Darius K.",
+            "role": "High School Football · Athlete",
+            "initials": "DK"
+          }
+        },
+        "v3": {
+          "type": "voice",
+          "settings": {
+            "quote": "We onboarded 30 athletes in one month. The ops team handles everything. Our clients just share their link and collect.",
+            "author": "Amanda L.",
+            "role": "NIL Agency Partner",
+            "initials": "AL"
+          }
+        },
+        "v4": {
+          "type": "voice",
+          "settings": {
+            "quote": "Ordered a boxy tee from my favorite athlete's store. Fit is perfect, fabric feels premium, and it shipped faster than I expected.",
+            "author": "Sarah R.",
+            "role": "Fan · Verified Buyer",
+            "initials": "SR"
+          }
+        },
+        "v5": {
+          "type": "voice",
+          "settings": {
+            "quote": "Communication has been great from day one. The design team listens, the products feel premium, and my fans actually wear the gear.",
+            "author": "Partner Athlete",
+            "role": "Teknotize Merchandise",
+            "initials": "TA"
+          }
+        },
+        "v6": {
+          "type": "voice",
+          "settings": {
+            "quote": "They let me have input on my designs and executed them perfectly. Quality is top notch and support is always quick when I have questions.",
+            "author": "Store Partner",
+            "role": "Athlete Merch",
+            "initials": "SP"
+          }
         }
       },
-      "block_order": ["a1", "a2", "a3", "a4"],
+      "block_order": ["p1", "p2", "p3", "p4", "v1", "v2", "v3", "v4", "v5", "v6"],
       "settings": {
-        "kicker": "Founder Story",
+        "kicker": "About Us",
         "heading": "Teknotize Merchandise. Built for Athletes.",
-        "intro": "We’re Teknotize Merchandise. Our job is simple: help athletes monetize their name with premium custom apparel, then handle every unglamorous step so they can stay in the gym.",
-        "y1": "100+",
-        "today": "500+"
+        "intro": "We believe every athlete can build something elite on and off the field. Our job is to launch a brand worthy of the work you put in — premium apparel, athlete-owned stores, and fulfillment handled end to end, because success reaches far beyond the scoreboard.",
+        "stat_1_label": "Athletes",
+        "stat_1_value": "500+",
+        "stat_1_copy": "On platform",
+        "stat_2_label": "Orders",
+        "stat_2_value": "2k+",
+        "stat_2_copy": "Packed and shipped",
+        "stat_3_label": "Reach",
+        "stat_3_value": "5+",
+        "stat_3_copy": "Countries worldwide",
+        "voices_label": "Athlete Voices",
+        "voices_heading": "What Partners Are Saying",
+        "voices_intro": "Honest feedback from athletes, fans, and agencies who sell and shop with Teknotize Merchandise.",
+        "cta_heading": "Ready to build your legacy?",
+        "cta_copy": "Join athletes already earning from their name. We handle the hard part — you bring the fans.",
+        "cta_primary": "Apply for Your Store",
+        "cta_secondary": "Shop Athlete Stores"
       }
     }
   },

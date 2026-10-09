@@ -1,0 +1,199 @@
+{%- liquid
+  assign signup_url = settings.signup_url | default: 'https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform'
+  if signup_url == blank or signup_url contains '/pages/signup'
+    assign signup_url = 'https://docs.google.com/forms/d/e/1FAIpQLSfAybgtsOEkqdrP2hBMclujWAbKl5xVkAE4lx4TDgwMzffNlQ/viewform'
+  endif
+  assign store_url = settings.athlete_store_url | default: routes.collections_url
+  if store_url == blank or store_url == 'shopify://collections' or store_url contains '/collections/all'
+    assign store_url = routes.collections_url | default: '/collections'
+  endif
+-%}
+<section class="about-page main-page" id="about-us">
+  <div class="page-width reveal">
+    <div class="about-page-hero">
+      <article class="about-page-hero-panel crystal">
+        <p class="eyebrow">{{ section.settings.kicker | default: 'About Us' }}</p>
+        <h1 class="section-title">{{ section.settings.heading | default: 'Built for Athletes. Trusted by Fans.' }}</h1>
+        <p class="lede about-page-lede">{{ section.settings.intro | default: 'Teknotize Merchandise stands for excellence, hustle, and turning your name into official gear fans actually want to wear. We build athlete-owned storefronts with premium blanks and custom graphics — because success reaches far beyond the scoreboard.' }}</p>
+      </article>
+    </div>
+
+    <div class="about-page-pillars reveal-stagger">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'pillar' %}
+            <article class="about-page-pillar crystal" {{ block.shopify_attributes }}>
+              {% if block.settings.label != blank %}<p class="eyebrow">{{ block.settings.label }}</p>{% endif %}
+              <h2>{{ block.settings.title }}</h2>
+              <p>{{ block.settings.copy }}</p>
+            </article>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <article class="about-page-pillar crystal">
+          <p class="eyebrow">Who we are</p>
+          <h2>Created for athletes</h2>
+          <p>Teknotize Merchandise was built so athletes can launch official merch without becoming a factory, warehouse, or support desk.</p>
+        </article>
+        <article class="about-page-pillar crystal">
+          <p class="eyebrow">What we sell</p>
+          <h2>Premium drops</h2>
+          <p>Oversized hoodies, heavyweight boxy tees, fleece, and custom graphics. Every collection is tailored to the athlete.</p>
+        </article>
+        <article class="about-page-pillar crystal">
+          <p class="eyebrow">How we work</p>
+          <h2>We handle everything</h2>
+          <p>Design, storefronts, fulfillment, shipping, and support. You share your link and earn while we run the operation.</p>
+        </article>
+        <article class="about-page-pillar crystal">
+          <p class="eyebrow">The standard</p>
+          <h2>Built by the game</h2>
+          <p>High school, college, and pro athletes. If fans want to rep you, you belong here.</p>
+        </article>
+      {% endif %}
+    </div>
+
+    <div class="stats-grid">
+      <article class="stat-card crystal">
+        <p>{{ section.settings.stat_1_label | default: 'Athletes' }}</p>
+        <h3>{{ section.settings.stat_1_value | default: '500+' }}</h3>
+        <p>{{ section.settings.stat_1_copy | default: 'On platform' }}</p>
+      </article>
+      <article class="stat-card crystal">
+        <p>{{ section.settings.stat_2_label | default: 'Orders' }}</p>
+        <h3>{{ section.settings.stat_2_value | default: '2k+' }}</h3>
+        <p>{{ section.settings.stat_2_copy | default: 'Delivered worldwide' }}</p>
+      </article>
+      <article class="stat-card crystal">
+        <p>{{ section.settings.stat_3_label | default: 'Quality' }}</p>
+        <h3>{{ section.settings.stat_3_value | default: '100%' }}</h3>
+        <p>{{ section.settings.stat_3_copy | default: 'Premium apparel' }}</p>
+      </article>
+    </div>
+
+    <div class="about-page-voices reveal">
+      <div class="section-intro section-intro--center">
+        <p class="section-label">{{ section.settings.voices_label | default: 'Athlete Voices' }}</p>
+        <h2 class="section-title">{{ section.settings.voices_heading | default: 'From the Locker Room' }}</h2>
+        {% if section.settings.voices_intro != blank %}
+          <p class="lede">{{ section.settings.voices_intro }}</p>
+        {% else %}
+          <p class="lede">Real partners. Real feedback. The same energy you see on the homepage — dedicated to the people who wear and sell with us.</p>
+        {% endif %}
+      </div>
+
+      <div class="reviews-marquee" data-reviews-marquee aria-label="Athlete and fan testimonials">
+        <div class="reviews-track">
+          {% assign voice_blocks = section.blocks | where: 'type', 'voice' %}
+          {% if voice_blocks.size > 0 %}
+            {% for block in voice_blocks %}
+              <article class="review-card crystal" {{ block.shopify_attributes }}>
+                <div class="review-head">
+                  <span class="review-avatar">{{ block.settings.initials | default: block.settings.author | slice: 0, 2 | upcase }}</span>
+                  <div class="review-meta">
+                    <strong>{{ block.settings.author }}</strong>
+                    {% if block.settings.role != blank %}<span class="review-role">{{ block.settings.role }}</span>{% endif %}
+                  </div>
+                </div>
+                <div class="stars" aria-hidden="true">★★★★★</div>
+                <p>{{ block.settings.quote }}</p>
+              </article>
+            {% endfor %}
+            {% for block in voice_blocks %}
+              <article class="review-card crystal" aria-hidden="true">
+                <div class="review-head">
+                  <span class="review-avatar">{{ block.settings.initials | default: block.settings.author | slice: 0, 2 | upcase }}</span>
+                  <div class="review-meta">
+                    <strong>{{ block.settings.author }}</strong>
+                    {% if block.settings.role != blank %}<span class="review-role">{{ block.settings.role }}</span>{% endif %}
+                  </div>
+                </div>
+                <div class="stars" aria-hidden="true">★★★★★</div>
+                <p>{{ block.settings.quote }}</p>
+              </article>
+            {% endfor %}
+          {% else %}
+            <article class="review-card crystal">
+              <div class="review-head"><span class="review-avatar">JM</span><div class="review-meta"><strong>Jordan M.</strong><span class="review-role">D1 Basketball · Athlete</span></div></div>
+              <div class="stars" aria-hidden="true">★★★★★</div>
+              <p>My store went live in a week. First drop sold out in 3 days. The hoodie quality is insane and fans keep asking when the next one drops.</p>
+            </article>
+            <article class="review-card crystal">
+              <div class="review-head"><span class="review-avatar">DK</span><div class="review-meta"><strong>Darius K.</strong><span class="review-role">High School Football · Athlete</span></div></div>
+              <div class="stars" aria-hidden="true">★★★★★</div>
+              <p>I didn't think anyone would buy merch from a high school player. Teknotize proved me wrong. My whole team wants stores now.</p>
+            </article>
+            <article class="review-card crystal">
+              <div class="review-head"><span class="review-avatar">AL</span><div class="review-meta"><strong>Amanda L.</strong><span class="review-role">NIL Agency Partner</span></div></div>
+              <div class="stars" aria-hidden="true">★★★★★</div>
+              <p>We onboarded 30 athletes in one month. The ops team handles everything. Our clients just share their link and collect.</p>
+            </article>
+            <article class="review-card crystal">
+              <div class="review-head"><span class="review-avatar">SR</span><div class="review-meta"><strong>Sarah R.</strong><span class="review-role">Fan · Verified Buyer</span></div></div>
+              <div class="stars" aria-hidden="true">★★★★★</div>
+              <p>Ordered a boxy tee from my favorite athlete's store. Fit is perfect, fabric feels premium, and it shipped faster than I expected.</p>
+            </article>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box crystal about-page-cta">
+      <h2>{{ section.settings.cta_heading | default: 'Ready to build your legacy?' }}</h2>
+      <p class="lede" style="margin: 0 auto 24px; max-width: 42ch;">{{ section.settings.cta_copy | default: 'Apply for your storefront or shop athlete drops today.' }}</p>
+      <div class="hero-actions" style="justify-content: center;">
+        <a class="btn btn-primary" href="{{ signup_url }}" target="_blank" rel="noopener">{{ section.settings.cta_primary | default: 'Apply for Your Store' }}</a>
+        <a class="btn btn-ghost" href="{{ store_url }}">{{ section.settings.cta_secondary | default: 'Shop Athlete Stores' }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About page",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "About Us" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built for Athletes. Trusted by Fans." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Teknotize Merchandise stands for excellence, hustle, and turning your name into official gear fans actually want to wear. We build athlete-owned storefronts with premium blanks and custom graphics — because success reaches far beyond the scoreboard." },
+    { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Athletes" },
+    { "type": "text", "id": "stat_1_value", "label": "Stat 1 value", "default": "500+" },
+    { "type": "text", "id": "stat_1_copy", "label": "Stat 1 copy", "default": "On platform" },
+    { "type": "text", "id": "stat_2_label", "label": "Stat 2 label", "default": "Orders" },
+    { "type": "text", "id": "stat_2_value", "label": "Stat 2 value", "default": "2k+" },
+    { "type": "text", "id": "stat_2_copy", "label": "Stat 2 copy", "default": "Delivered worldwide" },
+    { "type": "text", "id": "stat_3_label", "label": "Stat 3 label", "default": "Quality" },
+    { "type": "text", "id": "stat_3_value", "label": "Stat 3 value", "default": "100%" },
+    { "type": "text", "id": "stat_3_copy", "label": "Stat 3 copy", "default": "Premium apparel" },
+    { "type": "text", "id": "voices_label", "label": "Voices label", "default": "Athlete Voices" },
+    { "type": "text", "id": "voices_heading", "label": "Voices heading", "default": "From the Locker Room" },
+    { "type": "textarea", "id": "voices_intro", "label": "Voices intro" },
+    { "type": "text", "id": "cta_heading", "label": "CTA heading", "default": "Ready to build your legacy?" },
+    { "type": "textarea", "id": "cta_copy", "label": "CTA copy", "default": "Apply for your storefront or shop athlete drops today." },
+    { "type": "text", "id": "cta_primary", "label": "CTA primary", "default": "Apply for Your Store" },
+    { "type": "text", "id": "cta_secondary", "label": "CTA secondary", "default": "Shop Athlete Stores" }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Story pillar",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "copy", "label": "Copy" }
+      ]
+    },
+    {
+      "type": "voice",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "author", "label": "Author" },
+        { "type": "text", "id": "role", "label": "Role" },
+        { "type": "text", "id": "initials", "label": "Initials" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "About page" }]
+}
+{% endschema %}

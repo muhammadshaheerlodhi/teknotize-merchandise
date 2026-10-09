@@ -11,6 +11,10 @@
   if agency_url == blank or agency_url contains '/pages/agency'
     assign agency_url = 'https://docs.google.com/forms/d/e/1FAIpQLSeHk1xJDML2hD0uBmKdL0uFBV7Kc1W9t1bvXFb55sO_LllfvQ/viewform'
   endif
+  assign about_url = pages.about.url | default: '/pages/about'
+  if about_url == blank
+    assign about_url = '/pages/about'
+  endif
 -%}
 <footer class="site-footer">
   <div class="page-width">
@@ -28,7 +32,7 @@
       <div class="footer-links">
         <h4>Platform</h4>
         <a href="{{ routes.root_url | default: '/' }}">Home</a>
-        <a href="{{ routes.root_url | default: '/' }}#why-teknotize">About Us</a>
+        <a href="{{ about_url }}">About Us</a>
         <a href="{{ signup_url }}" target="_blank" rel="noopener">Athlete Merch Sign-up</a>
         <a href="{{ store_url }}">Athlete Store</a>
         <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact Us</a>
