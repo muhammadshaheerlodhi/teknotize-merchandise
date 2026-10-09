@@ -10,50 +10,48 @@
 -%}
 <section class="about-page main-page" id="about-us">
   <div class="page-width reveal">
-    <div class="about-page-hero">
-      <article class="about-page-hero-panel crystal">
-        <p class="eyebrow">{{ section.settings.kicker | default: 'About Us' }}</p>
-        <h1 class="section-title">{{ section.settings.heading | default: 'Built for Athletes. Trusted by Fans.' }}</h1>
-        <p class="lede about-page-lede">{{ section.settings.intro | default: 'Teknotize Merchandise stands for excellence, hustle, and turning your name into official gear fans actually want to wear. We build athlete-owned storefronts with premium blanks and custom graphics — because success reaches far beyond the scoreboard.' }}</p>
-      </article>
-    </div>
+    <header class="about-page-intro reveal">
+      <p class="eyebrow about-page-kicker">{{ section.settings.kicker | default: 'About Us' }}</p>
+      <h1 class="section-title about-page-heading">{{ section.settings.heading | default: 'Built for Athletes. Trusted by Fans.' }}</h1>
+      <p class="about-page-lede">{{ section.settings.intro | default: 'Teknotize Merchandise stands for excellence, hustle, and turning your name into official gear fans actually want to wear. We build athlete-owned storefronts with premium blanks and custom graphics — because success reaches far beyond the scoreboard.' }}</p>
+    </header>
 
     <div class="about-page-pillars reveal-stagger">
       {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
           {% if block.type == 'pillar' %}
             <article class="about-page-pillar crystal" {{ block.shopify_attributes }}>
-              {% if block.settings.label != blank %}<p class="eyebrow">{{ block.settings.label }}</p>{% endif %}
-              <h2>{{ block.settings.title }}</h2>
-              <p>{{ block.settings.copy }}</p>
+              {% if block.settings.label != blank %}<p class="eyebrow about-page-pillar-label">{{ block.settings.label }}</p>{% endif %}
+              <h2 class="about-page-pillar-title">{{ block.settings.title }}</h2>
+              <p class="about-page-pillar-copy">{{ block.settings.copy }}</p>
             </article>
           {% endif %}
         {% endfor %}
       {% else %}
         <article class="about-page-pillar crystal">
-          <p class="eyebrow">Who we are</p>
-          <h2>Created for athletes</h2>
-          <p>Teknotize Merchandise was built so athletes can launch official merch without becoming a factory, warehouse, or support desk.</p>
+          <p class="eyebrow about-page-pillar-label">Who we are</p>
+          <h2 class="about-page-pillar-title">Created for athletes</h2>
+          <p class="about-page-pillar-copy">Teknotize Merchandise was built so athletes can launch official merch without becoming a factory, warehouse, or support desk.</p>
         </article>
         <article class="about-page-pillar crystal">
-          <p class="eyebrow">What we sell</p>
-          <h2>Premium drops</h2>
-          <p>Oversized hoodies, heavyweight boxy tees, fleece, and custom graphics. Every collection is tailored to the athlete.</p>
+          <p class="eyebrow about-page-pillar-label">What we sell</p>
+          <h2 class="about-page-pillar-title">Premium drops</h2>
+          <p class="about-page-pillar-copy">Oversized hoodies, heavyweight boxy tees, fleece, and custom graphics. Every collection is tailored to the athlete.</p>
         </article>
         <article class="about-page-pillar crystal">
-          <p class="eyebrow">How we work</p>
-          <h2>We handle everything</h2>
-          <p>Design, storefronts, fulfillment, shipping, and support. You share your link and earn while we run the operation.</p>
+          <p class="eyebrow about-page-pillar-label">How we work</p>
+          <h2 class="about-page-pillar-title">We handle everything</h2>
+          <p class="about-page-pillar-copy">Design, storefronts, fulfillment, shipping, and support. You share your link and earn while we run the operation.</p>
         </article>
         <article class="about-page-pillar crystal">
-          <p class="eyebrow">The standard</p>
-          <h2>Built by the game</h2>
-          <p>High school, college, and pro athletes. If fans want to rep you, you belong here.</p>
+          <p class="eyebrow about-page-pillar-label">The standard</p>
+          <h2 class="about-page-pillar-title">Built by the game</h2>
+          <p class="about-page-pillar-copy">High school, college, and pro athletes. If fans want to rep you, you belong here.</p>
         </article>
       {% endif %}
     </div>
 
-    <div class="stats-grid">
+    <div class="stats-grid about-page-stats">
       <article class="stat-card crystal">
         <p>{{ section.settings.stat_1_label | default: 'Athletes' }}</p>
         <h3>{{ section.settings.stat_1_value | default: '500+' }}</h3>
@@ -72,15 +70,15 @@
     </div>
 
     <div class="about-page-voices reveal">
-      <div class="section-intro section-intro--center">
-        <p class="section-label">{{ section.settings.voices_label | default: 'Athlete Voices' }}</p>
-        <h2 class="section-title">{{ section.settings.voices_heading | default: 'From the Locker Room' }}</h2>
+      <header class="about-page-voices-intro">
+        <p class="eyebrow about-page-pillar-label">{{ section.settings.voices_label | default: 'Athlete Voices' }}</p>
+        <h2 class="section-title about-page-voices-title">{{ section.settings.voices_heading | default: 'From the Locker Room' }}</h2>
         {% if section.settings.voices_intro != blank %}
-          <p class="lede">{{ section.settings.voices_intro }}</p>
+          <p class="about-page-pillar-copy about-page-voices-copy">{{ section.settings.voices_intro }}</p>
         {% else %}
-          <p class="lede">Real partners. Real feedback. The same energy you see on the homepage — dedicated to the people who wear and sell with us.</p>
+          <p class="about-page-pillar-copy about-page-voices-copy">Real partners. Real feedback from athletes, fans, and agencies who sell and shop with Teknotize Merchandise.</p>
         {% endif %}
-      </div>
+      </header>
 
       <div class="reviews-marquee" data-reviews-marquee aria-label="Athlete and fan testimonials">
         <div class="reviews-track">
@@ -139,9 +137,9 @@
     </div>
 
     <div class="cta-box crystal about-page-cta">
-      <h2>{{ section.settings.cta_heading | default: 'Ready to build your legacy?' }}</h2>
-      <p class="lede" style="margin: 0 auto 24px; max-width: 42ch;">{{ section.settings.cta_copy | default: 'Apply for your storefront or shop athlete drops today.' }}</p>
-      <div class="hero-actions" style="justify-content: center;">
+      <h2 class="about-page-pillar-title about-page-cta-title">{{ section.settings.cta_heading | default: 'Ready to build your legacy?' }}</h2>
+      <p class="about-page-pillar-copy about-page-cta-copy">{{ section.settings.cta_copy | default: 'Apply for your storefront or shop athlete drops today.' }}</p>
+      <div class="hero-actions about-page-cta-actions">
         <a class="btn btn-primary" href="{{ signup_url }}" target="_blank" rel="noopener">{{ section.settings.cta_primary | default: 'Apply for Your Store' }}</a>
         <a class="btn btn-ghost" href="{{ store_url }}">{{ section.settings.cta_secondary | default: 'Shop Athlete Stores' }}</a>
       </div>

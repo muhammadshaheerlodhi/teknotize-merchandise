@@ -340,63 +340,148 @@ p:last-child { margin-bottom: 0; }
   flex: 1;
 }
 
-/* Standalone About page (Elite-style story + scrolling voices) */
-.about-page-hero {
-  margin-bottom: clamp(32px, 5vw, 56px);
+/* Standalone About page — Elite-style layout, Teknotize colors */
+.about-page {
+  text-align: left;
 }
 
-.about-page-hero-panel {
-  padding: clamp(36px, 6vw, 72px) clamp(24px, 4vw, 48px);
-  text-align: center;
-  border-radius: calc(var(--tm-radius-lg) + 8px);
+.about-page-intro {
+  max-width: 920px;
+  margin-bottom: clamp(40px, 6vw, 72px);
 }
 
-.about-page-hero-panel .section-title {
-  margin-inline: auto;
-  max-width: 22ch;
+.about-page-kicker {
+  margin-bottom: 14px;
+}
+
+.about-page-heading {
+  display: block;
+  width: 100%;
+  max-width: 20ch;
+  font-family: var(--tm-font-display);
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.about-page-heading::after {
+  margin-top: 16px;
 }
 
 .about-page-lede {
-  max-width: 62ch;
-  margin-inline: auto;
-  font-size: clamp(1.02rem, 2.1vw, 1.18rem);
+  margin: 0;
+  max-width: 68ch;
+  color: var(--tm-muted);
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.85;
 }
 
 .about-page-pillars {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(18px, 3vw, 24px);
-  margin-bottom: clamp(28px, 4vw, 40px);
+  gap: clamp(22px, 3.5vw, 32px);
+  margin-bottom: clamp(36px, 5vw, 52px);
 }
 
 .about-page-pillar {
-  padding: var(--tm-card-pad);
+  padding: clamp(28px, 4vw, 40px) clamp(24px, 3.5vw, 36px);
   height: 100%;
+  text-align: left;
+  border-left: 4px solid rgba(252, 0, 10, 0.45);
+  border-radius: var(--tm-radius-lg);
 }
 
-.about-page-pillar h2 {
-  font-size: clamp(1.2rem, 2.4vw, 1.45rem);
-  margin: 0 0 12px;
+.about-page-pillar-label {
+  margin-bottom: 12px;
+}
+
+.about-page-pillar-title {
+  margin: 0 0 18px;
+  font-family: var(--tm-font-display);
+  font-size: clamp(2.2rem, 4.8vw, 3.4rem);
+  line-height: 0.92;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   color: var(--tm-heading);
 }
 
-.about-page-pillar p {
+.about-page-pillar-title::after {
+  display: none;
+}
+
+.about-page-pillar-copy {
   margin: 0;
+  max-width: 52ch;
   color: var(--tm-muted);
-  font-size: 0.94rem;
-  line-height: 1.75;
+  font-size: clamp(0.98rem, 1.8vw, 1.06rem);
+  line-height: 1.85;
+}
+
+.about-page-stats {
+  margin-bottom: clamp(36px, 5vw, 56px);
 }
 
 .about-page-voices {
-  margin-top: clamp(44px, 7vw, 80px);
+  margin-top: clamp(12px, 2vw, 24px);
+  overflow: hidden;
 }
 
-.about-page-voices .reviews-marquee {
-  margin-top: 28px;
+.about-page-voices-intro {
+  max-width: 920px;
+  margin-bottom: clamp(28px, 4vw, 40px);
+}
+
+.about-page-voices-title {
+  display: block;
+  max-width: 22ch;
+  font-family: var(--tm-font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  margin-bottom: 18px;
+}
+
+.about-page-voices-title::after {
+  margin-top: 14px;
+}
+
+.about-page-voices-copy {
+  max-width: 62ch;
+}
+
+.about-page .reviews-marquee {
+  margin-top: 8px;
+}
+
+.about-page .review-card {
+  min-height: 240px;
+}
+
+.about-page .review-card p {
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
 .about-page-cta {
-  margin-top: clamp(40px, 6vw, 64px);
+  margin-top: clamp(48px, 7vw, 72px);
+  text-align: center;
+}
+
+.about-page-cta-title {
+  margin-bottom: 14px;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+
+.about-page-cta-copy {
+  margin: 0 auto 26px;
+  max-width: 46ch;
+  text-align: center;
+}
+
+.about-page-cta-actions {
+  justify-content: center;
 }
 
 /* Testimonials marquee */
