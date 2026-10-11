@@ -25,6 +25,17 @@
         "image": "shopify://shop_images/ChatGPT_Image_Sep_15_2026_12_50_21_AM.png"
       }
     },
+    "trending_drops": {
+      "type": "trending-drops",
+      "settings": {
+        "eyebrow": "Fan Favorites",
+        "heading": "Top Trending Drops",
+        "subheading": "The hoodies and tees fans are copping right now.",
+        "products_to_show": 6,
+        "button_label": "Shop All Products",
+        "button_link": "/collections/all"
+      }
+    },
     "roster": {
       "type": "roster-stats",
       "settings": {
@@ -382,14 +393,14 @@
           "type": "item",
           "settings": {
             "question": "1. HOW MUCH COMMISSION DO I EARN?",
-            "answer": "<p>Earn <strong>15% commission on your first 1–9 sales.</strong> Hit 10 sales and unlock the <strong>20% commission tier.</strong> At 30 sales, your commission jumps to <strong>40%</strong>.<br/></p>"
+            "answer": "<p>Earn <strong>15% commission on your first 1–9 sales.</strong> Hit 10 sales and unlock the <strong>20% tier.</strong> At 30 sales your commission jumps to <strong>40%</strong>, and at <strong>40+ sales you earn 45%.</strong></p>"
           }
         },
         "q2": {
           "type": "item",
           "settings": {
             "question": "2. WHAT HAPPENS WHEN I REACH 40 SALES?",
-            "answer": "<p>Reach <strong>40 sales</strong> and you’ll unlock your <strong>40% commission tier + a FREE custom shirt</strong> as a bonus.<br/></p>"
+            "answer": "<p>Reach <strong>40 sales</strong> and you'll unlock the <strong>45% commission tier + 1 FREE T-shirt or hoodie</strong> of your choice.</p>"
           }
         },
         "q3": {
@@ -437,37 +448,51 @@
         "r1": {
           "type": "review",
           "settings": {
-            "quote": "My store went live in a week. First drop sold out in 3 days. The hoodie quality is insane and fans keep asking when the next one drops.",
-            "author": "Jordan M.",
-            "role": "D1 Basketball · Athlete",
-            "initials": "JM"
+            "name": "Malik Fitzpatrick",
+            "role": "Athlete · Custom Tee",
+            "quote": "",
+            "rating": 5,
+            "store_link": ""
           }
         },
         "r2": {
           "type": "review",
           "settings": {
-            "quote": "Ordered a boxy tee from my favorite athlete's store. Fit is perfect, fabric feels premium, and it shipped faster than I expected.",
-            "author": "Sarah R.",
-            "role": "Fan · Verified Buyer",
-            "initials": "SR"
+            "name": "Bryson Alexzander",
+            "role": "Athlete · Fleece Drop",
+            "quote": "",
+            "rating": 5,
+            "store_link": ""
           }
         },
         "r3": {
           "type": "review",
           "settings": {
-            "quote": "I didn't think anyone would buy merch from a high school player. Teknotize proved me wrong. My whole team wants stores now.",
-            "author": "Darius K.",
-            "role": "High School Football · Athlete",
-            "initials": "DK"
+            "name": "Rakwon",
+            "role": "Athlete · Athlete Merch",
+            "quote": "",
+            "rating": 5,
+            "store_link": ""
           }
         },
         "r4": {
           "type": "review",
           "settings": {
-            "quote": "We onboarded 30 athletes in one month. The ops team handles everything. Our clients just share their link and collect.",
-            "author": "Amanda L.",
-            "role": "NIL Agency Partner",
-            "initials": "AL"
+            "name": "Jamerion Coleman",
+            "role": "Athlete · Story Repost",
+            "quote": "",
+            "rating": 5,
+            "store_link": ""
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "name": "Cash Currin",
+            "role": "Athlete · Fan Gear",
+            "quote": "",
+            "rating": 5,
+            "store_link": ""
           }
         }
       },
@@ -475,7 +500,8 @@
         "r1",
         "r2",
         "r3",
-        "r4"
+        "r4",
+        "r5"
       ],
       "settings": {
         "label": "Real Reviews",
@@ -495,6 +521,7 @@
   },
   "order": [
     "hero",
+    "trending_drops",
     "roster",
     "rewards",
     "cta",

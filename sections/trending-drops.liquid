@@ -1,0 +1,178 @@
+{%- liquid
+  assign drops_collection = section.settings.collection
+  if drops_collection == blank or drops_collection.products_count == 0
+    assign drops_collection = collections.all
+  endif
+  assign product_limit = section.settings.products_to_show | default: 6
+  assign btn_link = section.settings.button_link | default: routes.all_products_collection_url
+  if btn_link == blank
+    assign btn_link = '/collections/all'
+  endif
+-%}
+<section class="trending-drops" id="trending-drops">
+  <div class="page-width reveal">
+    <div class="section-intro section-intro--center">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'Fan Favorites' }}</p>
+      <h2 class="section-title">{{ section.settings.heading | default: 'Top Trending Drops' }}</h2>
+      {% if section.settings.subheading != blank %}
+        <p class="lede">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="trending-drops__grid product-grid">
+      {%- assign shown = 0 -%}
+      {%- for product in drops_collection.products -%}
+        {%- if shown >= product_limit -%}{%- break -%}{%- endif -%}
+        {%- assign hover_image = product.images[1] | default: product.featured_image -%}
+        <a class="product-card crystal trending-drops__card" href="{{ product.url }}">
+          <div class="media trending-drops__media">
+            {%- if product.featured_image -%}
+              <img
+                class="trending-drops__img trending-drops__img--primary"
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 800 }} 800w"
+                sizes="(max-width: 640px) 46vw, (max-width: 990px) 46vw, 30vw"
+                alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                width="800"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              >
+              {%- if hover_image and hover_image != product.featured_image -%}
+                <img
+                  class="trending-drops__img trending-drops__img--hover"
+                  src="{{ hover_image | image_url: width: 600 }}"
+                  srcset="{{ hover_image | image_url: width: 400 }} 400w, {{ hover_image | image_url: width: 600 }} 600w, {{ hover_image | image_url: width: 800 }} 800w"
+                  sizes="(max-width: 640px) 46vw, (max-width: 990px) 46vw, 30vw"
+                  alt=""
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  aria-hidden="true"
+                >
+              {%- endif -%}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag }}
+            {%- endif -%}
+            {%- unless product.available -%}
+              <span class="trending-drops__badge">Sold out</span>
+            {%- endunless -%}
+          </div>
+          <div class="card-body">
+            <h3>{{ product.title }}</h3>
+            {%- if product.vendor != blank -%}
+              <p class="trending-drops__vendor">{{ product.vendor }}</p>
+            {%- endif -%}
+            <p class="price">
+              {%- if product.compare_at_price > product.price -%}
+                <span class="price-sale">{{ product.price | money }}</span>
+                <span class="compare">{{ product.compare_at_price | money }}</span>
+              {%- else -%}
+                {{ product.price | money }}
+              {%- endif -%}
+            </p>
+          </div>
+        </a>
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="trending-drops__cta">
+      <a class="btn btn-primary" href="{{ btn_link }}">{{ section.settings.button_label | default: 'Shop All Products' }}</a>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.trending-drops {
+  padding: var(--tm-section-py) 0;
+}
+
+.trending-drops__grid {
+  margin-top: var(--tm-space-lg);
+}
+
+.trending-drops__media {
+  position: relative;
+}
+
+.trending-drops__img--hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s var(--tm-ease);
+}
+
+.trending-drops__card:hover .trending-drops__img--hover {
+  opacity: 1;
+}
+
+.trending-drops__card:hover .trending-drops__img--primary {
+  opacity: 0;
+}
+
+.trending-drops__img--primary {
+  transition: opacity 0.35s var(--tm-ease);
+}
+
+.trending-drops__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(17, 17, 17, 0.82);
+}
+
+.trending-drops__vendor {
+  margin: 4px 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tm-accent);
+}
+
+.trending-drops__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--tm-space-xl);
+}
+
+@media (max-width: 990px) {
+  .trending-drops__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .trending-drops__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Trending drops",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Fan Favorites" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Top Trending Drops" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "The hoodies and tees fans are copping right now." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "min": 3, "max": 12, "step": 1, "label": "Number of products", "default": 6 },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop All Products" },
+    { "type": "url", "id": "button_link", "label": "Button link", "default": "/collections/all" }
+  ],
+  "presets": [{ "name": "Trending drops" }]
+}
+{% endschema %}
