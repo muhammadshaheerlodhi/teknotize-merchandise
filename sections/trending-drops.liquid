@@ -24,26 +24,42 @@
     </div>
 
     <div class="trending-drops__grid product-grid">
-      {%- comment -%} Pass 1: one athlete per card + varied product types (hoodie, sweatshirt, kids, etc.) {%- endcomment -%}
-      {%- for product in drops_collection.products -%}
+      {%- comment -%} One drop per athlete store — up to 6 mixed product types {%- endcomment -%}
+      {%- assign athlete_stores = collections | sort: 'published_at' | reverse -%}
+      {%- for athlete_store in athlete_stores -%}
         {%- if shown >= product_limit -%}{%- break -%}{%- endif -%}
-        {%- assign athlete_key = '' -%}
-        {%- for athlete_collection in product.collections -%}
-          {%- assign store_handle = athlete_collection.handle | downcase -%}
-          {%- if store_handle == 'all' or store_handle == 'frontpage' or store_handle == 'products' -%}{%- continue -%}{%- endif -%}
-          {%- assign athlete_key = store_handle -%}
+        {%- assign store_handle = athlete_store.handle | downcase -%}
+        {%- if store_handle == 'all' or store_handle == 'frontpage' or store_handle == 'products' -%}{%- continue -%}{%- endif -%}
+        {%- if athlete_store.products_count == 0 -%}{%- continue -%}{%- endif -%}
+
+        {%- assign picked_product = blank -%}
+        {%- for product in athlete_store.products -%}
+          {%- assign title_l = product.title | downcase -%}
+          {%- assign bucket = 'drop' -%}
+          {%- if title_l contains 'kid' -%}
+            {%- assign bucket = 'kids' -%}
+          {%- elsif title_l contains 'hoodie' -%}
+            {%- assign bucket = 'hoodie' -%}
+          {%- elsif title_l contains 'sweatshirt' -%}
+            {%- assign bucket = 'sweatshirt' -%}
+          {%- elsif title_l contains 'fleece' -%}
+            {%- assign bucket = 'fleece' -%}
+          {%- elsif title_l contains 'washed' -%}
+            {%- assign bucket = 'washed' -%}
+          {%- elsif title_l contains 'boxy' or title_l contains ' tee' or title_l contains '-tee' -%}
+            {%- assign bucket = 'tee' -%}
+          {%- endif -%}
+          {%- assign bucket_token = delim | append: bucket | append: delim -%}
+          {%- if seen_buckets contains bucket_token -%}{%- continue -%}{%- endif -%}
+          {%- assign picked_product = product -%}
           {%- break -%}
         {%- endfor -%}
-        {%- if athlete_key == blank -%}
-          {%- assign athlete_key = product.vendor | handleize -%}
+        {%- if picked_product == blank -%}
+          {%- assign picked_product = athlete_store.products.first -%}
         {%- endif -%}
-        {%- if athlete_key == blank -%}
-          {%- assign athlete_key = product.id -%}
-        {%- endif -%}
-        {%- assign athlete_token = delim | append: athlete_key | append: delim -%}
-        {%- if seen_athletes contains athlete_token -%}{%- continue -%}{%- endif -%}
+        {%- if picked_product == blank -%}{%- continue -%}{%- endif -%}
 
-        {%- assign title_l = product.title | downcase -%}
+        {%- assign title_l = picked_product.title | downcase -%}
         {%- assign bucket = 'drop' -%}
         {%- if title_l contains 'kid' -%}
           {%- assign bucket = 'kids' -%}
@@ -58,32 +74,24 @@
         {%- elsif title_l contains 'boxy' or title_l contains ' tee' or title_l contains '-tee' -%}
           {%- assign bucket = 'tee' -%}
         {%- endif -%}
-        {%- assign bucket_token = delim | append: bucket | append: delim -%}
-        {%- if seen_buckets contains bucket_token -%}{%- continue -%}{%- endif -%}
-
-        {%- assign seen_athletes = seen_athletes | append: athlete_key | append: delim -%}
         {%- assign seen_buckets = seen_buckets | append: bucket | append: delim -%}
+        {%- assign seen_athletes = seen_athletes | append: store_handle | append: delim -%}
         {%- assign shown = shown | plus: 1 -%}
-        {% render 'trending-drop-card', product: product %}
+        {% render 'trending-drop-card', product: picked_product %}
       {%- endfor -%}
 
-      {%- comment -%} Pass 2: fill remaining slots — still one product per athlete {%- endcomment -%}
       {%- if shown < product_limit -%}
         {%- for product in drops_collection.products -%}
           {%- if shown >= product_limit -%}{%- break -%}{%- endif -%}
           {%- assign athlete_key = '' -%}
           {%- for athlete_collection in product.collections -%}
-            {%- assign store_handle = athlete_collection.handle | downcase -%}
-            {%- if store_handle == 'all' or store_handle == 'frontpage' or store_handle == 'products' -%}{%- continue -%}{%- endif -%}
-            {%- assign athlete_key = store_handle -%}
+            {%- assign inner_handle = athlete_collection.handle | downcase -%}
+            {%- if inner_handle == 'all' or inner_handle == 'frontpage' or inner_handle == 'products' -%}{%- continue -%}{%- endif -%}
+            {%- assign athlete_key = inner_handle -%}
             {%- break -%}
           {%- endfor -%}
-          {%- if athlete_key == blank -%}
-            {%- assign athlete_key = product.vendor | handleize -%}
-          {%- endif -%}
-          {%- if athlete_key == blank -%}
-            {%- assign athlete_key = product.id -%}
-          {%- endif -%}
+          {%- if athlete_key == blank -%}{%- assign athlete_key = product.vendor | handleize -%}{%- endif -%}
+          {%- if athlete_key == blank -%}{%- assign athlete_key = product.id -%}{%- endif -%}
           {%- assign athlete_token = delim | append: athlete_key | append: delim -%}
           {%- if seen_athletes contains athlete_token -%}{%- continue -%}{%- endif -%}
           {%- assign seen_athletes = seen_athletes | append: athlete_key | append: delim -%}
