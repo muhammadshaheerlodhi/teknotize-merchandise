@@ -484,6 +484,20 @@ p:last-child { margin-bottom: 0; }
   justify-content: center;
 }
 
+.about-page-proof {
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+
+.about-page-proof-intro {
+  max-width: 920px;
+  margin-bottom: clamp(20px, 3vw, 28px);
+}
+
+.about-page-proof-title {
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  margin-bottom: 12px;
+}
+
 /* Testimonials marquee */
 .testimonials {
   overflow: hidden;
@@ -525,7 +539,9 @@ p:last-child { margin-bottom: 0; }
   box-shadow: 0 10px 24px rgba(17, 17, 17, 0.08);
 }
 
-.proof-photo-card img {
+.proof-photo-card img,
+.proof-photo-card video,
+.proof-photo-video {
   display: block;
   width: 100%;
   height: clamp(220px, 32vw, 320px);

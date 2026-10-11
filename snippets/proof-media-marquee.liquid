@@ -1,0 +1,51 @@
+{%- liquid
+  assign proof_entries = 'testimonial-fan-jaden.jpg|Fan showing off their athlete drop,testimonial-fan-carlos.jpg|Real fan merch in the wild,testimonial-fan-carlos-story.jpg|Customer love from Instagram,testimonial-fan-wearing.jpg|Fan repping their athlete tee,testimonial-fan-smoove.jpg|Story repost from a happy buyer,proof-malik-fitzpatrick.jpg|Malik Fitzpatrick custom tee,proof-bryson-alexzander.jpg|Bryson Alexzander fleece drop,proof-rakwon.jpg|Rakwon athlete merch,proof-jamerion-coleman.jpg|Jamerion Coleman story repost,proof-cash-currin.png|Cash Currin fan gear' | split: ','
+  assign proof_section = section | default: blank
+-%}
+<div class="proof-photos-marquee" data-proof-marquee aria-label="Real fan photos and athlete drops">
+  <div class="proof-photos-track">
+    {%- for pass in (1..2) -%}
+      {%- if proof_section.settings.proof_video_1 != blank -%}
+        <figure class="proof-photo-card proof-photo-card--video"{% if pass == 2 %} aria-hidden="true"{% endif %}>
+          {{ proof_section.settings.proof_video_1 | video_tag:
+            class: 'proof-photo-video',
+            image_size: '600x',
+            autoplay: true,
+            loop: true,
+            muted: true,
+            playsinline: true,
+            controls: true
+          }}
+        </figure>
+      {%- endif -%}
+      {%- if proof_section.settings.proof_video_2 != blank -%}
+        <figure class="proof-photo-card proof-photo-card--video"{% if pass == 2 %} aria-hidden="true"{% endif %}>
+          {{ proof_section.settings.proof_video_2 | video_tag:
+            class: 'proof-photo-video',
+            image_size: '600x',
+            autoplay: true,
+            loop: true,
+            muted: true,
+            playsinline: true,
+            controls: true
+          }}
+        </figure>
+      {%- endif -%}
+      {%- for entry in proof_entries -%}
+        {%- assign parts = entry | split: '|' -%}
+        {%- assign file = parts[0] -%}
+        {%- assign alt = parts[1] | default: 'Teknotize athlete merch' -%}
+        <figure class="proof-photo-card"{% if pass == 2 %} aria-hidden="true"{% endif %}>
+          <img
+            src="{{ file | asset_url }}"
+            alt="{{ alt | escape }}"
+            width="420"
+            height="560"
+            loading="lazy"
+            decoding="async"
+          >
+        </figure>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>

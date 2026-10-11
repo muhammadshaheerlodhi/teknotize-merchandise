@@ -1,7 +1,3 @@
-{%- liquid
-  assign proof_images = 'testimonial-fan-jaden.jpg,testimonial-fan-carlos.jpg,testimonial-fan-carlos-story.jpg,testimonial-fan-wearing.jpg,testimonial-fan-smoove.jpg' | split: ','
-  assign proof_captions = 'Fan showing off their athlete drop,Real fan merch in the wild,Customer love from Instagram,Fan repping their athlete tee,Story repost from a happy buyer' | split: ','
--%}
 <section class="testimonials" id="reviews">
   <div class="page-width reveal">
     <div class="section-intro section-intro--center">
@@ -10,36 +6,7 @@
       {% if section.settings.intro != blank %}<p class="lede">{{ section.settings.intro }}</p>{% endif %}
     </div>
 
-    <div class="proof-photos-marquee" data-proof-marquee aria-label="Real fan photos">
-      <div class="proof-photos-track">
-        {%- for proof_image in proof_images -%}
-          {%- assign idx = forloop.index0 -%}
-          <figure class="proof-photo-card">
-            <img
-              src="{{ proof_image | asset_url }}"
-              alt="{{ proof_captions[idx] | default: 'Teknotize fan photo' | escape }}"
-              width="420"
-              height="560"
-              loading="lazy"
-              decoding="async"
-            >
-          </figure>
-        {%- endfor -%}
-        {%- for proof_image in proof_images -%}
-          {%- assign idx = forloop.index0 -%}
-          <figure class="proof-photo-card" aria-hidden="true">
-            <img
-              src="{{ proof_image | asset_url }}"
-              alt=""
-              width="420"
-              height="560"
-              loading="lazy"
-              decoding="async"
-            >
-          </figure>
-        {%- endfor -%}
-      </div>
-    </div>
+    {% render 'proof-media-marquee', section: section %}
 
     <div class="reviews-marquee" data-reviews-marquee aria-label="Customer testimonials">
       <div class="reviews-track">
@@ -87,7 +54,9 @@
   "settings": [
     { "type": "text", "id": "label", "label": "Label", "default": "Real Reviews" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "From the Locker Room & the Stands" },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Athletes who sell with us. Fans who shop with us." }
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Athletes who sell with us. Fans who shop with us." },
+    { "type": "video", "id": "proof_video_1", "label": "Proof video 1" },
+    { "type": "video", "id": "proof_video_2", "label": "Proof video 2" }
   ],
   "blocks": [
     {

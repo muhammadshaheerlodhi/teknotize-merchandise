@@ -16,6 +16,17 @@
       <p class="about-page-lede">{{ section.settings.intro | default: 'Teknotize Merchandise stands for excellence, hustle, and turning your name into official gear fans actually want to wear. We build athlete-owned storefronts with premium blanks and custom graphics — because success reaches far beyond the scoreboard.' }}</p>
     </header>
 
+    <div class="about-page-proof reveal">
+      <header class="about-page-proof-intro">
+        <p class="eyebrow about-page-pillar-label">{{ section.settings.proof_label | default: 'Real Drops' }}</p>
+        <h2 class="about-page-pillar-title about-page-proof-title">{{ section.settings.proof_heading | default: 'Merch In The Wild' }}</h2>
+        {% if section.settings.proof_intro != blank %}
+          <p class="about-page-pillar-copy">{{ section.settings.proof_intro }}</p>
+        {% endif %}
+      </header>
+      {% render 'proof-media-marquee', section: section %}
+    </div>
+
     <div class="about-page-pillars reveal-stagger">
       {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
@@ -154,6 +165,11 @@
     { "type": "text", "id": "kicker", "label": "Kicker", "default": "About Us" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Built for Athletes. Trusted by Fans." },
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "Teknotize Merchandise stands for excellence, hustle, and turning your name into official gear fans actually want to wear. We build athlete-owned storefronts with premium blanks and custom graphics — because success reaches far beyond the scoreboard." },
+    { "type": "text", "id": "proof_label", "label": "Proof gallery label", "default": "Real Drops" },
+    { "type": "text", "id": "proof_heading", "label": "Proof gallery heading", "default": "Merch In The Wild" },
+    { "type": "textarea", "id": "proof_intro", "label": "Proof gallery intro", "default": "Fan photos, story reposts, and custom athlete gear from real Teknotize drops." },
+    { "type": "video", "id": "proof_video_1", "label": "Proof video 1" },
+    { "type": "video", "id": "proof_video_2", "label": "Proof video 2" },
     { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Athletes" },
     { "type": "text", "id": "stat_1_value", "label": "Stat 1 value", "default": "500+" },
     { "type": "text", "id": "stat_1_copy", "label": "Stat 1 copy", "default": "On platform" },
