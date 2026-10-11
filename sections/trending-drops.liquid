@@ -8,6 +8,10 @@
   if btn_link == blank
     assign btn_link = '/collections/all'
   endif
+  assign seen_athletes = '||'
+  assign seen_buckets = '||'
+  assign shown = 0
+  assign delim = '||'
 -%}
 <section class="trending-drops" id="trending-drops">
   <div class="page-width reveal">
@@ -20,62 +24,73 @@
     </div>
 
     <div class="trending-drops__grid product-grid">
-      {%- assign shown = 0 -%}
+      {%- comment -%} Pass 1: one athlete per card + varied product types (hoodie, sweatshirt, kids, etc.) {%- endcomment -%}
       {%- for product in drops_collection.products -%}
         {%- if shown >= product_limit -%}{%- break -%}{%- endif -%}
-        {%- assign hover_image = product.images[1] | default: product.featured_image -%}
-        <a class="product-card crystal trending-drops__card" href="{{ product.url }}">
-          <div class="media trending-drops__media">
-            {%- if product.featured_image -%}
-              <img
-                class="trending-drops__img trending-drops__img--primary"
-                src="{{ product.featured_image | image_url: width: 600 }}"
-                srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 800 }} 800w"
-                sizes="(max-width: 640px) 46vw, (max-width: 990px) 46vw, 30vw"
-                alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                width="800"
-                height="800"
-                loading="lazy"
-                decoding="async"
-              >
-              {%- if hover_image and hover_image != product.featured_image -%}
-                <img
-                  class="trending-drops__img trending-drops__img--hover"
-                  src="{{ hover_image | image_url: width: 600 }}"
-                  srcset="{{ hover_image | image_url: width: 400 }} 400w, {{ hover_image | image_url: width: 600 }} 600w, {{ hover_image | image_url: width: 800 }} 800w"
-                  sizes="(max-width: 640px) 46vw, (max-width: 990px) 46vw, 30vw"
-                  alt=""
-                  width="800"
-                  height="800"
-                  loading="lazy"
-                  decoding="async"
-                  aria-hidden="true"
-                >
-              {%- endif -%}
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag }}
-            {%- endif -%}
-            {%- unless product.available -%}
-              <span class="trending-drops__badge">Sold out</span>
-            {%- endunless -%}
-          </div>
-          <div class="card-body">
-            <h3>{{ product.title }}</h3>
-            {%- if product.vendor != blank -%}
-              <p class="trending-drops__vendor">{{ product.vendor }}</p>
-            {%- endif -%}
-            <p class="price">
-              {%- if product.compare_at_price > product.price -%}
-                <span class="price-sale">{{ product.price | money }}</span>
-                <span class="compare">{{ product.compare_at_price | money }}</span>
-              {%- else -%}
-                {{ product.price | money }}
-              {%- endif -%}
-            </p>
-          </div>
-        </a>
+        {%- assign athlete_key = '' -%}
+        {%- for athlete_collection in product.collections -%}
+          {%- assign store_handle = athlete_collection.handle | downcase -%}
+          {%- if store_handle == 'all' or store_handle == 'frontpage' or store_handle == 'products' -%}{%- continue -%}{%- endif -%}
+          {%- assign athlete_key = store_handle -%}
+          {%- break -%}
+        {%- endfor -%}
+        {%- if athlete_key == blank -%}
+          {%- assign athlete_key = product.vendor | handleize -%}
+        {%- endif -%}
+        {%- if athlete_key == blank -%}
+          {%- assign athlete_key = product.id -%}
+        {%- endif -%}
+        {%- assign athlete_token = delim | append: athlete_key | append: delim -%}
+        {%- if seen_athletes contains athlete_token -%}{%- continue -%}{%- endif -%}
+
+        {%- assign title_l = product.title | downcase -%}
+        {%- assign bucket = 'drop' -%}
+        {%- if title_l contains 'kid' -%}
+          {%- assign bucket = 'kids' -%}
+        {%- elsif title_l contains 'hoodie' -%}
+          {%- assign bucket = 'hoodie' -%}
+        {%- elsif title_l contains 'sweatshirt' -%}
+          {%- assign bucket = 'sweatshirt' -%}
+        {%- elsif title_l contains 'fleece' -%}
+          {%- assign bucket = 'fleece' -%}
+        {%- elsif title_l contains 'washed' -%}
+          {%- assign bucket = 'washed' -%}
+        {%- elsif title_l contains 'boxy' or title_l contains ' tee' or title_l contains '-tee' -%}
+          {%- assign bucket = 'tee' -%}
+        {%- endif -%}
+        {%- assign bucket_token = delim | append: bucket | append: delim -%}
+        {%- if seen_buckets contains bucket_token -%}{%- continue -%}{%- endif -%}
+
+        {%- assign seen_athletes = seen_athletes | append: athlete_key | append: delim -%}
+        {%- assign seen_buckets = seen_buckets | append: bucket | append: delim -%}
         {%- assign shown = shown | plus: 1 -%}
+        {% render 'trending-drop-card', product: product %}
       {%- endfor -%}
+
+      {%- comment -%} Pass 2: fill remaining slots — still one product per athlete {%- endcomment -%}
+      {%- if shown < product_limit -%}
+        {%- for product in drops_collection.products -%}
+          {%- if shown >= product_limit -%}{%- break -%}{%- endif -%}
+          {%- assign athlete_key = '' -%}
+          {%- for athlete_collection in product.collections -%}
+            {%- assign store_handle = athlete_collection.handle | downcase -%}
+            {%- if store_handle == 'all' or store_handle == 'frontpage' or store_handle == 'products' -%}{%- continue -%}{%- endif -%}
+            {%- assign athlete_key = store_handle -%}
+            {%- break -%}
+          {%- endfor -%}
+          {%- if athlete_key == blank -%}
+            {%- assign athlete_key = product.vendor | handleize -%}
+          {%- endif -%}
+          {%- if athlete_key == blank -%}
+            {%- assign athlete_key = product.id -%}
+          {%- endif -%}
+          {%- assign athlete_token = delim | append: athlete_key | append: delim -%}
+          {%- if seen_athletes contains athlete_token -%}{%- continue -%}{%- endif -%}
+          {%- assign seen_athletes = seen_athletes | append: athlete_key | append: delim -%}
+          {%- assign shown = shown | plus: 1 -%}
+          {% render 'trending-drop-card', product: product %}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
 
     <div class="trending-drops__cta">
@@ -168,7 +183,7 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Fan Favorites" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Top Trending Drops" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "The hoodies and tees fans are copping right now." },
-    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Use a store-wide collection sorted by best selling. The section shows one item per athlete and mixes hoodies, sweatshirts, tees, and kids styles when possible." },
     { "type": "range", "id": "products_to_show", "min": 3, "max": 12, "step": 1, "label": "Number of products", "default": 6 },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop All Products" },
     { "type": "url", "id": "button_link", "label": "Button link", "default": "/collections/all" }

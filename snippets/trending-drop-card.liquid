@@ -1,0 +1,51 @@
+{%- assign hover_image = product.images[1] | default: product.featured_image -%}
+<a class="product-card crystal trending-drops__card" href="{{ product.url }}">
+  <div class="media trending-drops__media">
+    {%- if product.featured_image -%}
+      <img
+        class="trending-drops__img trending-drops__img--primary"
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 800 }} 800w"
+        sizes="(max-width: 640px) 46vw, (max-width: 990px) 46vw, 30vw"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        width="800"
+        height="800"
+        loading="lazy"
+        decoding="async"
+      >
+      {%- if hover_image and hover_image != product.featured_image -%}
+        <img
+          class="trending-drops__img trending-drops__img--hover"
+          src="{{ hover_image | image_url: width: 600 }}"
+          srcset="{{ hover_image | image_url: width: 400 }} 400w, {{ hover_image | image_url: width: 600 }} 600w, {{ hover_image | image_url: width: 800 }} 800w"
+          sizes="(max-width: 640px) 46vw, (max-width: 990px) 46vw, 30vw"
+          alt=""
+          width="800"
+          height="800"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        >
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+    {%- unless product.available -%}
+      <span class="trending-drops__badge">Sold out</span>
+    {%- endunless -%}
+  </div>
+  <div class="card-body">
+    <h3>{{ product.title }}</h3>
+    {%- if product.vendor != blank -%}
+      <p class="trending-drops__vendor">{{ product.vendor }}</p>
+    {%- endif -%}
+    <p class="price">
+      {%- if product.compare_at_price > product.price -%}
+        <span class="price-sale">{{ product.price | money }}</span>
+        <span class="compare">{{ product.compare_at_price | money }}</span>
+      {%- else -%}
+        {{ product.price | money }}
+      {%- endif -%}
+    </p>
+  </div>
+</a>
